@@ -19,7 +19,7 @@ export default function Stack() {
   ];
 
   return (
-    <section className="px-6 py-16 max-w-5xl mx-auto">
+    <section id="stack" className="px-6 py-16 max-w-5xl mx-auto">
       <h2 className="text-3xl font-bold mb-8 text-center">Developer Stack</h2>
 
       <div className="grid md:grid-cols-2 gap-6">
