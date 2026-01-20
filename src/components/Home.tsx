@@ -1,6 +1,6 @@
 export default function Home() {
   return (
-    <section id="home" className="min-h-[80vh] flex flex-col justify-center items-center text-center px-6">
+    <section id="home" className="min-h-[90vh] flex flex-col justify-center items-center text-center px-6">
 
       <h1 className="text-4xl md:text-5xl font-bold mb-2">Mathias Huque</h1>
 
