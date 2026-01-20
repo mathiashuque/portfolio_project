@@ -1,10 +1,21 @@
-import "./App.css";
+import Navbar from "./components/Navbar";
+import Home from "./components/Home";
+import Experience from "./components/Experience";
+import Projects from "./components/Projects";
+import Stack from "./components/Stack";
 
 function App() {
   return (
-    <>
-      <h1 className="text-xl text-blue-300 font-bold underline">Hello world!</h1>
-    </>
+    <div className="min-h-screen bg-[#0f1729] text-white">
+      <Navbar />
+
+      <main>
+        <Home />
+        <Experience />
+        <Projects />
+        <Stack />
+      </main>
+    </div>
   );
 }
 
