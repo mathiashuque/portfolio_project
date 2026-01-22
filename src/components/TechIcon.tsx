@@ -15,7 +15,7 @@ type TechIconProps = {
 export default function TechIcon({
   name,
   logo,
-  color = "tool",
+  color = "html",
 }: TechIconProps) {
   const c = palette[color];
 
@@ -105,7 +105,7 @@ export default function TechIcon({
           <div
             className={[
               "absolute inset-0",
-              techIconRadius, // ✅ match the tile
+              techIconRadius,
               "opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out",
               "pointer-events-none",
               "z-20",
