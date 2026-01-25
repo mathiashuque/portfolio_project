@@ -5,11 +5,11 @@ import Projects from "./components/Projects";
 import Stack from "./components/Stack";
 import Footer from "./components/Footer";
 
+
 function App() {
   return (
     <div className="min-h-screen bg-[#0f1729] text-white">
       <Navbar />
-
       <main>
         <Home />
         <Experience />
@@ -20,5 +20,6 @@ function App() {
     </div>
   );
 }
+
 
 export default App;

@@ -56,53 +56,67 @@ export default function Experience() {
           {experiences.map((exp, index) => (
             <article key={index} className="relative pl-10">
               {/* Timeline dot */}
-              <div className="absolute left-1.75 top-6 h-3 w-3 rounded-full bg-gray-700 ring-4 ring-gray-950 border border-gray-600" />
+              <div className="absolute left-1.75 top-6 h-3 w-3 rounded-full bg-gray-700 ring-4 ring-gray-950 border border-gray-600 transition-all duration-300 group-hover:bg-sky-400 group-hover:ring-sky-400/20" />
 
-              <div className="group rounded-xl border border-gray-800 bg-gray-900/60 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:border-gray-700 hover:bg-gray-900">
-                <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-                  <div>
-                    <h3 className="text-lg md:text-xl font-semibold leading-tight">
-                      <span className="text-gray-100">{exp.role}</span>
-                      <span className="text-gray-500"> — </span>
-                      <span className="text-gray-200">{exp.focus}</span>
-                    </h3>
+              {/* Hover card wrapper (gradient border + spotlight) */}
+              <div className="group relative rounded-xl p-[1px] transition-all duration-300 hover:-translate-y-1">
+                {/* Gradient border */}
+                <div className="absolute inset-0 rounded-xl bg-linear-to-br from-indigo-500/20 via-sky-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
-                    <p className="text-gray-400 mt-1">{exp.place}</p>
+                {/* Card body */}
+                <div className="relative rounded-xl border border-gray-800 bg-gray-900/70 p-6 backdrop-blur-sm transition-all duration-300 group-hover:border-gray-700 group-hover:shadow-[0_12px_40px_-12px_rgba(56,189,248,0.25)]">
+                  {/* Spotlight */}
+                  <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                    <div className="absolute inset-0 bg-[radial-gradient(400px_circle_at_50%_-20%,rgba(56,189,248,0.08),transparent_60%)]" />
                   </div>
 
-                  <div className="text-gray-400 text-sm md:text-right md:pt-1">
-                    {exp.period}
+                  <div className="relative">
+                    <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
+                      <div>
+                        <h3 className="text-lg md:text-xl font-semibold leading-tight">
+                          <span className="text-gray-100">{exp.role}</span>
+                          <span className="text-gray-500"> — </span>
+                          <span className="text-gray-200">{exp.focus}</span>
+                        </h3>
+
+                        <p className="text-gray-400 mt-1">{exp.place}</p>
+                      </div>
+
+                      <div className="text-gray-400 text-sm md:text-right md:pt-1">
+                        {exp.period}
+                      </div>
+                    </div>
+
+                    <p className="text-gray-300 mt-4 leading-relaxed">
+                      {exp.description}
+                    </p>
+
+                    {/* Highlights */}
+                    <ul className="mt-4 space-y-2 text-gray-300">
+                      {exp.highlights.map((h, i) => (
+                        <li key={i} className="flex gap-2">
+                          <span className="mt-2.25 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
+                          <span>{h}</span>
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Tags */}
+                    <div className="mt-5 flex flex-wrap gap-2">
+                      {exp.tags.map((t) => (
+                        <span
+                          key={t}
+                          className="rounded-full border border-gray-800 bg-gray-950/40 px-3 py-1 text-xs text-gray-300 transition-colors duration-300 group-hover:border-gray-700"
+                        >
+                          {t}
+                        </span>
+                      ))}
+                    </div>
+
+                    {/* Subtle accent line on hover */}
+                    <div className="mt-6 h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent opacity-60 group-hover:opacity-100 transition-opacity" />
                   </div>
                 </div>
-
-                <p className="text-gray-300 mt-4 leading-relaxed">
-                  {exp.description}
-                </p>
-
-                {/* Highlights */}
-                <ul className="mt-4 space-y-2 text-gray-300">
-                  {exp.highlights.map((h, i) => (
-                    <li key={i} className="flex gap-2">
-                      <span className="mt-2.25 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
-                      <span>{h}</span>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Tags */}
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {exp.tags.map((t) => (
-                    <span
-                      key={t}
-                      className="rounded-full border border-gray-800 bg-gray-950/40 px-3 py-1 text-xs text-gray-300"
-                    >
-                      {t}
-                    </span>
-                  ))}
-                </div>
-
-                {/* Subtle accent line on hover */}
-                <div className="mt-6 h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent opacity-60 group-hover:opacity-100 transition-opacity" />
               </div>
             </article>
           ))}

@@ -27,7 +27,7 @@ export default function Navbar() {
         sticky top-0 z-50
         bg-slate-950/40 backdrop-blur-md
         border-b border-white/10
-        supports-[backdrop-filter]:bg-slate-950/30
+        supports-backdrop-filter:bg-slate-950/30
       "
     >
       <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
@@ -91,17 +91,21 @@ export default function Navbar() {
         `}
       >
         <div className="px-6 pb-4 pt-2 border-t border-white/10">
-          <div className="flex flex-col gap-2">
+          {/* Desktop links */}
+          <div className="hidden md:flex items-center gap-6 group">
             {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                onClick={() => setOpen(false)}
                 className="
-                  rounded-md px-3 py-2
-                  text-white/85 hover:text-white
-                  hover:bg-white/5 transition
-                "
+  relative transition
+  text-white/70 group-hover:text-white/40
+  hover:text-white
+  after:absolute after:left-0 after:-bottom-1
+  after:h-0.5 after:w-0 after:bg-white
+  after:transition-all
+  hover:after:w-full
+"
               >
                 {l.label}
               </a>

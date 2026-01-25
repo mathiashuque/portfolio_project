@@ -4,3 +4,52 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Smooth animated background gradient */
+.animated-gradient {
+  background: linear-gradient(
+    120deg,
+    rgba(6, 0, 20, 1),        /* near-black indigo */
+    rgba(28, 12, 48, 0.95),   /* deep violet */
+    rgba(74, 20, 64, 0.85),   /* dark magenta (muted) */
+    rgba(20, 45, 60, 0.85)    /* desaturated cyan-blue */
+  );
+  background-size: 400% 400%;
+  animation: gradientShift 14s ease-in-out infinite;
+}
+
+
+@keyframes gradientShift {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+@keyframes float {
+  0%, 100% {
+    transform: translateY(0) translateX(0);
+  }
+  50% {
+    transform: translateY(-40px) translateX(20px);
+  }
+}
+
+.glow-float {
+  animation: float 18s ease-in-out infinite;
+}
+
+.scanlines {
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.03),
+    rgba(255,255,255,0.03) 1px,
+    transparent 1px,
+    transparent 3px
+  );
+  mix-blend-mode: overlay;
+}
