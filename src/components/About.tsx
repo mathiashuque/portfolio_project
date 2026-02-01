@@ -9,7 +9,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="relative isolate overflow-hidden py-20 md:py-28"
+      className="relative isolate overflow-hidden py-20 md:py-28 scroll-mt-32"
     >
       {/* Background */}
       <div className="pointer-events-none absolute inset-0 -z-10">

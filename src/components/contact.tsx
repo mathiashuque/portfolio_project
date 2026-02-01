@@ -91,7 +91,7 @@ export default function Contact() {
     "placeholder:text-faint/70 focus:border-accent/40 focus:ring-4 focus:ring-accent/20";
 
   return (
-    <section id="contact" className="relative overflow-hidden py-16 sm:py-20">
+    <section id="contact" className="relative overflow-hidden py-16 sm:py-20 scroll-mt-32">
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-gradient-to-b from-bg via-bg to-bg-elev" />
       <NetworkPattern />

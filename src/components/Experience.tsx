@@ -130,7 +130,7 @@ export default function Experience() {
   );
 
   return (
-    <section id="experience" className="px-6 py-16 max-w-4xl mx-auto">
+    <section id="experience" className="px-6 py-16 max-w-4xl mx-auto scroll-mt-32">
       <h2 className="text-3xl font-bold mb-10 text-center text-text">
         Experience
       </h2>

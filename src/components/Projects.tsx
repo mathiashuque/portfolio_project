@@ -24,7 +24,7 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="px-6 py-16 max-w-5xl mx-auto">
+    <section id="projects" className="px-6 py-16 max-w-5xl mx-auto scroll-mt-32">
       <h2 className="text-3xl font-bold mb-8 text-center text-text">
         Projects
       </h2>
@@ -33,14 +33,14 @@ export default function Projects() {
         {projects.map((project, index) => (
           <div
             key={index}
-            className="group relative rounded-xl p-[1px] transition-all duration-300 hover:-translate-y-1"
+            className="group relative rounded-xl p-px transition-all duration-300 hover:-translate-y-1"
           >
             {/* Hover glow border */}
             <div
               className="
                 absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100
                 transition-opacity duration-300
-                bg-gradient-to-br
+                bg-linear-to-br
                 from-accent/20 via-sky-500/10 to-transparent
               "
             />
@@ -104,7 +104,7 @@ export default function Projects() {
                 <div
                   className="
                     mt-5 h-px w-full opacity-60 group-hover:opacity-100 transition-opacity
-                    bg-gradient-to-r from-transparent via-border/15 to-transparent
+                    bg-linear-to-r from-transparent via-border/15 to-transparent
                   "
                 />
               </div>
