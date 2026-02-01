@@ -17,7 +17,7 @@ export default function About() {
         <div className="absolute inset-0 bg-slate-100 dark:bg-slate-950" />
 
         {/* Soft vignette */}
-        <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-slate-50/40 dark:to-slate-950/60" />
+        <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-slate-50/40 dark:to-slate-950/60" />
 
         {/* Glows (warm in light, subtle in dark) */}
         <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl opacity-40 bg-orange-200 dark:bg-orange-500/10" />
@@ -41,7 +41,7 @@ export default function About() {
               linear-gradient(120deg,transparent_0%,rgba(255,255,255,0.08)_45%,transparent_55%),
               linear-gradient(30deg,transparent_0%,rgba(255,255,255,0.06)_45%,transparent_55%)
             ]
-            [background-size:220px_220px,260px_260px,300px_300px,520px_520px,560px_560px]
+            bg-size-[220px_220px,260px_260px,300px_300px,520px_520px,560px_560px]
           "
         />
       </div>
@@ -70,7 +70,7 @@ export default function About() {
               {/* ring */}
               <div className="absolute -inset-2 rounded-full border-4 border-orange-500/70" />
               {/* “portrait” placeholder */}
-              <div className="grid h-64 w-64 place-items-center rounded-full bg-gradient-to-br from-slate-900/[0.03] to-slate-900/[0.08] text-slate-900 shadow-sm dark:from-white/[0.06] dark:to-white/[0.02] dark:text-white">
+              <div className="grid h-64 w-64 place-items-center rounded-full bg-linear-to-br from-slate-900/3 to-slate-900/8 text-slate-900 shadow-sm dark:from-white/[0.06] dark:to-white/[0.02] dark:text-white">
                 <div className="text-center">
                   <div className="text-4xl font-semibold tracking-tight">
                     MH
@@ -111,7 +111,7 @@ export default function About() {
                     border border-slate-900/10 text-slate-700
                     bg-white/40 backdrop-blur
                     hover:bg-white/70 transition
-                    dark:border-white/10 dark:text-white/80 dark:bg-white/[0.03] dark:hover:bg-white/[0.06]
+                    dark:border-white/10 dark:text-white/80 dark:bg-white/3 dark:hover:bg-white/6
                   "
                 >
                   {t}

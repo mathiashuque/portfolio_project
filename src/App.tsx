@@ -5,6 +5,7 @@ import Stack from "./components/Stack";
 import Footer from "./components/Footer";
 import About from "./components/About";
 import Contact from "./components/contact";
+import Home from "./components/Home";
 
 
 function App() {
@@ -12,6 +13,7 @@ function App() {
     <div className="min-h-screen bg-bg text-text">
       <Navbar />
       <main>
+        <Home />
         <About />
         <Experience />
         <Projects />

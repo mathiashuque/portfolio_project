@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { FaGithub, FaLinkedin, FaMoon, FaSun } from "react-icons/fa";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 
@@ -15,6 +15,17 @@ export default function Navbar() {
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState(true);
   const [active, setActive] = useState("#about");
+  const navRef = useRef<HTMLElement | null>(null);
+  useLayoutEffect(() => {
+    const setNavHeight = () => {
+      const h = navRef.current?.offsetHeight ?? 0;
+      document.documentElement.style.setProperty("--nav-h", `${h}px`);
+    };
+
+    setNavHeight();
+    window.addEventListener("resize", setNavHeight);
+    return () => window.removeEventListener("resize", setNavHeight);
+  }, []);
 
   useEffect(() => {
     const stored = localStorage.getItem("theme");
@@ -132,6 +143,7 @@ export default function Navbar() {
 
   return (
     <nav
+      ref={navRef}
       className={`
         sticky top-0 z-50 transition-all duration-200
         ${
@@ -145,13 +157,18 @@ export default function Navbar() {
       <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
         {/* Brand */}
         <a
-          href="#home"
+          href="#"
           className="
             font-bold text-2xl leading-tight tracking-tight
             text-slate-900 dark:text-white
             transition-all duration-300
             hover:text-blue-600
           "
+          onClick={(e) => {
+            e.preventDefault();
+            window.scrollTo({ top: 0, behavior: "smooth" });
+            setActive("#about");
+          }}
         >
           Mathias Huque
         </a>
