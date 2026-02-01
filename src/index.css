@@ -1,120 +1,18 @@
+@config "../tailwind.config.js";
+
+@import "./styles/theme.css";
 @import "tailwindcss";
+
 @custom-variant dark (&:where(.dark, .dark *));
 
-/* Smooth theme transitions */
-* {
-  transition-property: background-color, border-color, color, fill, stroke;
-  transition-duration: 200ms;
-  transition-timing-function: ease-in-out;
+@layer base {
+  * {
+    transition-property: background-color, border-color, color, fill, stroke;
+    transition-duration: 200ms;
+    transition-timing-function: ease-in-out;
+  }
 }
 
 html {
   scroll-behavior: smooth;
 }
-
-/* Smooth animated background gradient */
-.animated-gradient {
-  background: linear-gradient(
-    120deg,
-    rgba(6, 0, 20, 1),        /* near-black indigo */
-    rgba(28, 12, 48, 0.95),   /* deep violet */
-    rgba(74, 20, 64, 0.85),   /* dark magenta (muted) */
-    rgba(20, 45, 60, 0.85)    /* desaturated cyan-blue */
-  );
-  background-size: 400% 400%;
-  animation: gradientShift 14s ease-in-out infinite;
-}
-
-
-@keyframes gradientShift {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-@keyframes float {
-  0%, 100% {
-    transform: translateY(0) translateX(0);
-  }
-  50% {
-    transform: translateY(-40px) translateX(20px);
-  }
-}
-
-.glow-float {
-  animation: float 18s ease-in-out infinite;
-}
-
-.scanlines {
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(255,255,255,0.03),
-    rgba(255,255,255,0.03) 1px,
-    transparent 1px,
-    transparent 3px
-  );
-  mix-blend-mode: overlay;
-}
-
-
-/* ---- Starfield (tiled, evenly distributed) ---- */
-
-@keyframes starfieldMove {
-  from { transform: translateY(0); }
-  to   { transform: translateY(-600px); }
-}
-
-.starfield {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-/* 3 layers of stars using repeating backgrounds */
-.starfield::before,
-.starfield::after {
-  content: "";
-  position: absolute;
-  inset: -600px 0 0 0; /* give room for animation */
-  background-repeat: repeat;
-  animation: starfieldMove linear infinite;
-}
-
-/* Far layer: MANY tiny faint stars */
-.starfield::before {
-  background-image:
-    radial-gradient(1px 1px at 10px 20px, rgba(255,255,255,0.18) 50%, transparent 60%),
-    radial-gradient(1px 1px at 30px 80px, rgba(255,255,255,0.14) 50%, transparent 60%),
-    radial-gradient(1px 1px at 70px 40px, rgba(255,255,255,0.16) 50%, transparent 60%),
-    radial-gradient(1px 1px at 90px 90px, rgba(255,255,255,0.12) 50%, transparent 60%);
-  background-size: 120px 120px; /* smaller = denser */
-  animation-duration: 220s;
-}
-
-/* Mid/near layer: fewer, slightly brighter stars */
-.starfield::after {
-  background-image:
-    radial-gradient(1.5px 1.5px at 20px 30px, rgba(255,255,255,0.22) 50%, transparent 60%),
-    radial-gradient(1.5px 1.5px at 60px 70px, rgba(255,255,255,0.18) 50%, transparent 60%),
-    radial-gradient(2px 2px at 100px 50px, rgba(255,255,255,0.20) 50%, transparent 60%);
-  background-size: 180px 180px;
-  animation-duration: 140s;
-  filter: drop-shadow(0 0 6px rgba(255,255,255,0.12));
-}
-
-/* Reduced motion */
-@media (prefers-reduced-motion: reduce) {
-  .starfield::before,
-  .starfield::after {
-    animation: none !important;
-  }
-}
-.starfield::before { background-size: 90px 90px; }
-.starfield::after  { background-size: 140px 140px; }

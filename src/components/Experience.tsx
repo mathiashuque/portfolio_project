@@ -44,80 +44,113 @@ export default function Experience() {
     },
   ];
 
+  type ExperienceType = {
+    role: string;
+    focus: string;
+    place: string;
+    period: string;
+    description: string;
+    highlights: string[];
+    tags: string[];
+  };
+
+  const Card = ({ exp }: { exp: ExperienceType }) => (
+    <div
+      className="
+        relative rounded-xl border p-6
+        border-border/10 bg-panel
+        backdrop-blur-sm
+
+        transform translate-y-0 scale-100
+        transition-[transform,box-shadow,border-color,background-color] duration-500 ease-in-out
+        hover:-translate-y-1 hover:scale-[1.02]
+
+        shadow-[0_10px_30px_-22px_rgba(2,132,199,0.10)]
+        hover:shadow-[0_22px_70px_-28px_rgba(2,132,199,0.25)]
+        dark:shadow-[0_12px_40px_-26px_rgba(56,189,248,0.12)]
+        dark:hover:shadow-[0_22px_80px_-32px_rgba(56,189,248,0.30)]
+      "
+    >
+      {/* spotlight */}
+      <div className="pointer-events-none absolute inset-0 rounded-xl opacity-35 hover:opacity-60 transition-opacity duration-500 ease-in-out">
+        <div className="absolute inset-0 bg-[radial-gradient(420px_circle_at_50%_-20%,rgba(56,189,248,0.10),transparent_60%)]" />
+      </div>
+
+      <div className="relative">
+        <div className="flex flex-col gap-2 sm:flex-row sm:items-start sm:justify-between">
+          <div>
+            <h3 className="text-lg sm:text-xl font-semibold leading-tight">
+              <span className="text-text">{exp.role}</span>
+              <span className="text-faint/80"> — </span>
+              <span className="text-text/85">{exp.focus}</span>
+            </h3>
+            <p className="text-muted/90 mt-1">{exp.place}</p>
+          </div>
+
+          <div className="text-faint/90 text-sm sm:text-right sm:pt-1">
+            {exp.period}
+          </div>
+        </div>
+
+        <p className="text-muted/95 mt-4 leading-relaxed">{exp.description}</p>
+
+        <ul className="mt-4 space-y-2 text-muted/95">
+          {exp.highlights.map((h, i) => (
+            <li key={i} className="flex gap-2">
+              <span className="mt-[0.55rem] h-1.5 w-1.5 rounded-full bg-border/35 shrink-0" />
+              <span>{h}</span>
+            </li>
+          ))}
+        </ul>
+
+        <div className="mt-5 flex flex-wrap gap-2">
+          {exp.tags.map((t: string) => (
+            <span
+              key={t}
+              className="
+                rounded-full border px-3 py-1 text-xs
+                border-border/10 bg-input text-text/80
+                transition-colors duration-300
+                hover:border-accent/35
+              "
+            >
+              {t}
+            </span>
+          ))}
+        </div>
+
+        <div
+          className="
+            mt-6 h-px w-full opacity-70 transition-opacity
+            bg-gradient-to-r from-transparent via-border/15 to-transparent
+          "
+        />
+      </div>
+    </div>
+  );
+
   return (
     <section id="experience" className="px-6 py-16 max-w-4xl mx-auto">
-      <h2 className="text-3xl font-bold mb-10 text-center">Experience</h2>
+      <h2 className="text-3xl font-bold mb-10 text-center text-text">
+        Experience
+      </h2>
 
       <div className="relative">
         {/* Timeline rail */}
-        <div className="absolute left-3 top-0 bottom-0 w-px bg-gray-800" />
+        <div className="absolute left-3 top-0 bottom-0 w-px bg-border/10" />
 
-        <div className="space-y-8">
+        <div className="space-y-10">
           {experiences.map((exp, index) => (
             <article key={index} className="relative pl-10">
               {/* Timeline dot */}
-              <div className="absolute left-1.75 top-6 h-3 w-3 rounded-full bg-gray-700 ring-4 ring-gray-950 border border-gray-600 transition-all duration-300 group-hover:bg-sky-400 group-hover:ring-sky-400/20" />
-
-              {/* Hover card wrapper (gradient border + spotlight) */}
-              <div className="group relative rounded-xl p-[1px] transition-all duration-300 hover:-translate-y-1">
-                {/* Gradient border */}
-                <div className="absolute inset-0 rounded-xl bg-linear-to-br from-indigo-500/20 via-sky-500/10 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
-
-                {/* Card body */}
-                <div className="relative rounded-xl border border-gray-800 bg-gray-900/70 p-6 backdrop-blur-sm transition-all duration-300 group-hover:border-gray-700 group-hover:shadow-[0_12px_40px_-12px_rgba(56,189,248,0.25)]">
-                  {/* Spotlight */}
-                  <div className="pointer-events-none absolute inset-0 rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300">
-                    <div className="absolute inset-0 bg-[radial-gradient(400px_circle_at_50%_-20%,rgba(56,189,248,0.08),transparent_60%)]" />
-                  </div>
-
-                  <div className="relative">
-                    <div className="flex flex-col gap-2 md:flex-row md:items-start md:justify-between">
-                      <div>
-                        <h3 className="text-lg md:text-xl font-semibold leading-tight">
-                          <span className="text-gray-100">{exp.role}</span>
-                          <span className="text-gray-500"> — </span>
-                          <span className="text-gray-200">{exp.focus}</span>
-                        </h3>
-
-                        <p className="text-gray-400 mt-1">{exp.place}</p>
-                      </div>
-
-                      <div className="text-gray-400 text-sm md:text-right md:pt-1">
-                        {exp.period}
-                      </div>
-                    </div>
-
-                    <p className="text-gray-300 mt-4 leading-relaxed">
-                      {exp.description}
-                    </p>
-
-                    {/* Highlights */}
-                    <ul className="mt-4 space-y-2 text-gray-300">
-                      {exp.highlights.map((h, i) => (
-                        <li key={i} className="flex gap-2">
-                          <span className="mt-2.25 h-1.5 w-1.5 rounded-full bg-gray-500 shrink-0" />
-                          <span>{h}</span>
-                        </li>
-                      ))}
-                    </ul>
-
-                    {/* Tags */}
-                    <div className="mt-5 flex flex-wrap gap-2">
-                      {exp.tags.map((t) => (
-                        <span
-                          key={t}
-                          className="rounded-full border border-gray-800 bg-gray-950/40 px-3 py-1 text-xs text-gray-300 transition-colors duration-300 group-hover:border-gray-700"
-                        >
-                          {t}
-                        </span>
-                      ))}
-                    </div>
-
-                    {/* Subtle accent line on hover */}
-                    <div className="mt-6 h-px w-full bg-linear-to-r from-transparent via-gray-800 to-transparent opacity-60 group-hover:opacity-100 transition-opacity" />
-                  </div>
-                </div>
-              </div>
+              <div
+                className="
+                  absolute left-1.5 top-7 h-3 w-3 rounded-full
+                  bg-bg-elev border border-border/20
+                  ring-4 ring-bg
+                "
+              />
+              <Card exp={exp} />
             </article>
           ))}
         </div>

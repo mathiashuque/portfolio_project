@@ -3,10 +3,11 @@ import { FaGithub, FaLinkedin, FaMoon, FaSun } from "react-icons/fa";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 
 const links = [
-  { href: "#home", label: "Home" },
+  { href: "#about", label: "About" },
   { href: "#experience", label: "Experience" },
   { href: "#projects", label: "Projects" },
   { href: "#stack", label: "Stack" },
+  { href: "#contact", label: "Contact" },
 ];
 
 export default function Navbar() {
