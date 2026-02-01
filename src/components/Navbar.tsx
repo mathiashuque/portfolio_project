@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { FaGithub, FaLinkedin } from "react-icons/fa";
+import { FaGithub, FaLinkedin, FaMoon, FaSun } from "react-icons/fa";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 
 const links = [
@@ -11,8 +11,27 @@ const links = [
 
 export default function Navbar() {
   const [open, setOpen] = useState(false);
+  const [dark, setDark] = useState(true);
 
-  // Close menu when resizing to desktop
+
+  useEffect(() => {
+    const stored = localStorage.getItem("theme");
+    const isDark = stored ? stored === "dark" : true;
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setDark(isDark);
+    document.documentElement.classList.toggle("dark", isDark);
+  }, []);
+
+  const toggleTheme = () => {
+    setDark((prev) => {
+      const next = !prev;
+      document.documentElement.classList.toggle("dark", next);
+      localStorage.setItem("theme", next ? "dark" : "light");
+      return next;
+    });
+  };
+
+  // Close mobile menu on resize to desktop
   useEffect(() => {
     const onResize = () => {
       if (window.innerWidth >= 768) setOpen(false);
@@ -21,60 +40,74 @@ export default function Navbar() {
     return () => window.removeEventListener("resize", onResize);
   }, []);
 
+  const linkClass =
+    "text-slate-700 hover:text-slate-900 transition dark:text-white/80 dark:hover:text-white";
+
+  const iconClass =
+    "text-slate-700 hover:text-slate-900 transition dark:text-white/80 dark:hover:text-white";
+
   return (
-    <nav
-      className="
-        sticky top-0 z-50
-        bg-slate-950/40 backdrop-blur-md
-        border-b border-white/10
-        supports-backdrop-filter:bg-slate-950/30
-      "
-    >
+    <nav className="sticky top-0 z-50 bg-white text-slate-900 border-b border-slate-900/10
+                dark:bg-slate-950 dark:text-white dark:border-white/10">
+
       <div className="max-w-5xl mx-auto px-6 py-4 flex items-center justify-between">
         {/* Brand */}
-        <a href="#home" className="font-bold text-white leading-tight">
+        <a
+          href="#home"
+          className="font-bold leading-tight text-slate-900 dark:text-white"
+        >
           Mathias Huque
         </a>
 
         {/* Desktop links */}
         <div className="hidden md:flex items-center gap-6">
           {links.map((l) => (
-            <a
-              key={l.href}
-              href={l.href}
-              className="text-white/80 hover:text-white transition"
-            >
+            <a key={l.href} href={l.href} className={linkClass}>
               {l.label}
             </a>
           ))}
         </div>
 
-        {/* Desktop socials */}
+        {/* Desktop socials + theme */}
         <div className="hidden md:flex items-center gap-4 text-xl">
           <a
             href="https://linkedin.com/in/mathias-huque"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/80 hover:text-white transition"
+            className={iconClass}
             aria-label="LinkedIn"
           >
             <FaLinkedin />
           </a>
+
           <a
             href="https://github.com/mHuque1"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-white/80 hover:text-white transition"
+            className={iconClass}
             aria-label="GitHub"
           >
             <FaGithub />
           </a>
+
+          <button
+            type="button"
+            onClick={toggleTheme}
+            aria-label="Toggle theme"
+            className={`${iconClass} text-lg`}
+          >
+            {dark ? <FaSun /> : <FaMoon />}
+          </button>
         </div>
 
         {/* Mobile menu button */}
         <button
           type="button"
-          className="md:hidden inline-flex items-center justify-center rounded-md p-2 text-white/80 hover:text-white hover:bg-white/5 transition"
+          className="
+            md:hidden inline-flex items-center justify-center rounded-md p-2
+            text-slate-700 hover:text-slate-900 hover:bg-slate-900/5 transition
+            dark:text-white/80 dark:hover:text-white dark:hover:bg-white/5
+          "
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
@@ -90,22 +123,14 @@ export default function Navbar() {
           ${open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
         `}
       >
-        <div className="px-6 pb-4 pt-2 border-t border-white/10">
-          {/* Desktop links */}
-          <div className="hidden md:flex items-center gap-6 group">
+        <div className="px-6 pb-4 pt-2 border-t border-slate-900/10 dark:border-white/10">
+          <div className="flex flex-col gap-3">
             {links.map((l) => (
               <a
                 key={l.href}
                 href={l.href}
-                className="
-  relative transition
-  text-white/70 group-hover:text-white/40
-  hover:text-white
-  after:absolute after:left-0 after:-bottom-1
-  after:h-0.5 after:w-0 after:bg-white
-  after:transition-all
-  hover:after:w-full
-"
+                className={linkClass}
+                onClick={() => setOpen(false)}
               >
                 {l.label}
               </a>
@@ -117,20 +142,33 @@ export default function Navbar() {
               href="https://linkedin.com/in/mathias-huque"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/80 hover:text-white transition"
+              className={iconClass}
               aria-label="LinkedIn"
             >
               <FaLinkedin />
             </a>
+
             <a
               href="https://github.com/mHuque1"
               target="_blank"
               rel="noopener noreferrer"
-              className="text-white/80 hover:text-white transition"
+              className={iconClass}
               aria-label="GitHub"
             >
               <FaGithub />
             </a>
+
+            <button
+              type="button"
+              onClick={toggleTheme}
+              className="flex items-center gap-2 ml-auto text-base text-slate-700 hover:text-slate-900 transition dark:text-white/80 dark:hover:text-white"
+              aria-label="Toggle theme"
+            >
+              {dark ? <FaSun /> : <FaMoon />}
+              <span className="text-sm">
+                {dark ? "Light mode" : "Dark mode"}
+              </span>
+            </button>
           </div>
         </div>
       </div>

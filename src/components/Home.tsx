@@ -13,6 +13,12 @@ export default function Home() {
         <div className="absolute -bottom-40 -right-32 h-112 w-md rounded-full bg-cyan-400/20 blur-[140px] animate-pulse" />
 
         <div className="absolute inset-0 bg-[radial-gradient(ellipse_at_center,transparent_30%,rgba(0,0,0,0.65)_100%)]" />
+
+        {/* Floating shapes */}
+        <div className="absolute inset-0 pointer-events-none">
+          {/* Starfield */}
+          <div className="starfield" />
+        </div>
       </div>
 
       <h1 className="text-4xl md:text-6xl font-bold mb-3 tracking-tight">
