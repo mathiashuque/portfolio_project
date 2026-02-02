@@ -7,48 +7,13 @@ export default function About() {
   ];
 
   return (
-    <section id="about" className="py-20 md:py-28 scroll-mt-32">
+    <section id="about" className="scroll-mt-32 mb-30">
       {/* Same container width as Home */}
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
         {/* This frame clips the background to the container width */}
         <div className="relative isolate overflow-hidden rounded-3xl">
-          {/* Background (NOW constrained/boxed) */}
-          <div className="pointer-events-none absolute inset-0 -z-10">
-            {/* Base */}
-            <div className="absolute inset-0 bg-slate-100 dark:bg-slate-950" />
-
-            {/* Soft vignette */}
-            <div className="absolute inset-0 bg-linear-to-b from-transparent via-transparent to-slate-50/40 dark:to-slate-950/60" />
-
-            {/* Glows */}
-            <div className="absolute -top-24 left-1/2 h-72 w-72 -translate-x-1/2 rounded-full blur-3xl opacity-40 bg-orange-200 dark:bg-orange-500/10" />
-            <div className="absolute -bottom-28 right-10 h-80 w-80 rounded-full blur-3xl opacity-30 bg-rose-200 dark:bg-rose-500/10" />
-
-            {/* Pattern */}
-            <div
-              className="
-                absolute inset-0 opacity-[0.18] dark:opacity-[0.14]
-                [background-image:
-                  radial-gradient(circle_at_20%_30%,rgba(249,115,22,0.35)_1px,transparent_1px),
-                  radial-gradient(circle_at_70%_20%,rgba(249,115,22,0.25)_1px,transparent_1px),
-                  radial-gradient(circle_at_40%_80%,rgba(249,115,22,0.20)_1px,transparent_1px),
-                  linear-gradient(120deg,transparent_0%,rgba(15,23,42,0.10)_45%,transparent_55%),
-                  linear-gradient(30deg,transparent_0%,rgba(15,23,42,0.08)_45%,transparent_55%)
-                ]
-                dark:[background-image:
-                  radial-gradient(circle_at_20%_30%,rgba(249,115,22,0.35)_1px,transparent_1px),
-                  radial-gradient(circle_at_70%_20%,rgba(249,115,22,0.25)_1px,transparent_1px),
-                  radial-gradient(circle_at_40%_80%,rgba(249,115,22,0.20)_1px,transparent_1px),
-                  linear-gradient(120deg,transparent_0%,rgba(255,255,255,0.08)_45%,transparent_55%),
-                  linear-gradient(30deg,transparent_0%,rgba(255,255,255,0.06)_45%,transparent_55%)
-                ]
-                bg-size-[220px_220px,260px_260px,300px_300px,520px_520px,560px_560px]
-              "
-            />
-          </div>
-
           {/* Content padding inside the boxed frame */}
-          <div className="py-16 md:py-20">
+          <div className="py-5">
             {/* Title */}
             <div className="text-center">
               <p className="text-xs tracking-[0.35em] text-slate-500 dark:text-white/60">

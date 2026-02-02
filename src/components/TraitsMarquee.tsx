@@ -42,7 +42,7 @@ export default function TraitsMarquee() {
       {/* Same container width as Home */}
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
         {/* Frame clips background + fades to boxed width */}
-        <div className="relative overflow-hidden rounded-2xl bg-bg-elev">
+        <div className="relative overflow-hidden rounded-2xl bg-panel">
           <div className="marquee py-6">
             <div className="marquee__inner">
               <Track items={items} />
@@ -51,8 +51,8 @@ export default function TraitsMarquee() {
           </div>
 
           {/* fade edges (now aligned with the frame) */}
-          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-bg-elev to-transparent" />
-          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-bg-elev to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 left-0 w-24 bg-linear-to-r from-bg-panel to-transparent" />
+          <div className="pointer-events-none absolute inset-y-0 right-0 w-24 bg-linear-to-l from-bg-panel to-transparent" />
         </div>
       </div>
     </div>

@@ -5,8 +5,7 @@ import Stack from "./components/Stack";
 import Footer from "./components/Footer";
 import About from "./components/About";
 import Contact from "./components/contact";
-import Home from "./components/Home";
-
+import Home from "./components/home";
 
 function App() {
   return (
@@ -24,6 +23,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

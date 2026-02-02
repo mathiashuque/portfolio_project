@@ -7,11 +7,13 @@ export default function Home() {
       className="
         bg-bg text-text
         flex flex-col
-        pt-10  
+        pt-10
+        overflow-hidden
+        mb-20  
       "
     >
       {/* HERO fills remaining height */}
-      <div className="flex-1 flex items-center pb-15">
+      <div className="flex-1 flex items-center pb-5 md:pt-20  md:pb-20">
         <div className="max-w-7xl 2xl:max-w-360 mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* LEFT */}
           <div>
@@ -28,7 +30,7 @@ export default function Home() {
             </div>
 
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
-              Software Developer & Student
+              Software Developer
             </h1>
 
             <p className="mt-6 max-w-xl text-muted text-lg">
@@ -54,20 +56,42 @@ export default function Home() {
           </div>
 
           {/* RIGHT */}
-          <div className="relative flex justify-center">
-            <div className="absolute right-6 top-6 h-full w-3 bg-black rounded-lg" />
+          <div className="relative flex justify-center lg:justify-end">
+            <div className="relative w-80 h-80 sm:w-92 sm:h-92 lg:-translate-x-6">
+              {/* Black shadow slab behind the card */}
+              <div
+                className="
+        absolute left-6 top-7
+        w-68 h-68
+        bg-text
+        rounded-2xl
+        rotate-5
+      "
+              />
 
-            <div className="relative bg-panel p-6 rounded-xl shadow-xl">
-              <div className="w-72 h-72 rounded-full overflow-hidden bg-bg-elev flex items-center justify-center">
-                <img
-                  src="/avatar.png"
-                  alt="Portrait"
-                  className="w-full h-full object-cover"
-                />
+              {/* Portrait card */}
+              <div
+                className="
+        absolute left-0 top-0
+        w-68 h-68
+        bg-panel
+        rounded-2xl
+        shadow-[0_18px_45px_-28px_rgba(0,0,0,0.65)]
+        overflow-hidden
+        relative
+      "
+              >
+                <div className="w-full h-full grid place-items-center p-6">
+                  <div className="w-full h-full rounded-full overflow-hidden bg-bg">
+                    <img
+                      src="/avatar.png"
+                      alt="Portrait"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                </div>
               </div>
             </div>
-
-            <div className="absolute -bottom-8 -right-8 w-40 h-20 bg-green-400 rounded-full rotate-[-15deg]" />
           </div>
         </div>
       </div>
