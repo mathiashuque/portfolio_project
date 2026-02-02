@@ -4,16 +4,28 @@ export default function Home() {
   return (
     <section
       id="home"
-      className="bg-bg text-text flex flex-col h-[calc(100vh-var(--nav-h,0px))]"
+      className="
+        bg-bg text-text
+        flex flex-col
+        pt-10  
+      "
     >
-      {/* HERO should fill leftover height */}
-      <div className="flex items-center flex-1">
-        <div className="max-w-7xl mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
+      {/* HERO fills remaining height */}
+      <div className="flex-1 flex items-center pb-15">
+        <div className="max-w-7xl 2xl:max-w-360 mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
           {/* LEFT */}
           <div>
-            <span className="inline-flex items-center px-4 py-1.5 rounded-full border border-border text-sm font-medium mb-6">
-              Hello, World! 👋 I’m Mathias!
-            </span>
+            <div className="relative inline-block mb-6">
+              {/* Selection box */}
+              <div className="relative rounded-md border border-border bg-bg px-4 py-2 text-sm font-medium">
+                Hello, World! 👋 I’m Mathias!
+                {/* Corner handles */}
+                <span className="absolute -left-1.5 -top-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
+                <span className="absolute -right-1.5 -top-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
+                <span className="absolute -left-1.5 -bottom-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
+                <span className="absolute -right-1.5 -bottom-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
+              </div>
+            </div>
 
             <h1 className="text-4xl md:text-6xl font-extrabold leading-tight">
               Software Developer & Student
@@ -39,18 +51,6 @@ export default function Home() {
                 Download CV ↓
               </a>
             </div>
-
-            <div className="mt-10 flex items-center gap-4">
-              <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center">
-                GH
-              </div>
-              <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center">
-                IN
-              </div>
-              <div className="w-10 h-10 rounded-full border border-border flex items-center justify-center">
-                LI
-              </div>
-            </div>
           </div>
 
           {/* RIGHT */}
@@ -73,7 +73,9 @@ export default function Home() {
       </div>
 
       {/* MARQUEE pinned to bottom */}
-      <TraitsMarquee />
+      <div className="mt-auto">
+        <TraitsMarquee />
+      </div>
     </section>
   );
 }

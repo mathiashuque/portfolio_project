@@ -154,7 +154,7 @@ export default function Navbar() {
         text-text
       `}
     >
-      <div className="max-w-5xl mx-auto px-6 py-5 flex items-center justify-between">
+      <div className="max-w-7xl 2xl:max-w-360 mx-auto px-6 py-5 flex items-center justify-between">
         {/* Brand */}
         <a
           href="#"

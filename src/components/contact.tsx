@@ -82,7 +82,7 @@ export default function Contact() {
       `Name: ${name}\nEmail: ${email}\n\n${message}`
     );
 
-    window.location.href = `mailto:ignacioquevedo003@gmail.com?subject=${subject}&body=${body}`;
+    window.location.href = `mailto:mathiashuque2004@gmail.com?subject=${subject}&body=${body}`;
     setStatus({ state: "success", text: "Opening your email client…" });
   }
 
@@ -91,12 +91,12 @@ export default function Contact() {
     "placeholder:text-faint/70 focus:border-accent/40 focus:ring-4 focus:ring-accent/20";
 
   return (
-    <section id="contact" className="relative overflow-hidden py-16 sm:py-20 scroll-mt-32">
+    <section id="contact" className="relative overflow-hidden py-16 sm:py-20 scroll-mt-32 max-w-7xl 2xl:max-w-360 mx-auto px-6">
       {/* Background */}
-      <div className="absolute inset-0 -z-10 bg-gradient-to-b from-bg via-bg to-bg-elev" />
+      <div className="absolute inset-0 -z-10 bg-linear-to-b from-bg via-bg to-bg-elev" />
       <NetworkPattern />
 
-      <div className="mx-auto w-full max-w-6xl px-4 sm:px-6 lg:px-8">
+      <div className="w-full">
         {/* Header */}
         <div className="text-center">
           <p className="text-xs font-semibold tracking-[0.22em] text-faint/90">
@@ -108,7 +108,7 @@ export default function Contact() {
         </div>
 
         {/* Content */}
-        <div className="mt-10 grid gap-6 lg:mt-12 lg:grid-cols-2 lg:items-stretch">
+        <div className="mt-10 grid gap-8 lg:mt-12 lg:grid-cols-2 lg:items-stretch">
           {/* Left */}
           <div className="rounded-2xl bg-panel p-6 shadow-sm ring-1 ring-border/10 sm:p-8">
             <h3 className="text-xl font-semibold text-text">Let&apos;s Work Together</h3>
