@@ -38,7 +38,7 @@ export default function Contact() {
         icon: <Github className="h-5 w-5" />,
       },
     ],
-    []
+    [],
   );
 
   const [form, setForm] = useState({ name: "", email: "", message: "" });
@@ -51,7 +51,7 @@ export default function Contact() {
 
   function updateField<K extends keyof typeof form>(
     key: K,
-    value: (typeof form)[K]
+    value: (typeof form)[K],
   ) {
     setForm((prev) => ({ ...prev, [key]: value }));
     if (status.state !== "idle") setStatus({ state: "idle" });
@@ -61,7 +61,16 @@ export default function Contact() {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   }
 
-  function handleSubmit(e: React.FormEvent) {
+  function openMailtoFallback(name: string, email: string, message: string) {
+    const subject = encodeURIComponent(`Portfolio message from ${name}`);
+    const body = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\n\n${message}`,
+    );
+
+    window.location.href = `mailto:mathiashuque2004@gmail.com?subject=${subject}&body=${body}`;
+  }
+
+  async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const name = form.name.trim();
@@ -73,17 +82,37 @@ export default function Contact() {
       return;
     }
     if (!isValidEmail(email)) {
-      setStatus({ state: "error", text: "Please enter a valid email address." });
+      setStatus({
+        state: "error",
+        text: "Please enter a valid email address.",
+      });
       return;
     }
 
-    const subject = encodeURIComponent(`Portfolio message from ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\n${message}`
-    );
+    try {
+      setStatus({ state: "success", text: "Sending…" });
 
-    window.location.href = `mailto:mathiashuque2004@gmail.com?subject=${subject}&body=${body}`;
-    setStatus({ state: "success", text: "Opening your email client…" });
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ name, email, message }),
+      });
+
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) throw new Error(data?.error || "Failed to send");
+
+      setForm({ name: "", email: "", message: "" });
+      setStatus({ state: "success", text: "Message sent. Thanks!" });
+    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+    } catch (err) {
+      // 🔁 Fallback to mailto
+      setStatus({
+        state: "success",
+        text: "Couldn’t send automatically — opening your email client…",
+      });
+
+      openMailtoFallback(name, email, message);
+    }
   }
 
   const inputClass =
@@ -91,7 +120,10 @@ export default function Contact() {
     "placeholder:text-faint/70 focus:border-accent/40 focus:ring-4 focus:ring-accent/20";
 
   return (
-    <section id="contact" className="relative overflow-hidden py-16 sm:py-20 scroll-mt-32 max-w-7xl 2xl:max-w-360 mx-auto px-6">
+    <section
+      id="contact"
+      className="relative overflow-hidden py-16 sm:py-20 scroll-mt-32 max-w-7xl 2xl:max-w-360 mx-auto px-6"
+    >
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-bg via-bg to-bg-elev" />
       <NetworkPattern />
@@ -111,10 +143,13 @@ export default function Contact() {
         <div className="mt-10 grid gap-8 lg:mt-12 lg:grid-cols-2 lg:items-stretch">
           {/* Left */}
           <div className="rounded-2xl bg-panel p-6 shadow-sm ring-1 ring-border/10 sm:p-8">
-            <h3 className="text-xl font-semibold text-text">Let&apos;s Work Together</h3>
+            <h3 className="text-xl font-semibold text-text">
+              Let&apos;s Work Together
+            </h3>
             <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted/90">
-              I&apos;m always interested in new opportunities and exciting projects.
-              Whether you have a question or just want to say hi, feel free to reach out!
+              I&apos;m always interested in new opportunities and exciting
+              projects. Whether you have a question or just want to say hi, feel
+              free to reach out!
             </p>
 
             <div className="mt-8 space-y-4">
@@ -130,12 +165,14 @@ export default function Contact() {
                     hover:border-border/20 hover:shadow-sm
                   "
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-gradient-to-br from-accent to-pink-500 text-white shadow-sm">
+                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-accent to-pink-500 text-white shadow-sm">
                     {item.icon}
                   </div>
 
                   <div className="min-w-0">
-                    <p className="text-sm font-semibold text-text">{item.label}</p>
+                    <p className="text-sm font-semibold text-text">
+                      {item.label}
+                    </p>
                     <p className="truncate text-sm text-muted/90 group-hover:text-text">
                       {item.value}
                     </p>
@@ -147,8 +184,8 @@ export default function Contact() {
             {/* Tip box: stands apart from the panel */}
             <div className="mt-8 rounded-xl border border-border/10 bg-bg px-4 py-4">
               <p className="text-xs text-muted/90">
-                Tip: if you add a backend later (e.g., Next.js route handler + Resend),
-                you can keep the same UI and swap out{" "}
+                Tip: if you add a backend later (e.g., Next.js route handler +
+                Resend), you can keep the same UI and swap out{" "}
                 <span className="font-mono">mailto:</span>.
               </p>
             </div>
@@ -187,9 +224,7 @@ export default function Contact() {
                   onChange={(e) => updateField("message", e.target.value)}
                   placeholder="Your Message"
                   rows={6}
-                  className={
-                    inputClass.replace("w-full", "w-full resize-none")
-                  }
+                  className={inputClass.replace("w-full", "w-full resize-none")}
                 />
               </div>
 
@@ -217,7 +252,7 @@ export default function Contact() {
                 type="submit"
                 className="
                   mt-2 inline-flex w-full items-center justify-center gap-2 rounded-xl
-                  bg-gradient-to-r from-accent to-pink-500 px-5 py-3 text-sm font-semibold
+                  bg-linear-to-r from-accent to-pink-500 px-5 py-3 text-sm font-semibold
                   text-white shadow-sm transition hover:opacity-95
                   focus:outline-none focus:ring-4 focus:ring-accent/25
                 "
@@ -227,7 +262,7 @@ export default function Contact() {
               </button>
 
               <p className="text-center text-xs text-faint/90">
-                By sending, your email client may open (mailto fallback).
+                By sending, your email client may open.
               </p>
             </form>
           </div>

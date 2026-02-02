@@ -1,100 +1,88 @@
+import { useState } from "react";
+
 export default function About() {
-  const traits = [
-    "Clean Code",
-    "UX-Aware Development",
-    "Full-Stack Mindset",
-    "API-Centered Design",
-  ];
+  const tabs = [
+    {
+      key: "education",
+      label: "Education",
+      text: "Software Engineering student focused on strong fundamentals, problem solving, and building systems that last.",
+    },
+    {
+      key: "skills",
+      label: "Skills",
+      text: "Full-stack mindset with an emphasis on clean architecture, DX, and pragmatic, maintainable solutions.",
+    },
+    {
+      key: "work",
+      label: "Work Experience",
+      text: "Teaching and support roles that sharpen communication, mentorship, and the ability to explain complex ideas clearly.",
+    },
+  ] as const;
+
+  const [active, setActive] =
+    useState<(typeof tabs)[number]["key"]>("education");
+  const activeTab = tabs.find((t) => t.key === active)!;
 
   return (
     <section id="about" className="scroll-mt-32 mb-30">
-      {/* Same container width as Home */}
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
-        {/* This frame clips the background to the container width */}
         <div className="relative isolate overflow-hidden rounded-3xl">
-          {/* Content padding inside the boxed frame */}
-          <div className="py-5">
-            {/* Title */}
-            <div className="text-center">
-              <p className="text-xs tracking-[0.35em] text-slate-500 dark:text-white/60">
-                ABOUT
-              </p>
+          <div className="py-10 md:py-14">
+            {/* Headline + tabs block (like your image) */}
+            <div className="mx-auto max-w-3xl text-center">
+              <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white md:text-5xl leading-tight">
+                Design and build a user-friendly experience that stays fast,
+                clean, and maintainable.
+              </h2>
 
-              <div className="relative mt-3 inline-block">
-                <span className="absolute -left-6 top-1/2 hidden h-7 w-1 -translate-y-1/2 rounded-full bg-orange-500 md:block" />
-                <h2 className="text-4xl font-semibold tracking-tight text-slate-900 dark:text-white md:text-6xl">
-                  About Me
-                </h2>
-              </div>
-            </div>
-
-            {/* Layout */}
-            <div className="mt-12 grid items-center gap-12 md:mt-16 md:grid-cols-[420px_1fr]">
-              {/* Left */}
-              <div className="flex justify-center md:justify-start">
-                <div className="relative">
-                  <div className="absolute -inset-2 rounded-full border-4 border-orange-500/70" />
-
-                  <div className="grid h-64 w-64 place-items-center rounded-full bg-linear-to-br from-slate-900/3 to-slate-900/8 text-slate-900 shadow-sm dark:from-white/6 dark:to-white/[0.02] dark:text-white">
-                    <div className="text-center">
-                      <div className="text-4xl font-semibold tracking-tight">
-                        MH
-                      </div>
-                      <div className="mt-2 text-sm text-slate-600 dark:text-white/70">
-                        Software Developer
-                      </div>
-                    </div>
-                  </div>
-
-                  <span className="absolute -right-6 top-10 h-2 w-2 rounded-full bg-orange-500/70" />
-                  <span className="absolute -left-4 bottom-14 h-1.5 w-1.5 rounded-full bg-orange-500/60" />
-                  <span className="absolute right-10 -bottom-5 h-1.5 w-1.5 rounded-full bg-orange-500/50" />
-                </div>
-              </div>
-
-              {/* Right */}
-              <div className="text-left">
-                <p className="text-lg leading-relaxed text-slate-700 dark:text-white/80 md:text-xl">
-                  I build software with a focus on clarity and long-term
-                  maintainability: strong fundamentals, clean architecture, and
-                  pragmatic trade-offs.
-                </p>
-
-                <p className="mt-6 leading-relaxed text-slate-600 dark:text-white/70">
-                  Lately I’ve been sharpening my full-stack skills, exploring
-                  better ways to design systems, and staying curious about tools
-                  that improve developer experience and performance.
-                </p>
-
-                <div className="mt-10 flex flex-wrap gap-3">
-                  {traits.map((t) => (
-                    <span
-                      key={t}
-                      className="
-                        rounded-full px-4 py-2 text-sm
-                        border border-slate-900/10 text-slate-700
-                        bg-white/40 backdrop-blur
-                        hover:bg-white/70 transition
-                        dark:border-white/10 dark:text-white/80 dark:bg-white/3 dark:hover:bg-white/6
-                      "
+              {/* Tabs */}
+              <div className="mt-6 flex items-center justify-center gap-6">
+                {tabs.map((t) => {
+                  const isActive = t.key === active;
+                  return (
+                    <button
+                      key={t.key}
+                      type="button"
+                      onClick={() => setActive(t.key)}
+                      className={[
+                        "relative text-sm font-medium transition",
+                        "text-slate-500 hover:text-slate-900",
+                        "dark:text-white/60 dark:hover:text-white",
+                        isActive ? "text-slate-900 dark:text-white" : "",
+                      ].join(" ")}
                     >
-                      {t}
-                    </span>
-                  ))}
-                </div>
+                      <span className="inline-flex items-center gap-2">
+                        {/* little dot for active (green-ish accent) */}
+                        <span
+                          className={[
+                            "h-1.5 w-1.5 rounded-full transition-opacity",
+                            isActive
+                              ? "opacity-100 bg-orange-500"
+                              : "opacity-0",
+                          ].join(" ")}
+                        />
+                        {t.label}
+                      </span>
 
-                <div className="mt-10 flex items-center gap-3 text-slate-500 dark:text-white/50">
-                  <span className="h-px w-10 bg-slate-900/10 dark:bg-white/10" />
-                  <span className="text-xs tracking-wide">Scroll</span>
-                  <span className="text-lg leading-none">↓</span>
-                </div>
+                      {/* underline for active */}
+                      <span
+                        className={[
+                          "pointer-events-none absolute -bottom-2 left-1/2 h-[2px] w-10 -translate-x-1/2 rounded-full transition-opacity",
+                          isActive ? "opacity-100 bg-orange-500" : "opacity-0",
+                        ].join(" ")}
+                      />
+                    </button>
+                  );
+                })}
               </div>
+
+              {/* Small description under tabs */}
+              <p className="mt-8 text-sm leading-relaxed text-slate-500 dark:text-white/60">
+                {activeTab.text}
+              </p>
             </div>
           </div>
         </div>
-
-        {/* If you want the section to breathe away from next one */}
-        {/* <div className="h-10" /> */}
       </div>
     </section>
   );
