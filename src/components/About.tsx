@@ -1,5 +1,20 @@
 import { useEffect, useMemo, useState } from "react";
 
+type TabKey = "principles" | "process" | "direction";
+
+type Card = {
+  title: string;
+  description: string;
+  tag?: string;
+};
+
+type Tab = {
+  key: TabKey;
+  label: string;
+  lead: string;
+  cards: readonly Card[];
+};
+
 export default function About() {
   const tabs = useMemo(
     () =>
@@ -7,24 +22,83 @@ export default function About() {
         {
           key: "principles",
           label: "Principles",
-          text: "I value clarity over cleverness. Code should be easy to read, reason about, and modify—especially months after it was written. Maintainability, performance, and accessibility are design goals, not afterthoughts.",
+          lead: "The defaults I optimize for when designing and building software.",
+          cards: [
+            {
+              title: "Clarity over cleverness",
+              description:
+                "Readable code scales better than smart tricks. I optimize for understanding first.",
+              tag: "Readability",
+            },
+            {
+              title: "Design for change",
+              description:
+                "Requirements evolve. I prefer composable structure that adapts without rewrites.",
+              tag: "Maintainability",
+            },
+            {
+              title: "Quality is a feature",
+              description:
+                "Performance and accessibility are part of the design—not polish work at the end.",
+              tag: "UX & Perf",
+            },
+          ] as const,
         },
         {
           key: "process",
           label: "Process",
-          text: "I start by understanding constraints and trade-offs before choosing tools or abstractions. I prefer simple, composable solutions and introduce structure only when complexity is justified.",
+          lead: "How I go from vague problem → reliable solution without overengineering.",
+          cards: [
+            {
+              title: "Start with constraints",
+              description:
+                "I clarify goals, users, failure modes, and trade-offs before choosing tools or patterns.",
+              tag: "Discovery",
+            },
+            {
+              title: "Ship small, iterate",
+              description:
+                "I build the thinnest useful slice first, then iterate based on what breaks and what matters.",
+              tag: "Iteration",
+            },
+            {
+              title: "Introduce structure when needed",
+              description:
+                "Abstractions earn their place. I add layers only when complexity justifies it.",
+              tag: "Architecture",
+            },
+          ] as const,
         },
         {
           key: "direction",
           label: "Direction",
-          text: "I’m working toward designing larger systems that remain predictable and easy to reason about, with a particular interest in architecture, developer experience, and software that ages well.",
+          lead: "What I’m aiming to get better at next, beyond just shipping features.",
+          cards: [
+            {
+              title: "Systems that stay understandable",
+              description:
+                "I’m focused on designing larger codebases that remain predictable and easy to reason about.",
+              tag: "Systems",
+            },
+            {
+              title: "Developer experience",
+              description:
+                "I care about fast feedback loops: tooling, tests, docs, and conventions that reduce friction.",
+              tag: "DX",
+            },
+            {
+              title: "Pragmatic engineering",
+              description:
+                "I want to get better at choosing the simplest solution that meets the real constraints.",
+              tag: "Trade-offs",
+            },
+          ] as const,
         },
-      ] as const,
-    [],
+      ] as const satisfies readonly Tab[],
+    []
   );
 
-  const [active, setActive] =
-    useState<(typeof tabs)[number]["key"]>("principles");
+  const [active, setActive] = useState<TabKey>("principles");
 
   const ROTATE_MS = 6000;
 
@@ -50,10 +124,9 @@ export default function About() {
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
         <div className="relative isolate overflow-hidden rounded-3xl">
           <div className="py-10 md:py-14">
-            <div className="mx-auto max-w-3xl text-center">
+            <div className="mx-auto max-w-4xl text-center">
               <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white md:text-5xl leading-tight">
-                I focus on building software that stays understandable as it
-                grows.
+                I focus on building software that stays understandable as it grows.
               </h2>
 
               <div
@@ -70,7 +143,7 @@ export default function About() {
                       role="tab"
                       aria-selected={isActive}
                       tabIndex={isActive ? 0 : -1}
-                      onClick={() => setActive(t.key)} // resets timer via `active` change
+                      onClick={() => setActive(t.key)}
                       className={[
                         "relative text-sm font-medium transition",
                         "text-slate-500 hover:text-slate-900",
@@ -82,9 +155,7 @@ export default function About() {
                         <span
                           className={[
                             "h-1.5 w-1.5 rounded-full transition-opacity",
-                            isActive
-                              ? "opacity-100 bg-orange-500"
-                              : "opacity-0",
+                            isActive ? "opacity-100 bg-orange-500" : "opacity-0",
                           ].join(" ")}
                         />
                         {t.label}
@@ -101,46 +172,70 @@ export default function About() {
                 })}
               </div>
 
-              <div className="relative mt-8 min-h-18">
-                <p
-                  key={active}
-                  className="
-      text-sm leading-relaxed text-slate-500 dark:text-white/60
-      animate-[fadeSlide_300ms_ease-out]
-    "
-                  role="tabpanel"
-                  aria-live="polite"
-                >
-                  {activeTab.text}
-                </p>
+              {/* Lead + Cards (animated on tab change) */}
+              <div className="mt-8">
+                <div key={active} className="animate-[fadeSlide_320ms_ease-out]">
+                  <p className="mx-auto max-w-2xl text-sm leading-relaxed text-slate-500 dark:text-white/60">
+                    {activeTab.lead}
+                  </p>
+
+                  <div className="mx-auto mt-8 grid max-w-4xl grid-cols-1 gap-4 text-left sm:grid-cols-3">
+                    {activeTab.cards.map((c) => (
+                      <article
+                        key={c.title}
+                        className={[
+                          "rounded-2xl border border-slate-200/70 bg-white/60 p-5",
+                          "shadow-sm shadow-slate-900/5",
+                          "dark:border-white/10 dark:bg-white/5 dark:shadow-none",
+                          "transition-transform will-change-transform",
+                          "hover:-translate-y-0.5",
+                        ].join(" ")}
+                      >
+                        <div className="flex items-start justify-between gap-3">
+                          <h3 className="text-sm font-semibold text-slate-900 dark:text-white">
+                            {c.title}
+                          </h3>
+                          {c.tag ? (
+                            <span className="shrink-0 rounded-full border border-slate-200/70 bg-white px-2 py-0.5 text-[11px] text-slate-500 dark:border-white/10 dark:bg-white/5 dark:text-white/60">
+                              {c.tag}
+                            </span>
+                          ) : null}
+                        </div>
+
+                        <p className="mt-2 text-sm leading-relaxed text-slate-600 dark:text-white/70">
+                          {c.description}
+                        </p>
+                      </article>
+                    ))}
+                  </div>
+                </div>
               </div>
 
-              {/* Subtle progress indicator (syncs with timer + resets on manual click) */}
-              <div className="mx-auto mt-6 h-1 w-40 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
+              {/* Progress indicator (syncs with timer + resets on manual click) */}
+              <div className="mx-auto mt-8 h-1 w-44 overflow-hidden rounded-full bg-slate-200 dark:bg-white/10">
                 <div
-                  key={active} // restart animation on every tab change
+                  key={active}
                   className="h-full w-full origin-left bg-orange-500 animate-[aboutbar_6000ms_linear]"
                 />
               </div>
 
-              {/* Custom keyframes for the progress bar */}
               <style>{`
-  @keyframes aboutbar {
-    from { transform: scaleX(0); }
-    to   { transform: scaleX(1); }
-  }
+                @keyframes aboutbar {
+                  from { transform: scaleX(0); }
+                  to   { transform: scaleX(1); }
+                }
 
-  @keyframes fadeSlide {
-    from {
-      opacity: 0;
-      transform: translateY(6px);
-    }
-    to {
-      opacity: 1;
-      transform: translateY(0);
-    }
-  }
-`}</style>
+                @keyframes fadeSlide {
+                  from {
+                    opacity: 0;
+                    transform: translateY(6px);
+                  }
+                  to {
+                    opacity: 1;
+                    transform: translateY(0);
+                  }
+                }
+              `}</style>
             </div>
           </div>
         </div>
