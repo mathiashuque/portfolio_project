@@ -24,7 +24,7 @@ export default function Projects() {
   ];
 
   return (
-    <section id="projects" className="px-6 py-16 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32">
+    <section id="projects" className="px-6 py-16 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 h-[min(calc(100svh-80px),900px)]">
       <h2 className="text-3xl font-bold mb-8 text-center text-text">
         Projects
       </h2>
@@ -53,6 +53,7 @@ export default function Projects() {
                 transition-all duration-300
                 group-hover:border-border/20
                 group-hover:shadow-[0_12px_40px_-12px_rgba(56,189,248,0.18)]
+                
               "
             >
               {/* Spotlight */}

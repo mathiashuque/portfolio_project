@@ -304,7 +304,7 @@ export default function ExperienceSection() {
   return (
     <section
       id="experience"
-      className="max-w-6xl mx-auto scroll-mt-32 h-[min(calc(100svh-80px),900px)]"
+      className="max-w-6xl mx-auto scroll-mt-32 h-[min(calc(100svh-80px),900px)] mb-10"
       aria-label="Experience"
     >
       <div className="mb-14 text-center">

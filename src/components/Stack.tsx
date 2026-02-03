@@ -3,7 +3,7 @@ import { STACK } from "../data/stackData";
 
 export default function Stack() {
   return (
-    <section id="stack" className="px-6 py-16 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32">
+    <section id="stack" className="px-6 mb-20 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 min-h-[min(calc(100svh-80px),900px)]">
       <div className="mb-14 text-center">
         <p className="text-xs font-semibold tracking-[0.22em] text-faint/90">
           STACK

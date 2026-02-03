@@ -118,7 +118,7 @@ export default function About() {
   return (
     <section
       id="about"
-      className="scroll-mt-32 h-[min(calc(100svh-80px),900px)]"
+      className="scroll-mt-32 h-[min(calc(100svh-80px),900px)] mb-20"
       aria-label="About"
     >
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">

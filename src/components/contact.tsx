@@ -122,7 +122,7 @@ export default function Contact() {
   return (
     <section
       id="contact"
-      className="relative overflow-hidden py-16 sm:py-20 scroll-mt-32 max-w-7xl 2xl:max-w-360 mx-auto px-6 h-[min(calc(100svh-80px),900px)]"
+      className="relative overflow-hidden mb-10 scroll-mt-32 max-w-7xl 2xl:max-w-360 mx-auto px-6 min-h-[min(calc(100svh-80px),900px)]"
     >
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-bg via-bg to-bg-elev" />

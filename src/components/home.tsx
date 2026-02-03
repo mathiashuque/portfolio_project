@@ -11,6 +11,7 @@ export default function Home() {
     overflow-hidden
     h-[min(calc(100svh-80px),900px)]
     scroll-mt-32
+    mb-20
   "
     >
       {/* HERO fills remaining height */}
