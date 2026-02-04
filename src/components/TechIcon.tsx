@@ -119,6 +119,7 @@ export default function TechIcon({
           <img
             src={logo}
             alt={name}
+            loading="eager"
             className="relative z-10 w-8 h-8 object-contain transition-transform duration-700 ease-out group-hover:scale-105"
             draggable={false}
           />

@@ -17,6 +17,19 @@ export default {
         accent: "rgb(var(--accent) / <alpha-value>)",
         "accent-2": "rgb(var(--accent-2) / <alpha-value>)",
       },
+      keyframes: {
+        "marquee-px": {
+          "0%": { transform: "translate3d(0,0,0)" },
+          "100%": {
+            transform: "translate3d(calc(-1 * var(--marquee-shift)),0,0)",
+          },
+        },
+      },
+      animation: {
+        "marquee-px": "marquee-px var(--marquee-duration, 10s) linear infinite",
+        "marquee-px-reverse":
+          "marquee-px var(--marquee-duration, 10s) linear infinite reverse",
+      },
     },
   },
   plugins: [],
