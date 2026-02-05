@@ -89,7 +89,7 @@ export default function Home() {
                 initial={{ x: 0, y: 0 }}
               >
                 {/* Selection box */}
-                <div className="relative rounded-md border border-border bg-bg px-5 py-3 text-base font-medium">
+                <div className="relative rounded-md border border-border bg-bg px-5 py-3 text-base font-medium animate-fade-down animate-duration-[1000ms]">
                   Hello, World! 👋 I’m Mathias!
                   <span className="absolute -left-1.5 -top-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
                   <span className="absolute -right-1.5 -top-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
@@ -99,7 +99,7 @@ export default function Home() {
               </motion.div>
             </div>
 
-            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight">
+            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight animate-fade-up">
               Software Developer
             </h1>
 
@@ -154,6 +154,8 @@ export default function Home() {
                   bg-text
                   rounded-2xl
                   rotate-5
+                  animate-flip-up
+                  animate-duration-[600ms]
                 "
               />
               <div
@@ -164,6 +166,9 @@ export default function Home() {
                   rounded-2xl
                   shadow-[0_20px_55px_-28px_rgba(0,0,0,0.65)]
                   overflow-hidden
+                  animate-flip-up
+                  animate-duration-[600ms]
+                  
                 "
               >
                 <div className="w-full h-full grid place-items-center p-7">
@@ -171,7 +176,7 @@ export default function Home() {
                     <img
                       src="/avatar.png"
                       alt="Portrait"
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover animate-jump-in animate-duration-800"
                     />
                   </div>
                 </div>
@@ -182,7 +187,7 @@ export default function Home() {
       </div>
 
       {/* MARQUEE pinned to bottom */}
-      <div className="mt-auto">
+      <div className="mt-auto animate-fade-left animate-duration-[1000ms]">
         <TraitsMarquee />
       </div>
     </section>
