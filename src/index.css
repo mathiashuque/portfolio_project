@@ -27,7 +27,7 @@ html {
 .marquee__inner {
   display: flex;
   width: max-content;
-  animation: marquee-scroll 60s linear infinite;
+  animation: marquee-scroll 80s linear infinite;
 }
 
 @keyframes marquee-scroll {
