@@ -12,7 +12,7 @@ type Experience = {
   duration?: string;
   location?: string;
   modality?: string;
-  description: string;
+  description: string | string[];
   badge?: {
     label: string;
     variant?: BadgeVariant;
@@ -77,7 +77,7 @@ function ExperienceCard({
       <div className="pointer-events-none absolute -bottom-28 -left-28 h-72 w-72 rounded-full bg-pink-400/10 blur-3xl dark:bg-accent/10" />
 
       {exp.badge && (
-        <div className="absolute right-6 top-6 sm:right-8 sm:top-8">
+        <div className="mb-4">
           <Badge
             label={exp.badge.label}
             variant={exp.badge.variant}
@@ -95,6 +95,8 @@ function ExperienceCard({
         <div className="mt-3">
           <a
             href={exp.organizationHref ?? "#"}
+            target="_blank"
+            rel="noopener noreferrer"
             className={cn(
               "inline-flex items-center gap-2 font-semibold",
               "text-orange-500 hover:text-orange-600 transition-colors",
@@ -121,9 +123,19 @@ function ExperienceCard({
           )}
         </div>
 
-        <p className="mt-8 leading-relaxed text-muted/95 max-w-prose">
-          {exp.description}
-        </p>
+        {Array.isArray(exp.description) ? (
+          <ul className="mt-4 space-y-1 text-muted/95 sm:max-w-2xl list-disc pl-5">
+            {exp.description.map((item, i) => (
+              <li key={i} className="leading-relaxed">
+                {item}
+              </li>
+            ))}
+          </ul>
+        ) : (
+          <p className="mt-8 leading-relaxed text-muted/95 sm:max-w-2xl">
+            {exp.description}
+          </p>
+        )}
 
         {children}
       </div>
@@ -138,7 +150,6 @@ const springWobble = {
   mass: 0.8,
 };
 
-
 export default function ExperienceSection() {
   const experiences = useMemo<Experience[]>(
     () => [
@@ -146,26 +157,34 @@ export default function ExperienceSection() {
         role: "Professor",
         focus: "Fundamentals Of Computing",
         organization: "Universidad ORT Uruguay",
-        organizationHref: "#",
-        period: "July 2025 – Present",
-        duration: "4 months",
+        organizationHref: "https://www.ort.edu.uy/",
+        period: "March 2026 – Present",
+        duration: "Ongoing",
         location: "Montevideo, Uruguay",
         modality: "Hybrid",
-        description:
-          "Teaching how to explore the deep connection between mathematics and programming, emphasizing two key perspectives. Programming as a mathematical activity, where writing code resembles defining computable functions and proving their properties; and mathematics as a source of computational models, where functions can be implemented as programs.",
+        description: [
+          "Teach fundamental computing concepts through the lens of mathematics and formal reasoning",
+          "Present programming as a mathematical activity, emphasizing functions, abstraction, and correctness",
+          "Introduce computational models derived from mathematical structures and theory",
+          "Help students build strong mental models that connect code, logic, and computation",
+        ],
         badge: { label: "Part-time", variant: "orange", icon: "🎓" },
       },
       {
         role: "Assistant Professor",
-        focus: "Theory Of Computation",
+        focus: "Data Structures and Algorithms",
         organization: "Universidad ORT Uruguay",
-        organizationHref: "#",
-        period: "March 2025 – August 2025",
-        duration: "6 months",
+        organizationHref: "https://www.ort.edu.uy/",
+        period: "March 2025 – December 2025",
+        duration: "9 months",
         location: "Montevideo, Uruguay",
         modality: "Hybrid",
-        description:
-          "I guide students in understanding fundamental concepts of Theory of Computation through hands-on language implementation projects. This teaching approach fosters deep engagement with topics such as operational semantics.",
+        description: [
+          "Guide students through core data structures and algorithmic techniques",
+          "Design hands-on language implementation projects to reinforce theory",
+          "Help students translate abstract concepts into practical problem-solving skills",
+        ],
+
         badge: { label: "Temporary", variant: "pink", icon: "🎓" },
       },
     ],
@@ -224,11 +243,9 @@ export default function ExperienceSection() {
                   )}
                 />
 
-                {/* Card — wobbles independently */}
                 <motion.div
-                  initial={{ y: 0, rotate: 0 }}
-                  whileHover={{ y: -10, rotate: -0.35 }}
-                  transition={springWobble}
+                  whileHover={{ scale: 1.03 }}
+                  whileTap={{ scale: 0.97 }}
                   className="will-change-transform"
                 >
                   <ExperienceCard
