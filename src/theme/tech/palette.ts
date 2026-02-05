@@ -47,11 +47,11 @@ export const palette = {
       border: "border-blue-400/60",
       rgb: "96, 165, 250",
     },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
   tailwind: makeEntry(
     { text: "text-sky-300", border: "border-sky-400/60", rgb: "8, 166, 194" },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
   react: makeEntry(
     {
@@ -59,11 +59,11 @@ export const palette = {
       border: "border-cyan-400/60",
       rgb: "34, 211, 238",
     },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
   angular: makeEntry(
     { text: "text-red-300", border: "border-red-400/60", rgb: "239, 68, 68" },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
 
   nextjs: makeEntry(
@@ -72,7 +72,7 @@ export const palette = {
       border: "border-gray-400/60",
       rgb: "156, 163, 175",
     },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
   github: makeEntry(
     {
@@ -80,7 +80,7 @@ export const palette = {
       border: "border-gray-400/60",
       rgb: "156, 163, 175",
     },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
   vercel: makeEntry(
     {
@@ -88,7 +88,7 @@ export const palette = {
       border: "border-gray-400/60",
       rgb: "156, 163, 175",
     },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
   express: makeEntry(
     {
@@ -96,7 +96,7 @@ export const palette = {
       border: "border-gray-400/60",
       rgb: "156, 163, 175",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
 
   node: makeEntry(
@@ -105,7 +105,7 @@ export const palette = {
       border: "border-emerald-400/60",
       rgb: "52, 211, 153",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   shopify: makeEntry(
     {
@@ -113,7 +113,7 @@ export const palette = {
       border: "border-green-400/60",
       rgb: "74, 222, 128",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   dotnet: makeEntry(
     {
@@ -121,11 +121,11 @@ export const palette = {
       border: "border-violet-400/60",
       rgb: "167, 139, 250",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   python: makeEntry(
     { text: "text-sky-300", border: "border-sky-400/60", rgb: "56, 189, 248" },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   java: makeEntry(
     {
@@ -133,7 +133,7 @@ export const palette = {
       border: "border-orange-400/60",
       rgb: "251, 146, 60",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   docker: makeEntry(
     {
@@ -141,7 +141,7 @@ export const palette = {
       border: "border-blue-400/60",
       rgb: "96, 165, 250",
     },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
   postman: makeEntry(
     {
@@ -149,7 +149,7 @@ export const palette = {
       border: "border-orange-400/60",
       rgb: "251, 146, 60",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   figma: makeEntry(
     {
@@ -157,11 +157,11 @@ export const palette = {
       border: "border-pink-400/60",
       rgb: "236, 72, 153",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   git: makeEntry(
     { text: "text-red-300", border: "border-red-400/60", rgb: "239, 68, 68" },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
 
   aws: makeEntry(
@@ -211,7 +211,7 @@ export const palette = {
       border: "border-purple-400/60",
       rgb: "192, 132, 252",
     },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
   flutter: makeEntry(
     {
@@ -219,7 +219,7 @@ export const palette = {
       border: "border-blue-400/60",
       rgb: "96, 165, 250",
     },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
   sequelize: makeEntry(
     {
@@ -227,7 +227,7 @@ export const palette = {
       border: "border-blue-400/60",
       rgb: "96, 165, 250",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   nestjs: makeEntry(
     {
@@ -235,7 +235,7 @@ export const palette = {
       border: "border-red-400/60",
       rgb: "239, 68, 68",
     },
-    PRESETS.soft,
+    PRESETS.strong,
   ),
   prisma: makeEntry(
     {
@@ -243,7 +243,7 @@ export const palette = {
       border: "border-blue-400/60",
       rgb: "96, 165, 250",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   efcore: makeEntry(
     // Entity Framework Core
@@ -252,7 +252,7 @@ export const palette = {
       border: "border-violet-400/60",
       rgb: "167, 139, 250",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   mongoose: makeEntry(
     // Mongoose ODM
@@ -261,7 +261,7 @@ export const palette = {
       border: "border-red-400/60",
       rgb: "239, 68, 68",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   jest: makeEntry(
     {
@@ -269,7 +269,7 @@ export const palette = {
       border: "border-pink-400/60",
       rgb: "236, 72, 153",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   jasmine: makeEntry(
     {
@@ -277,7 +277,7 @@ export const palette = {
       border: "border-purple-400/60",
       rgb: "192, 132, 252",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   cucumber: makeEntry(
     {
@@ -285,7 +285,7 @@ export const palette = {
       border: "border-green-400/60",
       rgb: "74, 222, 128",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   cypress: makeEntry(
     {
@@ -293,7 +293,7 @@ export const palette = {
       border: "border-green-400/60",
       rgb: "74, 222, 128",
     },
-    PRESETS.mid,
+    PRESETS.strong,
   ),
   mysql: makeEntry(
     {
