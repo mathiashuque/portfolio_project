@@ -143,7 +143,7 @@ export default function Stack() {
               {category}
             </h3>
 
-            <div className="rounded-2xl border border-border/10 bg-panel px-6 py-1 pt-1 shadow-sm">
+            <div className="rounded-2xl bg-panel px-6 py-1 pt-1 shadow-sm">
               <MarqueeRow
                 items={items}
                 reverse={i % 2 === 1}

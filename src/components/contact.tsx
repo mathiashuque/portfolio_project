@@ -103,7 +103,7 @@ export default function Contact() {
 
       setForm({ name: "", email: "", message: "" });
       setStatus({ state: "success", text: "Message sent. Thanks!" });
-    // eslint-disable-next-line @typescript-eslint/no-unused-vars
+      // eslint-disable-next-line @typescript-eslint/no-unused-vars
     } catch (err) {
       // 🔁 Fallback to mailto
       setStatus({
@@ -116,13 +116,18 @@ export default function Contact() {
   }
 
   const inputClass =
-    "w-full rounded-xl border border-border/10 bg-input px-4 py-3 text-sm text-text shadow-sm outline-none transition " +
+    "w-full rounded-xl border border-border/10 bg-input px-4 py-2.5 text-sm text-text shadow-sm outline-none transition " +
     "placeholder:text-faint/70 focus:border-accent/40 focus:ring-4 focus:ring-accent/20";
 
   return (
     <section
       id="contact"
-      className="relative overflow-hidden mb-10 scroll-mt-32 max-w-7xl 2xl:max-w-360 mx-auto px-6 min-h-[min(calc(100svh-80px),900px)]"
+      className="
+    relative overflow-hidden scroll-mt-32
+    max-w-7xl 2xl:max-w-360 mx-auto px-6
+    min-h-[min(calc(100svh-80px),900px)]
+    pb-16
+  "
     >
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-bg via-bg to-bg-elev" />
@@ -142,7 +147,7 @@ export default function Contact() {
         {/* Content */}
         <div className="mt-10 grid gap-8 lg:mt-12 lg:grid-cols-2 lg:items-stretch">
           {/* Left */}
-          <div className="rounded-2xl bg-panel p-6 shadow-sm ring-1 ring-border/10 sm:p-8">
+          <div className="rounded-2xl bg-panel p-5 shadow-sm ring-1 ring-border/10 sm:p-6">
             <h3 className="text-xl font-semibold text-text">
               Let&apos;s Work Together
             </h3>
@@ -152,7 +157,7 @@ export default function Contact() {
               free to reach out!
             </p>
 
-            <div className="mt-8 space-y-4">
+            <div className="mt-6 space-y-3">
               {links.map((item) => (
                 <a
                   key={item.label}
@@ -160,17 +165,20 @@ export default function Contact() {
                   target={item.href.startsWith("http") ? "_blank" : undefined}
                   rel={item.href.startsWith("http") ? "noreferrer" : undefined}
                   className="
-                    group flex items-center gap-4 rounded-xl border border-border/10
-                    bg-input px-4 py-3 transition
-                    hover:border-border/20 hover:shadow-sm
+                     group flex items-center gap-5 rounded-xl border border-border/10
+  bg-input px-5 py-4 transition
+  hover:border-border/20 hover:shadow-sm
                   "
                 >
-                  <div className="flex h-10 w-10 items-center justify-center rounded-xl bg-linear-to-br from-accent to-pink-500 text-white shadow-sm">
+                  <div
+                    className="flex h-12 w-12 items-center justify-center rounded-xl
+  bg-linear-to-br from-accent to-pink-500 text-white shadow-sm"
+                  >
                     {item.icon}
                   </div>
 
                   <div className="min-w-0">
-                    <p className="text-sm font-semibold text-text">
+                    <p className="text-base font-semibold text-text">
                       {item.label}
                     </p>
                     <p className="truncate text-sm text-muted/90 group-hover:text-text">
@@ -180,22 +188,13 @@ export default function Contact() {
                 </a>
               ))}
             </div>
-
-            {/* Tip box: stands apart from the panel */}
-            <div className="mt-8 rounded-xl border border-border/10 bg-bg px-4 py-4">
-              <p className="text-xs text-muted/90">
-                Tip: if you add a backend later (e.g., Next.js route handler +
-                Resend), you can keep the same UI and swap out{" "}
-                <span className="font-mono">mailto:</span>.
-              </p>
-            </div>
           </div>
 
           {/* Right */}
-          <div className="rounded-2xl bg-panel p-6 shadow-sm ring-1 ring-border/10 sm:p-8">
+          <div className="rounded-2xl bg-panel p-5 shadow-sm ring-1 ring-border/10 sm:p-6">
             <h3 className="text-xl font-semibold text-text">Send a Message</h3>
 
-            <form onSubmit={handleSubmit} className="mt-6 space-y-4">
+            <form onSubmit={handleSubmit} className="mt-4 space-y-2.5">
               <Field
                 label="Your Name"
                 value={form.name}
@@ -215,7 +214,7 @@ export default function Contact() {
                 className={inputClass}
               />
 
-              <div className="space-y-2">
+              <div className="space-y-1.5">
                 <label className="text-sm font-medium text-muted/90">
                   Your Message
                 </label>
@@ -223,7 +222,7 @@ export default function Contact() {
                   value={form.message}
                   onChange={(e) => updateField("message", e.target.value)}
                   placeholder="Your Message"
-                  rows={6}
+                  rows={3}
                   className={inputClass.replace("w-full", "w-full resize-none")}
                 />
               </div>
@@ -232,7 +231,7 @@ export default function Contact() {
               {status.state !== "idle" && (
                 <div
                   className={[
-                    "flex items-start gap-2 rounded-xl border px-4 py-3 text-sm",
+                    "flex items-start gap-2 rounded-xl border px-4 py-2.5 text-sm",
                     status.state === "success"
                       ? "border-emerald-200 bg-emerald-50 text-emerald-800"
                       : "border-rose-200 bg-rose-50 text-rose-800",
@@ -292,7 +291,7 @@ function Field(props: {
         autoComplete={props.autoComplete}
         className={
           props.className ??
-          "w-full rounded-xl border border-border/10 bg-input px-4 py-3 text-sm text-text shadow-sm outline-none transition placeholder:text-faint/70 focus:border-accent/40 focus:ring-4 focus:ring-accent/20"
+          "w-full rounded-xl border border-border/10 bg-input px-4 py-2.5 text-sm text-text shadow-sm outline-none transition placeholder:text-faint/70 focus:border-accent/40 focus:ring-4 focus:ring-accent/20"
         }
       />
     </div>
