@@ -1,5 +1,7 @@
+
 import animated from "tailwindcss-animated";
-export default {
+
+const config = {
   darkMode: "class",
   theme: {
     extend: {
@@ -35,3 +37,5 @@ export default {
   },
   plugins: [animated],
 };
+
+export default config;

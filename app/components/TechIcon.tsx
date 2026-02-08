@@ -165,7 +165,6 @@ export default function TechIcon({ name, logo, color = "html" }: TechIconProps) 
           <Image
             src={logo}
             alt={name}
-            priority
             draggable={false}
             className={[
               "relative z-10 w-8 h-8 object-contain transition-transform duration-700 ease-out",

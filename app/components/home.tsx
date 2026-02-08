@@ -6,6 +6,7 @@ import {
   useMotionValue,
   useMotionValueEvent,
 } from "motion/react";
+import Image from "next/image";
 import TraitsMarquee from "./TraitsMarquee";
 
 export default function Home() {
@@ -112,11 +113,13 @@ export default function Home() {
           "
         >
           <div className="w-full h-full grid place-items-center p-4 sm:p-5 md:p-7">
-            <div className="w-full h-full rounded-full overflow-hidden bg-bg">
-              <img
+            <div className="relative w-full h-full rounded-full overflow-hidden bg-bg">
+              <Image
                 src="/avatar.png"
                 alt="Portrait"
-                className="w-full h-full object-cover animate-jump-in animate-duration-800"
+                fill
+                sizes="(max-width: 640px) 208px, (max-width: 768px) 256px, 384px"
+                className="object-cover animate-jump-in animate-duration-800"
               />
             </div>
           </div>
@@ -129,7 +132,7 @@ export default function Home() {
   const DragBadge = (
     <div className="relative h-13">
       <motion.div
-       key={dragKey}
+        key={dragKey}
         className="
           absolute left-1/2 -translate-x-1/2 top-0
           lg:left-0 lg:translate-x-0
