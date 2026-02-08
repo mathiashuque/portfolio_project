@@ -26,7 +26,7 @@ export default function Home() {
 
   // React state for displayed substring
   const [displayed, setDisplayed] = useState("");
-  const [done, setDone] = useState(false);
+  const [, setDone] = useState(false);
 
   // Guard so we only start typing once (also handles React StrictMode double effects)
   const startedRef = useRef(false);
@@ -49,12 +49,84 @@ export default function Home() {
     const duration = fullText.length / charsPerSecond;
 
     const controls = animate(count, fullText.length, {
-      duration: duration,
+      duration,
       ease: "linear",
     });
 
     return () => controls.stop();
   }, [leftInView, count, fullText.length]);
+
+  // Portrait block extracted so we can place it between title and paragraph on mobile
+  const Portrait = (
+    <div className="relative flex justify-center lg:justify-end my-6 sm:my-7 lg:my-0">
+      <div className="relative w-52 h-52 sm:w-64 sm:h-64 md:w-96 md:h-96">
+        {/* back rotated card */}
+        <div
+          className="
+            absolute left-2 top-3 sm:left-3 sm:top-4 md:left-4 md:top-5
+            w-52 h-52 sm:w-64 sm:h-64 md:w-96 md:h-96
+            bg-text
+            rounded-2xl
+            rotate-3 sm:rotate-5 md:rotate-6
+            animate-flip-up
+            animate-duration-600
+          "
+        />
+        {/* front card */}
+        <div
+          className="
+            absolute left-0 top-0
+            w-52 h-52 sm:w-64 sm:h-64 md:w-96 md:h-96
+            bg-panel
+            rounded-2xl
+            shadow-[0_20px_55px_-28px_rgba(0,0,0,0.65)]
+            overflow-hidden
+            animate-flip-up
+            animate-duration-600
+          "
+        >
+          <div className="w-full h-full grid place-items-center p-4 sm:p-5 md:p-7">
+            <div className="w-full h-full rounded-full overflow-hidden bg-bg">
+              <img
+                src="/avatar.png"
+                alt="Portrait"
+                className="w-full h-full object-cover animate-jump-in animate-duration-800"
+              />
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+
+  // Drag badge extracted so we can place it differently on mobile vs desktop
+  const DragBadge = (
+    <div className="relative h-13">
+      <motion.div
+        className="
+          absolute left-1/2 -translate-x-1/2 top-0
+          lg:left-0 lg:translate-x-0
+          z-40 cursor-grab active:cursor-grabbing
+        "
+        drag
+        dragConstraints={homeRef}
+        dragMomentum
+        dragElastic={0.1}
+        whileDrag={{ scale: 1.02 }}
+        style={{ touchAction: "none" }}
+        initial={{ x: 0, y: 0 }}
+      >
+        {/* wider on mobile */}
+        <div className="relative rounded-md border border-border bg-bg px-6 sm:px-5 py-3 text-sm sm:text-base font-medium animate-fade-down animate-duration-1000 whitespace-nowrap">
+          Hello, World! 👋 I’m Mathias!
+          <span className="absolute -left-1.5 -top-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
+          <span className="absolute -right-1.5 -top-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
+          <span className="absolute -left-1.5 -bottom-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
+          <span className="absolute -right-1.5 -bottom-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
+        </div>
+      </motion.div>
+    </div>
+  );
 
   return (
     <section
@@ -63,131 +135,93 @@ export default function Home() {
       className="
         bg-bg text-text
         flex flex-col
-        pt-5
-        overflow-hidden
-        h-[min(calc(100svh-80px),900px)]
+        lg:pt-5
+        overflow-x-hidden
+        min-h-[calc(100dvh-80px)]
         scroll-mt-32
         mb-20
         relative
+        overflow-hidden
       "
     >
       {/* HERO fills remaining height */}
-      <div className="flex-1 flex items-center">
-        <div className="max-w-7xl 2xl:max-w-360 mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-          {/* LEFT */}
-          <div ref={leftRef}>
-            {/* Reserve layout space for where it should spawn */}
-            <div className="relative mb-8 h-13">
-              <motion.div
-                className="absolute left-0 top-0 z-[999] cursor-grab active:cursor-grabbing"
-                drag
-                dragConstraints={homeRef}
-                dragMomentum
-                dragElastic={0.1}
-                whileDrag={{ scale: 1.02 }}
-                style={{ touchAction: "none" }}
-                initial={{ x: 0, y: 0 }}
-              >
-                {/* Selection box */}
-                <div className="relative rounded-md border border-border bg-bg px-5 py-3 text-base font-medium animate-fade-down animate-duration-[1000ms]">
-                  Hello, World! 👋 I’m Mathias!
-                  <span className="absolute -left-1.5 -top-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
-                  <span className="absolute -right-1.5 -top-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
-                  <span className="absolute -left-1.5 -bottom-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
-                  <span className="absolute -right-1.5 -bottom-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
-                </div>
-              </motion.div>
-            </div>
+      <div className="flex-1 flex items-center lg:pb-6">
+        <div className="max-w-7xl 2xl:max-w-360 mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
+          {/* LEFT (contains mobile ordering) */}
+          <div ref={leftRef} className="order-1 text-center lg:text-left">
+            {/* Desktop: drag badge on top (original vibe) */}
+            <div className="hidden lg:block mb-6 sm:mb-8">{DragBadge}</div>
 
+            {/* 2) Title */}
             <h1 className="text-5xl md:text-7xl font-extrabold leading-tight animate-fade-up">
               Software Developer
             </h1>
 
-            {/* Typing paragraph + classic blinking caret */}
-            <p className="mt-6 max-w-2xl text-muted text-xl">
-              {displayed}
-              <motion.span
-                aria-hidden="true"
-                className="
-    inline-block
-    w-0.5              /* thin caret */
-    h-[1.05em]           /* matches text height */
-    bg-current           /* uses current text color */
-    align-[-0.12em]      /* nudge down/up to sit on baseline */
-    ml-2
-    rounded-sm
-  "
-                animate={{ opacity: [1, 1, 0, 0] }}
-                transition={{
-                  duration: 1.25 /* slower blink */,
-                  repeat: Infinity,
-                  ease: "linear",
-                  times: [0, 0.55, 0.56, 1] /* stays on a bit longer */,
-                }}
-              />
-            </p>
+            {/* Mobile: Portrait first */}
+            <div className="lg:hidden">{Portrait}</div>
 
-            <div className="mt-10 flex items-center gap-7">
+            {/* Mobile: drag badge BELOW portrait */}
+            <div className="lg:hidden mb-6">{DragBadge}</div>
+
+            {/* Typing paragraph with reserved final height */}
+            <div className="mt-5 sm:mt-6 max-w-2xl mx-auto lg:mx-0 relative">
+              {/* This reserves the full height */}
+              <p className="text-muted text-base sm:text-xl opacity-0 select-none">
+                {fullText}
+              </p>
+
+              {/* This is the visible typing text, positioned on top */}
+              <p className="absolute inset-0 text-muted text-base sm:text-xl">
+                {displayed}
+                <motion.span
+                  aria-hidden="true"
+                  className="
+        inline-block
+        w-0.5
+        h-[1.05em]
+        bg-current
+        align-[-0.12em]
+        ml-2
+        rounded-sm
+      "
+                  animate={{ opacity: [1, 1, 0, 0] }}
+                  transition={{
+                    duration: 1.25,
+                    repeat: Infinity,
+                    ease: "linear",
+                    times: [0, 0.55, 0.56, 1],
+                  }}
+                />
+              </p>
+            </div>
+
+            {/* 5) Buttons (centered + constrained width on mobile) */}
+            <div className="mt-8 sm:mt-10 flex flex-col items-stretch gap-4 max-w-sm mx-auto lg:mx-0 lg:max-w-none lg:flex-row lg:items-center lg:gap-7">
               <a
                 href="#contact"
-                className="inline-flex items-center px-7 py-3.5 rounded-md bg-accent text-white text-lg font-semibold hover:bg-accent-2 transition"
+                className="inline-flex justify-center items-center px-7 py-3.5 rounded-md bg-accent text-white text-base sm:text-lg font-semibold hover:bg-accent-2 transition"
               >
                 Get In Touch →
               </a>
 
               <a
                 href="/Mathias_Huque_CV.pdf"
-                className="inline-flex items-center gap-2 text-lg font-medium text-text hover:underline"
+                className="inline-flex justify-center lg:justify-start items-center gap-2 text-base sm:text-lg font-medium text-text hover:underline"
               >
                 Download CV ↓
               </a>
             </div>
           </div>
 
-          {/* RIGHT */}
-          <div className="relative flex justify-center lg:justify-end">
-            <div className="relative w-96 h-96 sm:w-104 sm:h-104">
-              <div
-                className="
-                  absolute left-6 top-7
-                  w-96 h-96
-                  bg-text
-                  rounded-2xl
-                  rotate-5
-                  animate-flip-up
-                  animate-duration-[600ms]
-                "
-              />
-              <div
-                className="
-                  absolute left-0 top-0
-                  w-96 h-96
-                  bg-panel
-                  rounded-2xl
-                  shadow-[0_20px_55px_-28px_rgba(0,0,0,0.65)]
-                  overflow-hidden
-                  animate-flip-up
-                  animate-duration-[600ms]
-                  
-                "
-              >
-                <div className="w-full h-full grid place-items-center p-7">
-                  <div className="w-full h-full rounded-full overflow-hidden bg-bg">
-                    <img
-                      src="/avatar.png"
-                      alt="Portrait"
-                      className="w-full h-full object-cover animate-jump-in animate-duration-800"
-                    />
-                  </div>
-                </div>
-              </div>
-            </div>
+          {/* RIGHT (portrait on desktop only) */}
+          <div className="hidden lg:flex relative justify-center lg:justify-end order-2">
+            {Portrait}
           </div>
         </div>
       </div>
 
-      {/* MARQUEE pinned to bottom */}
-      <div className="mt-auto animate-fade-left animate-duration-[1000ms]">
+      {/* 6) Marquee pinned to bottom */}
+      <div className="mt-auto animate-fade-left animate-duration-1000">
         <TraitsMarquee />
       </div>
     </section>

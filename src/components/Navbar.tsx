@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { FaGithub, FaLinkedin, FaMoon, FaSun } from "react-icons/fa";
+import { FaMoon, FaSun } from "react-icons/fa";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
 
 const links = [
@@ -188,26 +188,6 @@ export default function Navbar() {
 
         {/* Desktop socials + theme */}
         <div className="hidden md:flex items-center gap-4 text-2xl">
-          <a
-            href="https://linkedin.com/in/mathias-huque"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={iconClass}
-            aria-label="LinkedIn"
-          >
-            <FaLinkedin />
-          </a>
-
-          <a
-            href="https://github.com/mHuque1"
-            target="_blank"
-            rel="noopener noreferrer"
-            className={iconClass}
-            aria-label="GitHub"
-          >
-            <FaGithub />
-          </a>
-
           <button
             type="button"
             onClick={toggleTheme}

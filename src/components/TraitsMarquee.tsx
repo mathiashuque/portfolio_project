@@ -38,7 +38,7 @@ export default function TraitsMarquee() {
   const items = [...traits, ...traits, ...traits];
 
   return (
-    <div className="py-6">
+    <div className="py-2">
       {/* Same container width as Home */}
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
         {/* Frame clips background + fades to boxed width */}
