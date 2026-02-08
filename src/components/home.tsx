@@ -15,6 +15,9 @@ export default function Home() {
   const leftRef = useRef<HTMLDivElement | null>(null);
   const leftInView = useInView(leftRef, { amount: 0.6, once: true });
 
+  const dragKeyRef = useRef(0);
+  const [dragKey, setDragKey] = useState(0);
+
   const fullText = useMemo(
     () =>
       "I design and build clean, performant web applications with a strong focus on usability, maintainability, and modern UI.",
@@ -55,6 +58,29 @@ export default function Home() {
 
     return () => controls.stop();
   }, [leftInView, count, fullText.length]);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(min-width: 1024px)"); // Tailwind lg
+
+    const reset = () => {
+      dragKeyRef.current += 1;
+      setDragKey(dragKeyRef.current);
+    };
+
+    // reset once when breakpoint flips
+    const onChange = () => reset();
+
+    // initial (optional): if you want a reset on first mount too, call reset() here
+    // reset();
+
+    if (mq.addEventListener) mq.addEventListener("change", onChange);
+    else mq.addListener(onChange);
+
+    return () => {
+      if (mq.removeEventListener) mq.removeEventListener("change", onChange);
+      else mq.removeListener(onChange);
+    };
+  }, []);
 
   // Portrait block extracted so we can place it between title and paragraph on mobile
   const Portrait = (
@@ -103,6 +129,7 @@ export default function Home() {
   const DragBadge = (
     <div className="relative h-13">
       <motion.div
+       key={dragKey}
         className="
           absolute left-1/2 -translate-x-1/2 top-0
           lg:left-0 lg:translate-x-0
@@ -137,13 +164,15 @@ export default function Home() {
         flex flex-col
         lg:pt-5
         overflow-x-hidden
-        min-h-[calc(100dvh-80px)]
         scroll-mt-32
         mb-20
         relative
         overflow-hidden
+        
       "
     >
+      {/*h-[min(calc(100svh-80px),900px)]*/}
+
       {/* HERO fills remaining height */}
       <div className="flex-1 flex items-center lg:pb-6">
         <div className="max-w-7xl 2xl:max-w-360 mx-auto px-6 w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center">
@@ -153,7 +182,7 @@ export default function Home() {
             <div className="hidden lg:block mb-6 sm:mb-8">{DragBadge}</div>
 
             {/* 2) Title */}
-            <h1 className="text-5xl md:text-7xl font-extrabold leading-tight animate-fade-up">
+            <h1 className="text-6xl md:text-7xl font-extrabold leading-tight animate-fade-up">
               Software Developer
             </h1>
 

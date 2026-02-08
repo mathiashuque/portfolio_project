@@ -194,7 +194,7 @@ export default function ExperienceSection() {
   return (
     <section
       id="experience"
-      className="px-6 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 mb-10"
+      className="px-6 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 mb-20 "
       aria-label="Experience"
     >
       <div className="mb-14 text-center">
@@ -221,6 +221,7 @@ export default function ExperienceSection() {
             className={cn(
               "absolute left-4 top-0 bottom-0 w-px",
               "bg-border/25",
+              "hidden sm:block",
             )}
           />
 
@@ -228,7 +229,7 @@ export default function ExperienceSection() {
             {experiences.map((exp) => (
               <li
                 key={`${exp.role}-${exp.period}`}
-                className="relative pl-14 sm:pl-16"
+                className="relative pl-0 sm:pl-16"
               >
                 {/* Dot — fixed to the timeline */}
                 <motion.div
@@ -240,6 +241,7 @@ export default function ExperienceSection() {
                     "absolute left-2.5 top-10 h-3 w-3 rounded-full",
                     "bg-accent/80",
                     "ring-4 ring-bg",
+                    "hidden sm:block",
                   )}
                 />
 

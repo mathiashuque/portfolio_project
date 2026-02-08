@@ -125,7 +125,6 @@ export default function Contact() {
       className="
     relative overflow-hidden scroll-mt-32
     max-w-7xl 2xl:max-w-360 mx-auto px-6
-    min-h-[min(calc(100svh-80px),900px)]
     pb-16
   "
     >

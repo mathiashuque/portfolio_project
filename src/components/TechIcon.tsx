@@ -1,3 +1,4 @@
+import React, { useEffect, useRef, useState } from "react";
 import {
   palette,
   rgba,
@@ -12,12 +13,30 @@ type TechIconProps = {
   color?: TechColor;
 };
 
-export default function TechIcon({
-  name,
-  logo,
-  color = "html",
-}: TechIconProps) {
+export default function TechIcon({ name, logo, color = "html" }: TechIconProps) {
   const c = palette[color];
+
+  // "tap = hover" state (for mobile)
+  const [active, setActive] = useState(false);
+  const rootRef = useRef<HTMLDivElement | null>(null);
+
+  // close when tapping outside
+  useEffect(() => {
+    if (!active) return;
+
+    const onDocPointerDown = (e: PointerEvent) => {
+      const root = rootRef.current;
+      if (!root) return;
+      if (!root.contains(e.target as Node)) setActive(false);
+    };
+
+    document.addEventListener("pointerdown", onDocPointerDown, { capture: true });
+    return () => {
+      document.removeEventListener("pointerdown", onDocPointerDown, {
+        capture: true,
+      } as EventListenerOptions);
+    };
+  }, [active]);
 
   // gradients are derived from the RGB in the palette (so it works for all techs)
   const outerGlow = `radial-gradient(circle,
@@ -38,32 +57,50 @@ export default function TechIcon({
     ${rgba(c.rgb, 0)} 80%
   )`;
 
+  const showHover = active; // used to mimic hover on touch devices
+
   return (
-    <div className="relative group">
-      {/* Outer ethereal glow (hover only) */}
+    <div
+      ref={rootRef}
+      className="relative group select-none touch-manipulation"
+      // desktop hover stays as-is
+      onMouseEnter={() => setActive(true)}
+      onMouseLeave={() => setActive(false)}
+      // mobile tap toggles the same visuals
+      onClickCapture={() => setActive((v) => !v)}
+    >
+      {/* Outer ethereal glow (hover/tap) */}
       <div
         className={[
           "pointer-events-none absolute -inset-2",
           "rounded-3xl blur-lg",
-          "opacity-0 group-hover:opacity-100",
-          "transition-opacity duration-700 ease-out",
+          "opacity-0 transition-opacity duration-700 ease-out",
           "z-0",
+          // keep group-hover for desktop, add active for mobile
+          "group-hover:opacity-100",
         ].join(" ")}
-        style={{ background: outerGlow }}
+        style={{
+          background: outerGlow,
+          opacity: showHover ? 1 : undefined,
+        }}
       />
 
-      {/* Tooltip */}
+      {/* Tooltip (hover/tap) */}
       <div
         className={[
           "pointer-events-none absolute -top-12 left-1/2 -translate-x-1/2",
-          "opacity-0 group-hover:opacity-100 transition-opacity duration-300",
+          "opacity-0 transition-opacity duration-300",
           "px-4 py-2 rounded-full",
-          "border-2 backdrop-blur-sm bg-transparent",
+          "border-2  bg-black/70",
           "font-semibold whitespace-nowrap shadow-lg",
           "z-20",
           c.text,
           c.border,
+          "group-hover:opacity-100",
         ].join(" ")}
+        style={{
+          opacity: showHover ? 1 : undefined,
+        }}
       >
         {name}
       </div>
@@ -81,9 +118,7 @@ export default function TechIcon({
           {/* Base tile (idle background, no visible border) */}
           <div
             className="absolute inset-0 transition-all duration-700 ease-out"
-            style={{
-              backgroundColor: rgba(c.rgb, c.tileIdleBgA),
-            }}
+            style={{ backgroundColor: rgba(c.rgb, c.tileIdleBgA) }}
           />
 
           {/* Inner glow (idle) */}
@@ -95,23 +130,32 @@ export default function TechIcon({
             }}
           />
 
-          {/* Inner glow boost (hover) */}
+          {/* Inner glow boost (hover/tap) */}
           <div
-            className="absolute inset-0 blur-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out"
-            style={{ background: innerHoverGlow, opacity: c.innerHoverA }}
+            className={[
+              "absolute inset-0 blur-2xl opacity-0 transition-opacity duration-700 ease-out",
+              "group-hover:opacity-100",
+            ].join(" ")}
+            style={{
+              background: innerHoverGlow,
+              // keep palette-based intensity when shown
+              opacity: showHover ? c.innerHoverA : undefined,
+            }}
           />
 
-          {/* Hover border (only on hover) */}
+          {/* Hover border (hover/tap) */}
           <div
             className={[
               "absolute inset-0",
               techIconRadius,
-              "opacity-0 group-hover:opacity-100 transition-opacity duration-700 ease-out",
+              "opacity-0 transition-opacity duration-700 ease-out",
               "pointer-events-none",
               "z-20",
+              "group-hover:opacity-100",
             ].join(" ")}
             style={{
               border: `1px solid rgba(${c.rgb}, ${c.hoverBorderA})`,
+              opacity: showHover ? 1 : undefined,
             }}
           />
 
@@ -120,8 +164,14 @@ export default function TechIcon({
             src={logo}
             alt={name}
             loading="eager"
-            className="relative z-10 w-8 h-8 object-contain transition-transform duration-700 ease-out group-hover:scale-105"
             draggable={false}
+            className={[
+              "relative z-10 w-8 h-8 object-contain transition-transform duration-700 ease-out",
+              "group-hover:scale-105",
+            ].join(" ")}
+            style={{
+              transform: showHover ? "scale(1.05)" : undefined,
+            }}
           />
         </div>
       </div>

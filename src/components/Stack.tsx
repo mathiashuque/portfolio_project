@@ -4,8 +4,6 @@ import type { TechColor } from "../theme/tech";
 
 import React, { useLayoutEffect, useRef, useState } from "react";
 
-
-
 function MarqueeRow({
   items,
   reverse = false,
@@ -19,8 +17,15 @@ function MarqueeRow({
   const g1Ref = useRef<HTMLDivElement | null>(null);
   const g2Ref = useRef<HTMLDivElement | null>(null);
 
+  const [paused, setPaused] = useState(false);
   const [shiftPx, setShiftPx] = useState(0);
   const [ready, setReady] = useState(false);
+
+  // avoids stale closure in ResizeObserver callback
+  const readyRef = useRef(false);
+  useLayoutEffect(() => {
+    readyRef.current = ready;
+  }, [ready]);
 
   const seamPx = 24; // 1.5rem
 
@@ -39,8 +44,7 @@ function MarqueeRow({
 
     const measure = () => {
       const d =
-        g2.getBoundingClientRect().left -
-        g1.getBoundingClientRect().left;
+        g2.getBoundingClientRect().left - g1.getBoundingClientRect().left;
 
       const rounded = Math.round(d);
       if (rounded > 0) {
@@ -52,62 +56,88 @@ function MarqueeRow({
     measure();
     requestAnimationFrame(measure);
 
-    // only help before ready
     const ro =
       typeof ResizeObserver !== "undefined"
         ? new ResizeObserver(() => {
-            if (!ready) measure();
+            if (!readyRef.current) measure();
           })
         : null;
 
     ro?.observe(wrap);
     return () => ro?.disconnect();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [items]);
 
   return (
     <div className="relative overflow-x-clip overflow-y-visible px-16">
-      <div className="pointer-events-none absolute inset-y-0 left-0 w-14 bg-gradient-to-r from-panel to-transparent z-10" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 w-14 bg-gradient-to-l from-panel to-transparent z-10" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-gradient-to-r from-panel to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-gradient-to-l from-panel to-transparent" />
 
       <div
         ref={wrapRef}
+        // Desktop hover pause
+        onMouseEnter={() => setPaused(true)}
+        onMouseLeave={() => setPaused(false)}
+        // Mobile tap pause (click is the most reliable on touch devices)
+        onClickCapture={() => setPaused((p) => !p)}
         className={[
           "flex w-max flex-nowrap items-center",
           "will-change-transform transform-gpu",
-          "hover:[animation-play-state:paused]",
           "motion-reduce:animate-none",
+          "select-none",
+          "cursor-pointer",
+          // important: don't block scrolling, but make taps snappy
+          "touch-pan-y",
           animClass,
         ].join(" ")}
         style={
           {
             "--marquee-duration": `${durationSec}s`,
             "--marquee-shift": `${shiftPx}px`,
+            animationPlayState: paused ? "paused" : "running",
           } as React.CSSProperties & Record<string, string>
         }
       >
         {/* g1 */}
         <div ref={g1Ref} className="flex flex-nowrap gap-6 py-1">
           {items.map((item) => (
-            <TechIcon key={`a-${item.name}`} name={item.name} logo={item.logo} color={item.color as TechColor | undefined} />
+            <TechIcon
+              key={`a-${item.name}`}
+              name={item.name}
+              logo={item.logo}
+              color={item.color as TechColor | undefined}
+            />
           ))}
         </div>
 
         <div className="shrink-0" style={{ width: seamPx }} />
 
         {/* g2 */}
-        <div ref={g2Ref} className="flex flex-nowrap gap-6 py-1" aria-hidden="true">
+        <div
+          ref={g2Ref}
+          className="flex flex-nowrap gap-6 py-1"
+          aria-hidden="true"
+        >
           {items.map((item) => (
-            <TechIcon key={`b-${item.name}`} name={item.name} logo={item.logo} color={item.color as TechColor | undefined} />
+            <TechIcon
+              key={`b-${item.name}`}
+              name={item.name}
+              logo={item.logo}
+              color={item.color as TechColor | undefined}
+            />
           ))}
         </div>
 
         <div className="shrink-0" style={{ width: seamPx }} />
 
-        {/* g3 (extra runway copy) */}
+        {/* g3 */}
         <div className="flex flex-nowrap gap-6 py-1" aria-hidden="true">
           {items.map((item) => (
-            <TechIcon key={`c-${item.name}`} name={item.name} logo={item.logo} color={item.color as TechColor | undefined} />
+            <TechIcon
+              key={`c-${item.name}`}
+              name={item.name}
+              logo={item.logo}
+              color={item.color as TechColor | undefined}
+            />
           ))}
         </div>
       </div>
@@ -120,7 +150,7 @@ export default function Stack() {
   return (
     <section
       id="stack"
-      className="px-6 mb-20 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 min-h-[min(calc(100svh-80px),900px)]"
+      className="px-6 mb-20 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32"
     >
       <div className="mb-5 text-center">
         <p className="text-xs font-semibold tracking-[0.22em] text-faint/90">

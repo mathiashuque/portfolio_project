@@ -118,12 +118,12 @@ export default function About() {
   return (
     <section
       id="about"
-      className="scroll-mt-32 h-[min(calc(100svh-80px),900px)] mb-20"
+      className="scroll-mt-32 mb-40"
       aria-label="About"
     >
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
         <div className="relative isolate overflow-hidden rounded-3xl">
-          <div className="py-10 md:py-14">
+          <div className="">
             <div className="mx-auto max-w-4xl text-center">
               <h2 className="text-3xl font-semibold tracking-tight text-slate-900 dark:text-white md:text-5xl leading-tight">
                 I focus on building software that stays understandable as it grows.
