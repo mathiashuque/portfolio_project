@@ -1,15 +1,17 @@
 import TechIcon from "./TechIcon";
-import { STACK } from "../data/stackData";
+
 import type { TechColor } from "../theme/tech";
+import type { StaticImageData } from "next/image";
 
 import React, { useLayoutEffect, useRef, useState } from "react";
+import { STACK } from "./stackData";
 
 function MarqueeRow({
   items,
   reverse = false,
   durationSec = 26,
 }: {
-  items: readonly { name: string; logo: string; color?: string }[];
+  items: readonly { name: string; logo: StaticImageData; color?: string }[];
   reverse?: boolean;
   durationSec?: number;
 }) {
@@ -69,8 +71,8 @@ function MarqueeRow({
 
   return (
     <div className="relative overflow-x-clip overflow-y-visible px-16">
-      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-gradient-to-r from-panel to-transparent" />
-      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-gradient-to-l from-panel to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 left-0 z-10 w-14 bg-linear-to-r from-panel to-transparent" />
+      <div className="pointer-events-none absolute inset-y-0 right-0 z-10 w-14 bg-linear-to-l from-panel to-transparent" />
 
       <div
         ref={wrapRef}

@@ -1,3 +1,5 @@
+"use client";
+
 import Navbar from "./components/Navbar";
 import Experience from "./components/Experience";
 import Projects from "./components/Projects";
