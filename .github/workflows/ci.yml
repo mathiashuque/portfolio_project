@@ -3,19 +3,15 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main, develop]
+    branches: [main]
 
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  build-and-test:
+  ci:
     runs-on: ubuntu-latest
-
-    strategy:
-      matrix:
-        node: [20]
 
     steps:
       - name: Checkout
@@ -24,14 +20,22 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: ${{ matrix.node }}
+          node-version: 20
           cache: npm
 
       - name: Install dependencies
         run: npm ci
 
-      - name: Lint (if configured)
-        run: npm run lint --if-present
+      - name: Cache Next.js build cache
+        uses: actions/cache@v4
+        with:
+          path: .next/cache
+          key: ${{ runner.os }}-next-${{ hashFiles('package-lock.json') }}-${{ hashFiles('**/*.[jt]s', '**/*.[jt]sx', '**/*.css', '**/*.json') }}
+          restore-keys: |
+            ${{ runner.os }}-next-${{ hashFiles('package-lock.json') }}-
+
+      - name: Lint
+        run: npm run lint
 
       - name: Typecheck (if configured)
         run: npm run typecheck --if-present
@@ -42,6 +46,6 @@ jobs:
       - name: Build
         run: npm run build
         env:
-          # avoids failing builds if you don't have these set in CI yet
-          # remove if you want CI to be strict about env vars
           NEXT_TELEMETRY_DISABLED: "1"
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CONTACT_TO_EMAIL: ${{ secrets.CONTACT_TO_EMAIL }}
