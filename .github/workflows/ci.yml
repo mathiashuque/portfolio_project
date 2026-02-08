@@ -1,0 +1,47 @@
+name: CI
+
+on:
+  pull_request:
+  push:
+    branches: [main, develop]
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  build-and-test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node: [20]
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node }}
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint (if configured)
+        run: npm run lint --if-present
+
+      - name: Typecheck (if configured)
+        run: npm run typecheck --if-present
+
+      - name: Test (if configured)
+        run: npm test --if-present
+
+      - name: Build
+        run: npm run build
+        env:
+          # avoids failing builds if you don't have these set in CI yet
+          # remove if you want CI to be strict about env vars
+          NEXT_TELEMETRY_DISABLED: "1"
