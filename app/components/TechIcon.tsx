@@ -1,4 +1,5 @@
 import React, { useEffect, useRef, useState } from "react";
+import Image from "next/image";
 import {
   palette,
   rgba,
@@ -6,10 +7,11 @@ import {
   techIconTileSize,
   type TechColor,
 } from "../theme/tech";
+import { StaticImageData } from "next/image";
 
 type TechIconProps = {
   name: string;
-  logo: string;
+  logo: StaticImageData;
   color?: TechColor;
 };
 
@@ -160,10 +162,9 @@ export default function TechIcon({ name, logo, color = "html" }: TechIconProps) 
           />
 
           {/* Icon */}
-          <img
+          <Image
             src={logo}
             alt={name}
-            loading="eager"
             draggable={false}
             className={[
               "relative z-10 w-8 h-8 object-contain transition-transform duration-700 ease-out",

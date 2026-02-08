@@ -1,4 +1,4 @@
-import { useState } from "react";
+import Image from "next/image";
 
 type Category = "All" | "Web" | "UI" | "Apps" | "CMS";
 
@@ -26,14 +26,15 @@ function ProjectTile({ project }: { project: Project }) {
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60",
       )}
     >
-      <img
+      <Image
         src={project.image}
         alt={project.name}
+        fill
+        sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 33vw"
         className={cn(
-          "absolute inset-0 h-full w-full object-cover",
+          "absolute inset-0 object-cover",
           "transition-transform duration-500 group-hover:scale-[1.03]",
         )}
-        loading="lazy"
       />
 
       <div className="pointer-events-none absolute inset-0 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
