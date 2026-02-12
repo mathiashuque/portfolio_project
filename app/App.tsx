@@ -6,8 +6,9 @@ import Projects from "../components/Projects";
 import Stack from "../components/Stack";
 import Footer from "../components/Footer";
 import About from "../components/About";
-import Contact from "../components/contact";
-import Home from "../components/home";
+
+import Home from "@/components/home/home";
+import Contact from "@/components/contact/contact";
 
 function App() {
   return (
