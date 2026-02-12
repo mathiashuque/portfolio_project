@@ -1,17 +1,15 @@
-import TechIcon from "./TechIcon";
-
-import type { StaticImageData } from "next/image";
+"use client";
 
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { STACK } from "../tech/stackData";
-import { TechColor } from "@/tech";
+import TechIcon from "../TechIcon";
+import type { StackCategoryItems } from "./types";
 
-function MarqueeRow({
+export default function MarqueeRow({
   items,
   reverse = false,
   durationSec = 26,
 }: {
-  items: readonly { name: string; logo: StaticImageData; color?: TechColor }[];
+  items: StackCategoryItems;
   reverse?: boolean;
   durationSec?: number;
 }) {
@@ -23,7 +21,6 @@ function MarqueeRow({
   const [shiftPx, setShiftPx] = useState(0);
   const [ready, setReady] = useState(false);
 
-  // avoids stale closure in ResizeObserver callback
   const readyRef = useRef(false);
   useLayoutEffect(() => {
     readyRef.current = ready;
@@ -76,10 +73,8 @@ function MarqueeRow({
 
       <div
         ref={wrapRef}
-        // Desktop hover pause
         onMouseEnter={() => setPaused(true)}
         onMouseLeave={() => setPaused(false)}
-        // Mobile tap pause (click is the most reliable on touch devices)
         onClickCapture={() => setPaused((p) => !p)}
         className={[
           "flex w-max flex-nowrap items-center",
@@ -87,7 +82,6 @@ function MarqueeRow({
           "motion-reduce:animate-none",
           "select-none",
           "cursor-pointer",
-          // important: don't block scrolling, but make taps snappy
           "touch-pan-y",
           animClass,
         ].join(" ")}
@@ -106,7 +100,7 @@ function MarqueeRow({
               key={`a-${item.name}`}
               name={item.name}
               logo={item.logo}
-              color={item.color as TechColor | undefined}
+              color={item.color}
             />
           ))}
         </div>
@@ -124,7 +118,7 @@ function MarqueeRow({
               key={`b-${item.name}`}
               name={item.name}
               logo={item.logo}
-              color={item.color as TechColor | undefined}
+              color={item.color}
             />
           ))}
         </div>
@@ -138,53 +132,11 @@ function MarqueeRow({
               key={`c-${item.name}`}
               name={item.name}
               logo={item.logo}
-              color={item.color as TechColor | undefined}
+              color={item.color}
             />
           ))}
         </div>
       </div>
     </div>
-  );
-}
-
-
-export default function Stack() {
-  return (
-    <section
-      id="stack"
-      className="px-6 mb-20 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32"
-    >
-      <div className="mb-5 text-center">
-        <p className="text-xs font-semibold tracking-[0.22em] text-faint/90">
-          STACK
-        </p>
-
-        <h2 className="mt-3 text-4xl sm:text-5xl font-bold tracking-tight text-text">
-          Skills &amp; Technologies
-        </h2>
-
-        <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-muted/90">
-          Explore the stacks I rely on to ship production-ready software.
-        </p>
-      </div>
-
-      <div className="space-y-5">
-        {Object.entries(STACK).map(([category, items], i) => (
-          <div key={category}>
-            <h3 className="text-lg sm:text-xl font-semibold mb-3 text-muted/90 tracking-tight">
-              {category}
-            </h3>
-
-            <div className="rounded-2xl bg-panel px-6 py-1 pt-1 shadow-sm">
-              <MarqueeRow
-                items={items}
-                reverse={i % 2 === 1}
-                durationSec={24 + i * 4}
-              />
-            </div>
-          </div>
-        ))}
-      </div>
-    </section>
   );
 }
