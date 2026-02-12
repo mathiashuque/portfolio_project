@@ -12,14 +12,14 @@ export default function Hero({ constraintsRef, dragKey }: HeroProps) {
   const leftRef = useRef<HTMLDivElement | null>(null);
   const leftInView = useInView(leftRef, { amount: 0.35, once: true });
 
-  const fullText = useMemo(
-    () =>
-      "I help startups, businesses, and founders launch scalable web and mobile products that generate users, leads, and sales.",
-    [],
-  );
+ const fullText = useMemo(
+  () =>
+    "I build complete digital products from start to finish, helping ideas become real, working solutions.",
+  [],
+);
 
   return (
-    <div className="flex-1 flex items-center justify-center">
+    <div className="flex-1 flex items-center justify-center max-w-9xl">
       <div className="max-w-6xl mx-auto px-6 w-full">
         <div
           ref={constraintsRef}
@@ -32,7 +32,7 @@ export default function Hero({ constraintsRef, dragKey }: HeroProps) {
             <DragBadge dragKey={dragKey} constraintsRef={constraintsRef} />
 
             <h1 className="max-w-4xl text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] tracking-tight animate-fade-up">
-              I build Web & Mobile Apps That Turn{" "}
+              I Build Software Apps That Turn{" "}
               <span className="bg-linear-to-r from-sky-400 to-indigo-500 bg-clip-text text-transparent">
                 Ideas Into Reality
               </span>
@@ -46,14 +46,14 @@ export default function Hero({ constraintsRef, dragKey }: HeroProps) {
             <div className="mt-4 flex flex-col sm:flex-row justify-center items-center gap-5">
               <a
                 href="#contact"
-                className="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-full bg-accent text-white text-lg font-semibold hover:bg-accent-2 transition min-w-[200px]"
+                className="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-full bg-accent text-white text-lg font-semibold hover:bg-accent-2 transition min-w-50"
               >
                 Contact →
               </a>
 
               <a
                 href="/Mathias_Huque_CV.pdf"
-                className="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-full bg-panel border border-white/10 text-lg font-semibold hover:bg-white/10 transition min-w-[200px]"
+                className="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-full bg-panel border border-white/10 text-lg font-semibold hover:bg-white/10 transition min-w-50"
               >
                 Download CV ↓
               </a>

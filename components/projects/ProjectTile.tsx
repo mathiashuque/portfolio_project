@@ -17,6 +17,7 @@ export default function ProjectTile({ project }: { project: Project }) {
         src={project.image}
         alt={project.name}
         fill
+        loading="eager"
         sizes="(max-width: 640px) 100vw, (max-width: 1024px) 33vw, 33vw"
         className={cn(
           "absolute inset-0 object-cover",

@@ -35,22 +35,7 @@ export default function MobileMenu({
         <div className="mt-5 flex items-center gap-4 text-2xl">
           <ThemeToggle dark={dark} onToggle={onToggleTheme} variant="mobile" />
 
-          <a
-            href="/Mathias_Huque_CV.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              mt-4 inline-flex w-full items-center justify-center
-              px-4 py-2 rounded-lg text-sm font-semibold
-              bg-blue-600 text-white
-              transition-all duration-200
-              hover:bg-blue-700 hover:scale-[1.03]
-              hover:shadow-lg hover:shadow-blue-600/30
-              active:scale-[0.98]
-            "
-          >
-            View CV
-          </a>
+          
         </div>
       </div>
     </div>

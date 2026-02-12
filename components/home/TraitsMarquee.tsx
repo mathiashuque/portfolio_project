@@ -40,7 +40,7 @@ export default function TraitsMarquee() {
   return (
     <div className="py-2">
       {/* Same container width as Home */}
-      <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
+      <div className="mx-auto w-full max-w-9xl 2xl:max-w-360 px-6">
         {/* Frame clips background + fades to boxed width */}
         <div className="relative overflow-hidden rounded-2xl bg-panel">
           <div className="marquee py-6">

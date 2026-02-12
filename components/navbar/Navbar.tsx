@@ -163,21 +163,7 @@ export default function Navbar() {
         <div className="hidden md:flex items-center gap-4 text-2xl">
           <ThemeToggle dark={dark} onToggle={toggleTheme} variant="icon" />
 
-          <a
-            href="/Mathias_Huque_CV.pdf"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="
-              ml-2 px-4 py-2 rounded-lg text-sm font-semibold
-              bg-blue-600 text-white
-              transition-all duration-200
-              hover:bg-blue-700 hover:scale-[1.06]
-              hover:shadow-lg hover:shadow-blue-600/30
-              active:scale-[0.98]
-            "
-          >
-            View CV
-          </a>
+
         </div>
 
         <button
