@@ -10,6 +10,7 @@ export const PROJECTS: Project[] = [
     category: "Web",
     image: "/projects/portfolio.png",
   },
+  /*
   {
     name: "Finance Tracker System",
     description: "Track personal finances, budgets, and expenses.",
@@ -26,4 +27,5 @@ export const PROJECTS: Project[] = [
     category: "Apps",
     image: "/projects/portfolio.png",
   },
+  */
 ];

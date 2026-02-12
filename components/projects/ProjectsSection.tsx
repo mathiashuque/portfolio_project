@@ -13,19 +13,7 @@ export default function ProjectsSection() {
 
       <ProjectGrid projects={PROJECTS} />
 
-      <div className="mt-10 flex justify-center">
-        <a
-          href="#"
-          className={cn(
-            "inline-flex items-center gap-2 rounded-full px-5 py-3 text-sm font-semibold",
-            "border border-border/10 bg-panel text-text/90",
-            "transition-colors hover:border-border/20 hover:text-text",
-          )}
-        >
-          See more
-          <span className="text-accent">→</span>
-        </a>
-      </div>
+      
     </section>
   );
 }
