@@ -24,7 +24,6 @@ import pythonLogo from "../../../public/logos/python.logo.svg";
 import javaLogo from "../../../public/logos/java.logo.svg";
 import cplusplusLogo from "../../../public/logos/cplusplus.logo.svg";
 import csharpLogo from "../../../public/logos/csharp.logo.svg";
-import haskellLogo from "../../../public/logos/haskell.logo.svg";
 import flutterLogo from "../../../public/logos/flutter.logo.svg";
 import sequelizeLogo from "../../../public/logos/sequelize.logo.svg";
 import nestjsLogo from "../../../public/logos/nestjs.logo.svg";
@@ -60,7 +59,6 @@ export const STACK = {
     { name: "C++", logo: cplusplusLogo, color: "cplusplus" },
     { name: "C#", logo: csharpLogo, color: "csharp" },
     { name: ".NET", logo: dotnetLogo, color: "dotnet" },
-    { name: "Haskell", logo: haskellLogo, color: "haskell" },
   ],
 
   "Libraries & Frameworks": [

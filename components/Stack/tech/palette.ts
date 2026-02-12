@@ -205,14 +205,7 @@ export const palette = {
     PRESETS.strong,
   ),
 
-  haskell: makeEntry(
-    {
-      text: "text-purple-300",
-      border: "border-purple-400/60",
-      rgb: "192, 132, 252",
-    },
-    PRESETS.strong,
-  ),
+  
   flutter: makeEntry(
     {
       text: "text-blue-300",

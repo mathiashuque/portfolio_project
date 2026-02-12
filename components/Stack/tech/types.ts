@@ -23,7 +23,6 @@ export type TechColor =
   | "firebase"
   | "cplusplus"
   | "csharp"
-  | "haskell"
   | "github"
   | "sequelize"
   | "flutter"
