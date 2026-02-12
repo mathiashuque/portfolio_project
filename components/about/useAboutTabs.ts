@@ -1,10 +1,10 @@
 "use client";
 
 import { useEffect, useMemo, useState } from "react";
-import type { Tab, TabKey } from "./types";
+import type { AboutTab, TabKey } from "./types";
 
-export function useAboutTabs(tabs: readonly Tab[], rotateMs: number) {
-  const [active, setActive] = useState<TabKey>(tabs[0]?.key ?? "principles");
+export function useAboutTabs(tabs: readonly AboutTab[], rotateMs: number) {
+  const [active, setActive] = useState<TabKey>(tabs[0]?.key ?? "bio");
 
   const activeIndex = useMemo(
     () => tabs.findIndex((t) => t.key === active),
@@ -13,7 +13,6 @@ export function useAboutTabs(tabs: readonly Tab[], rotateMs: number) {
 
   const activeTab = useMemo(() => tabs[activeIndex] ?? tabs[0], [tabs, activeIndex]);
 
-  // Auto-rotate (resets on manual click because `active` changes)
   useEffect(() => {
     if (!tabs.length) return;
 
