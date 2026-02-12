@@ -11,14 +11,22 @@ export default function AboutTabContent({
   activeKey: string;
 }) {
   return (
-    <div key={activeKey} className="animate-[fadeSlide_1000ms_ease-out] mt-8">
-      {tab.kind === "bio" ? (
-        <AboutBio tab={tab} />
-      ) : tab.kind === "services" ? (
-        <AboutServices tab={tab} />
-      ) : (
-        <AboutImpact tab={tab} />
-      )}
+    <div
+      className="
+        mt-5
+        min-h-75 sm:min-h-90 lg:min-h-100
+        flex items-start
+      "
+    >
+      <div key={activeKey} className="w-full animate-[fadeSlide_1000ms_ease-out]">
+        {tab.kind === "bio" ? (
+          <AboutBio tab={tab} />
+        ) : tab.kind === "services" ? (
+          <AboutServices tab={tab} />
+        ) : (
+          <AboutImpact tab={tab} />
+        )}
+      </div>
     </div>
   );
 }

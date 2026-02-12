@@ -15,8 +15,9 @@ export const ABOUT_TABS: readonly AboutTab[] = [
     label: "About",
     title: "About Mathias Huque",
     paragraphs: [
-      "I build clean, modern web applications with a strong focus on usability, maintainability, and performance.",
-      "With a deep understanding of both technology and business needs, I bridge the gap between complex code and real outcomes—shipping reliable products that scale.",
+      "I am a Software Developer focused on building reliable, well-structured software systems that solve real problems. I work across different layers of the stack—designing, implementing, and refining applications and services with clean architecture, predictable behavior, and a strong emphasis on performance and user experience.",
+
+      "Beyond writing code, I care about how software is structured, maintained, and evolved over time. I approach engineering with a pragmatic mindset—balancing technical depth with real-world constraints to deliver solutions that are efficient, scalable, and built to last.",
     ],
   },
   {
@@ -38,7 +39,8 @@ export const ABOUT_TABS: readonly AboutTab[] = [
       },
       {
         title: "Admin Dashboards",
-        description: "Data visualization and management tools for internal use.",
+        description:
+          "Data visualization and management tools for internal use.",
         icon: <Gauge className="h-5 w-5" />,
       },
       {
@@ -63,13 +65,26 @@ export const ABOUT_TABS: readonly AboutTab[] = [
     key: "impact",
     label: "Impact",
     title: "How I Help Businesses Grow",
-    subtitle: "Technology is an investment, not an expense. Here is how I drive ROI.",
+    subtitle:
+      "Technology is an investment, not an expense. Here is how I drive ROI.",
     items: [
-      { left: "Manual processes wasting time", right: "I build systems that automate operations" },
-      { left: "No online presence", right: "I design high-converting websites" },
+      {
+        left: "Manual processes wasting time",
+        right: "I build systems that automate operations",
+      },
+      {
+        left: "No online presence",
+        right: "I design high-converting websites",
+      },
       { left: "Idea but no product", right: "I turn ideas into live apps" },
-      { left: "Low customer engagement", right: "I build apps users love to use" },
-      { left: "Poor scalability", right: "I build with architecture ready for growth" },
+      {
+        left: "Low customer engagement",
+        right: "I build apps users love to use",
+      },
+      {
+        left: "Poor scalability",
+        right: "I build with architecture ready for growth",
+      },
     ] as const,
   },
 ];

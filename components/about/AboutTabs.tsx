@@ -1,13 +1,15 @@
-import type { Tab, TabKey } from "./types";
+import type { AboutTab, TabKey } from "./types";
 
 export default function AboutTabs({
   tabs,
   active,
   onSelect,
+  rotateMs,
 }: {
-  tabs: readonly Tab[];
+  tabs: readonly AboutTab[];
   active: TabKey;
   onSelect: (key: TabKey) => void;
+  rotateMs: number;
 }) {
   return (
     <div
@@ -17,6 +19,7 @@ export default function AboutTabs({
     >
       {tabs.map((t) => {
         const isActive = t.key === active;
+
         return (
           <button
             key={t.key}
@@ -32,7 +35,7 @@ export default function AboutTabs({
               isActive ? "text-slate-900 dark:text-white" : "",
             ].join(" ")}
           >
-            <span className="inline-flex items-center gap-2">
+            <span className="relative inline-flex items-center gap-2">
               <span
                 className={[
                   "h-1.5 w-1.5 rounded-full transition-opacity",
@@ -42,12 +45,32 @@ export default function AboutTabs({
               {t.label}
             </span>
 
+            {/* ✅ Gauge under active tab */}
             <span
               className={[
-                "pointer-events-none absolute -bottom-2 left-1/2 h-0.5 w-10 -translate-x-1/2 rounded-full transition-opacity",
-                isActive ? "opacity-100 bg-orange-500" : "opacity-0",
+                "pointer-events-none absolute left-1/2 -translate-x-1/2 -bottom-1",
+                "h-0.5 w-full rounded-full",
+                isActive ? "opacity-100" : "opacity-0",
               ].join(" ")}
-            />
+            >
+              {/* track */}
+              <span className="absolute inset-0 rounded-full bg-orange-500/25 dark:bg-orange-500/20" />
+
+              {/* fill (animated) */}
+              <span
+                key={active} // reset when active tab changes
+                className="absolute inset-0 rounded-full bg-orange-500 origin-left"
+                style={{ animation: `aboutTabGauge ${rotateMs}ms linear` }}
+              />
+            </span>
+
+            {/* keep keyframes local */}
+            <style>{`
+              @keyframes aboutTabGauge {
+                from { transform: scaleX(0); }
+                to   { transform: scaleX(1); }
+              }
+            `}</style>
           </button>
         );
       })}

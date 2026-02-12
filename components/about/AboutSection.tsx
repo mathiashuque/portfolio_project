@@ -18,11 +18,14 @@ export default function AboutSection() {
   return (
     <AboutLayout>
       {/* If you want to remove the old header, you can delete AboutHeader usage entirely */}
-      <AboutTabs tabs={tabs} active={active} onSelect={setActive} />
+      <AboutTabs
+        tabs={tabs}
+        active={active}
+        onSelect={setActive}
+        rotateMs={ROTATE_MS}
+      />
 
       <AboutTabContent tab={activeTab} activeKey={active} />
-
-      <AboutProgress activeKey={active} rotateMs={ROTATE_MS} />
       <AboutStyles />
     </AboutLayout>
   );
