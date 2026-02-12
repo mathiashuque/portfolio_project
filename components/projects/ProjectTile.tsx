@@ -7,7 +7,8 @@ export default function ProjectTile({ project }: { project: Project }) {
     <a
       href={project.link}
       className={cn(
-        "group relative block h-full w-full overflow-hidden rounded-2xl",
+        "group relative block w-full overflow-hidden rounded-2xl",
+        "aspect-4/3", 
         "border border-border/10 bg-panel",
         "transition-transform duration-300 hover:-translate-y-1",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60",
