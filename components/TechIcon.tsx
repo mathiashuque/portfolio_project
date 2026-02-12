@@ -6,7 +6,7 @@ import {
   techIconRadius,
   techIconTileSize,
   type TechColor,
-} from "../theme/tech";
+} from "@/tech";
 import { StaticImageData } from "next/image";
 
 type TechIconProps = {

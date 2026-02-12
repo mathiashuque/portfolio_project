@@ -1,17 +1,17 @@
 import TechIcon from "./TechIcon";
 
-import type { TechColor } from "../theme/tech";
 import type { StaticImageData } from "next/image";
 
 import React, { useLayoutEffect, useRef, useState } from "react";
-import { STACK } from "./stackData";
+import { STACK } from "../tech/stackData";
+import { TechColor } from "@/tech";
 
 function MarqueeRow({
   items,
   reverse = false,
   durationSec = 26,
 }: {
-  items: readonly { name: string; logo: StaticImageData; color?: string }[];
+  items: readonly { name: string; logo: StaticImageData; color?: TechColor }[];
   reverse?: boolean;
   durationSec?: number;
 }) {
