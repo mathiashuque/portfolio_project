@@ -51,7 +51,7 @@ export default function HomeSection() {
     >
       <Hero constraintsRef={constraintsRef} dragKey={dragKey} />
 
-      <div className="mt-auto animate-fade-left animate-duration-1000">
+      <div className="mt-5 animate-fade-left animate-duration-1000">
         <TraitsMarquee />
       </div>
     </section>

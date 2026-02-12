@@ -1,6 +1,5 @@
 import { useMemo, useRef } from "react";
 import { useInView } from "motion/react";
-import Portrait from "./Portrait";
 import DragBadge from "./DragBadge";
 import TypingParagraph from "./TypingParagraph";
 
@@ -11,67 +10,54 @@ type HeroProps = {
 
 export default function Hero({ constraintsRef, dragKey }: HeroProps) {
   const leftRef = useRef<HTMLDivElement | null>(null);
-  const leftInView = useInView(leftRef, { amount: 0.6, once: true });
+  const leftInView = useInView(leftRef, { amount: 0.35, once: true });
 
   const fullText = useMemo(
     () =>
-      "I design and build clean, performant web applications with a strong focus on usability, maintainability, and modern UI.",
+      "I help startups, businesses, and founders launch scalable web and mobile products that generate users, leads, and sales.",
     [],
   );
 
   return (
-    <div className="flex-1 flex items-center lg:pb-6">
-      {/* OUTER: purely for centering and max width */}
-      <div className="max-w-7xl 2xl:max-w-360 mx-auto px-6 w-full">
-        {/* INNER: this is the drag constraint box and contains EVERYTHING */}
+    <div className="flex-1 flex items-center justify-center">
+      <div className="max-w-6xl mx-auto px-6 w-full">
         <div
           ref={constraintsRef}
-          className="relative w-full grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-center"
+          className="relative w-full flex flex-col items-center text-center"
         >
-          {/* LEFT */}
-          <div ref={leftRef} className="order-1 text-center lg:text-left">
-            {/* Desktop: drag badge on top */}
-            <div className="hidden lg:block mb-6 sm:mb-8">
-              <DragBadge dragKey={dragKey} constraintsRef={constraintsRef} />
-            </div>
+          <div
+            ref={leftRef}
+            className="w-full flex flex-col items-center text-center gap-3"
+          >
+            <DragBadge dragKey={dragKey} constraintsRef={constraintsRef} />
 
-            <h1 className="text-6xl md:text-7xl font-extrabold leading-tight animate-fade-up">
-              Software Developer
+            <h1 className="max-w-4xl text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] tracking-tight animate-fade-up">
+              I build Web & Mobile Apps That Turn{" "}
+              <span className="bg-linear-to-r from-sky-400 to-indigo-500 bg-clip-text text-transparent">
+                Ideas Into Reality
+              </span>
+              .
             </h1>
 
-            {/* Mobile: Portrait first */}
-            <div className="lg:hidden">
-              <Portrait />
+            <div className="max-w-3xl">
+              <TypingParagraph text={fullText} start={leftInView} />
             </div>
 
-            {/* Mobile: drag badge below portrait */}
-            <div className="lg:hidden mb-6">
-              <DragBadge dragKey={dragKey} constraintsRef={constraintsRef} />
-            </div>
-
-            <TypingParagraph text={fullText} start={leftInView} />
-
-            {/* Buttons */}
-            <div className="mt-8 sm:mt-10 flex flex-col items-stretch gap-4 max-w-sm mx-auto lg:mx-0 lg:max-w-none lg:flex-row lg:items-center lg:gap-7">
+            <div className="mt-4 flex flex-col sm:flex-row justify-center items-center gap-5">
               <a
                 href="#contact"
-                className="inline-flex justify-center items-center px-7 py-3.5 rounded-md bg-accent text-white text-base sm:text-lg font-semibold hover:bg-accent-2 transition"
+                className="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-full bg-accent text-white text-lg font-semibold hover:bg-accent-2 transition min-w-[200px]"
               >
-                Get In Touch →
+                Contact →
               </a>
 
               <a
                 href="/Mathias_Huque_CV.pdf"
-                className="inline-flex justify-center lg:justify-start items-center gap-2 text-base sm:text-lg font-medium text-text hover:underline"
+                className="inline-flex items-center justify-center gap-2 px-9 py-4 rounded-full bg-panel border border-white/10 text-lg font-semibold hover:bg-white/10 transition min-w-[200px]"
               >
                 Download CV ↓
               </a>
             </div>
-          </div>
-
-          {/* RIGHT (portrait on desktop) */}
-          <div className="hidden lg:flex relative justify-center lg:justify-end order-2 pr-12 xl:pr-14">
-            <Portrait />
           </div>
         </div>
       </div>

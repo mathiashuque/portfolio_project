@@ -7,12 +7,12 @@ type DragBadgeProps = {
 
 export default function DragBadge({ dragKey, constraintsRef }: DragBadgeProps) {
   return (
-    <div className="relative h-13">
+    // give it a bit more room so centering looks natural
+    <div className="relative h-16 w-full">
       <motion.div
         key={dragKey}
         className="
-          absolute left-1/2 -translate-x-1/2 top-0
-          lg:left-0 lg:translate-x-0
+          absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2
           z-40 cursor-grab active:cursor-grabbing
         "
         drag
