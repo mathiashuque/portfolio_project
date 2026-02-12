@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useLayoutEffect, useRef, useState } from "react";
-import TechIcon from "../TechIcon";
+import TechIcon from "./tech/TechIcon";
 import type { StackCategoryItems } from "./types";
 
 export default function MarqueeRow({
