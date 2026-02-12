@@ -29,18 +29,18 @@ export const ABOUT_TABS: readonly AboutTab[] = [
     services: [
       {
         title: "Custom Web Applications",
-        description: "Scalable React/Next.js apps tailored to business needs.",
+        description: "Scalable web platforms tailored to your business needs.",
         icon: <LayoutGrid className="h-5 w-5" />,
       },
       {
         title: "Mobile Apps",
-        description: "Native iOS & Android apps using React Native & Expo.",
+        description: "High-quality mobile experiences for iOS and Android.",
         icon: <Smartphone className="h-5 w-5" />,
       },
       {
         title: "Admin Dashboards",
         description:
-          "Data visualization and management tools for internal use.",
+          "Data visualization and management tools for internal operations.",
         icon: <Gauge className="h-5 w-5" />,
       },
       {
@@ -50,12 +50,14 @@ export const ABOUT_TABS: readonly AboutTab[] = [
       },
       {
         title: "E-commerce Platforms",
-        description: "High-performance online stores with modern UX.",
+        description:
+          "High-performance online stores with seamless user experiences.",
         icon: <ShoppingCart className="h-5 w-5" />,
       },
       {
         title: "API & Backend",
-        description: "Robust Node.js/Express services and integrations.",
+        description:
+          "Reliable services and integrations that power your applications.",
         icon: <Database className="h-5 w-5" />,
       },
     ] as const,
