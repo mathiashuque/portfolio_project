@@ -18,7 +18,7 @@ export default function Footer() {
         {/* Social icons */}
         <div className="mt-6 flex justify-center gap-6">
           <SocialLink
-            href="https://github.com/mHuque1"
+            href="https://github.com/mathiashuque"
             label="GitHub"
             className={iconClass}
           >
@@ -34,7 +34,7 @@ export default function Footer() {
           </SocialLink>
 
           <SocialLink
-            href="mailto:mathiashuque2004@gmail.com"
+            href="mailto:contact@mathiashuque.dev"
             label="Email"
             className={iconClass}
           >

@@ -10,8 +10,8 @@ export default function ContactSection() {
     () => [
       {
         label: "Email",
-        value: "mathiashuque2004@gmail.com",
-        href: "mailto:mathiashuque2004@gmail.com",
+        value: "contact@mathiashuque.dev",
+        href: "mailto:contact@mathiashuque.dev",
         icon: <Mail className="h-5 w-5" />,
       },
       {
@@ -22,8 +22,8 @@ export default function ContactSection() {
       },
       {
         label: "GitHub",
-        value: "github.com/mhuque1",
-        href: "https://github.com/mhuque1",
+        value: "github.com/mathiashuque",
+        href: "https://github.com/mathiashuque",
         icon: <Github className="h-5 w-5" />,
       },
     ],
@@ -57,7 +57,7 @@ export default function ContactSection() {
         {/* Content */}
         <div className="mt-10 grid gap-8 lg:mt-12 lg:grid-cols-2 lg:items-stretch">
           <ContactLinks links={links} />
-          <ContactForm mailtoTo="mathiashuque2004@gmail.com" />
+          <ContactForm mailtoTo="contact@mathiashuque.dev" />
         </div>
       </div>
     </section>

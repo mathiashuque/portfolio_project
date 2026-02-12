@@ -42,7 +42,7 @@ export async function POST(req: Request) {
       );
     }
 
-    const from = "Portfolio <onboarding@resend.dev>"; // for testing
+    const from = "Portfolio <contact@mathiashuque.dev>"; // for testing
     // In prod: use a verified sender, e.g. "Portfolio <hello@yourdomain.com>"
 
     await resend.emails.send({
