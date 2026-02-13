@@ -1,5 +1,8 @@
+"use client";
+
 // components/experience/ExperienceItem.tsx
-import React from "react";
+import React, { useState } from "react";
+import { motion } from "framer-motion";
 import { cn } from "./cn";
 import type { Experience } from "./types";
 
@@ -14,8 +17,21 @@ export default function ExperienceItem({
   children?: React.ReactNode;
   active?: boolean;
 }) {
+  const [inView, setInView] = useState(false);
+
   return (
-    <article className={cn("relative pl-12 sm:pl-14", className)}>
+    <motion.article
+      className={cn("relative pl-12 sm:pl-14", className)}
+      initial={{ opacity: 0, y: 35 }}
+      animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 35 }}
+      transition={{
+        duration: 0.8,
+        ease: [0.22, 1, 0.36, 1],
+      }}
+      onViewportEnter={() => setInView(true)}
+      onViewportLeave={() => setInView(false)}
+      viewport={{ amount: 0.35 }}
+    >
       {/* timeline dot */}
       <div
         className={cn(
@@ -85,6 +101,6 @@ export default function ExperienceItem({
 
         {children}
       </div>
-    </article>
+    </motion.article>
   );
 }

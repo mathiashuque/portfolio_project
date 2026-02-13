@@ -48,7 +48,7 @@ export default function Footer() {
         {/* Copyright */}
         <p className="text-xs text-faint">
           Loosely designed in Figma and coded in Visual Studio Code by yours
-          truly. Built with Vite and Tailwind CSS, deployed with Vercel.
+          truly. Built with Next.JS and Tailwind CSS, deployed with Vercel.
         </p>
       </div>
     </footer>
