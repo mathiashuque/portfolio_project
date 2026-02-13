@@ -42,8 +42,8 @@ export async function POST(req: Request) {
       );
     }
 
-    const from = "Portfolio <contact@mathiashuque.dev>"; // for testing
-    // In prod: use a verified sender, e.g. "Portfolio <hello@yourdomain.com>"
+    const from = "Portfolio <contact@mathiashuque.dev>";
+    
 
     await resend.emails.send({
       from,

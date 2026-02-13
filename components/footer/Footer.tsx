@@ -33,13 +33,13 @@ export default function Footer() {
             <Linkedin className="h-5 w-5" />
           </SocialLink>
 
-          <SocialLink
-            href="mailto:contact@mathiashuque.dev"
+            <SocialLink
+            href={`mailto:${atob("Y29udGFjdEBtYXRoaWFzaHVxdWUuZGV2")}`}
             label="Email"
             className={iconClass}
-          >
+            >
             <Mail className="h-5 w-5" />
-          </SocialLink>
+            </SocialLink>
         </div>
 
         {/* Divider */}

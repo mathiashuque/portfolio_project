@@ -16,7 +16,7 @@ export default function ContactSection() {
       {
         label: "Email",
         value: "contact@mathiashuque.dev",
-        href: "mailto:contact@mathiashuque.dev",
+        href: `mailto:${atob("Y29udGFjdEBtYXRoaWFzaHVxdWUuZGV2")}`,
         icon: <Mail className="h-5 w-5" />,
       },
       {
@@ -82,7 +82,7 @@ export default function ContactSection() {
           }}
         >
           <ContactLinks links={links} />
-          <ContactForm mailtoTo="contact@mathiashuque.dev" />
+          <ContactForm mailtoTo={atob("Y29udGFjdEBtYXRoaWFzaHVxdWUuZGV2")} />
         </motion.div>
       </div>
     </motion.section>

@@ -4,7 +4,7 @@ import Field from "./Field";
 import type { Status } from "./types";
 
 type ContactFormProps = {
-  mailtoTo: string; // e.g. "contact@mathiashuque.dev"
+  mailtoTo: string;
 };
 
 export default function ContactForm({ mailtoTo }: ContactFormProps) {
