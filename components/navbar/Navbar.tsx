@@ -61,9 +61,9 @@ export default function Navbar() {
 
   // Active link detection
   useEffect(() => {
-    const sections = NAV_LINKS
-      .map((l) => document.querySelector(l.href))
-      .filter((el): el is HTMLElement => el instanceof HTMLElement);
+    const sections = NAV_LINKS.map((l) =>
+      document.querySelector(l.href),
+    ).filter((el): el is HTMLElement => el instanceof HTMLElement);
 
     if (!sections.length) return;
 
@@ -139,19 +139,14 @@ export default function Navbar() {
 
   return (
     <nav ref={navRef} className={navClass}>
-      <div className="max-w-7xl 2xl:max-w-360 mx-auto px-6 py-5 flex items-center justify-between">
-        <div
-          className="
-            font-bold text-2xl leading-tight tracking-tight
-            text-slate-900 dark:text-white
-            transition-all duration-300
-            hover:text-blue-600
-          "
-        >
+      <div className="max-w-7xl 2xl:max-w-360 mx-auto px-6 py-5 relative flex items-center">
+        {/* Left */}
+        <div className="font-bold text-2xl leading-tight tracking-tight text-slate-900 dark:text-white whitespace-nowrap">
           Mathias Huque
         </div>
 
-        <div className="hidden md:flex items-center gap-2">
+        {/* Center (TRUE centered on desktop) */}
+        <div className="hidden lg:flex absolute left-1/2 -translate-x-1/2">
           <NavLinks
             links={NAV_LINKS}
             active={active}
@@ -160,20 +155,21 @@ export default function Navbar() {
           />
         </div>
 
-        <div className="hidden md:flex items-center gap-4 text-2xl">
+        {/* Right (desktop) */}
+        <div className="hidden lg:flex ml-auto items-center gap-4 text-2xl">
           <ThemeToggle dark={dark} onToggle={toggleTheme} variant="icon" />
-
-
         </div>
 
+        {/* Mobile menu button */}
         <button
           type="button"
           className="
-            md:hidden inline-flex items-center justify-center rounded-md p-2
-            text-slate-700 hover:text-slate-900 hover:bg-slate-900/10
-            transition-all duration-200 hover:scale-105
-            dark:text-white/80 dark:hover:text-white dark:hover:bg-white/10
-          "
+    lg:hidden ml-auto
+    inline-flex items-center justify-center rounded-md p-2
+    text-slate-700 hover:text-slate-900 hover:bg-slate-900/10
+    transition-all duration-200 hover:scale-105
+    dark:text-white/80 dark:hover:text-white dark:hover:bg-white/10
+  "
           aria-label="Toggle menu"
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}

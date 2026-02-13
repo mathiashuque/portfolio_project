@@ -20,22 +20,29 @@ export default function MobileMenu({
   return (
     <div
       className={`
-        md:hidden overflow-hidden transition-[max-height,opacity] duration-200
-        ${open ? "max-h-96 opacity-100" : "max-h-0 opacity-0"}
+        lg:hidden absolute left-0 right-0 top-full z-50
+        transition-[opacity,transform] duration-200 origin-top
+        ${open ? "opacity-100 translate-y-0 pointer-events-auto" : "opacity-0 -translate-y-2 pointer-events-none"}
       `}
     >
-      <div className="px-6 pb-5 pt-3 border-t border-slate-900/10 dark:border-white/10">
-        <NavLinks
-          links={links}
-          active={active}
-          direction="col"
-          onNavigate={(href) => onNavigate(href)}
-        />
+      <div className="bg-bg/95 backdrop-blur-md border-b border-slate-900/10 dark:border-white/10">
+        <div className="px-6 pb-5 pt-3">
+          <NavLinks
+            links={links}
+            active={active}
+            direction="col"
+            onNavigate={(href) => onNavigate(href)}
+          />
 
-        <div className="mt-5 flex items-center gap-4 text-2xl">
-          <ThemeToggle dark={dark} onToggle={onToggleTheme} variant="mobile" />
-
-          
+          <div className="mt-6 pt-5 border-t border-slate-900/10 dark:border-white/10">
+            <div className="flex items-center text-2xl">
+              <ThemeToggle
+                dark={dark}
+                onToggle={onToggleTheme}
+                variant="mobile"
+              />
+            </div>
+          </div>
         </div>
       </div>
     </div>
