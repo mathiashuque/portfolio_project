@@ -21,7 +21,7 @@ export const metadata: Metadata = {
   },
 
   description:
-    "Personal portfolio of Mathias Huque, Software Developer and student. I design and build modern, scalable web applications from backend systems to intuitive frontends.",
+  "Portfolio of Mathias Huque, software developer building modern, scalable web applications from architecture to polished user experiences.",
 
   keywords: [
     "Mathias Huque",
@@ -55,12 +55,12 @@ export const metadata: Metadata = {
     url: "https://mathiashuque.dev",
     title: "Mathias Huque | Software Developer",
     description:
-      "I build modern, scalable digital products from architecture to polished user experiences.",
+      "I Build Software Apps That Turn Ideas Into Reality.",
     siteName: "Mathias Huque Portfolio",
     locale: "en_US",
     images: [
       {
-        url: "/og-image.png", // create this (1200x630 recommended)
+        url: "https://mathiashuque.dev/og-image.png",
         width: 1200,
         height: 630,
         alt: "Mathias Huque Portfolio Preview",
@@ -71,8 +71,8 @@ export const metadata: Metadata = {
   twitter: {
     card: "summary_large_image",
     title: "Mathias Huque | Software Developer",
-    description: "Modern, scalable web applications built end-to-end.",
-    images: ["/og-image.png"],
+    description: "I Build Software Apps That Turn Ideas Into Reality.",
+    images: ["https://mathiashuque.dev/og-image.png"],
   },
 
   icons: {
