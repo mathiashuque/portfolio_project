@@ -49,7 +49,7 @@ export default function HomeSection() {
         lg:pt-5
         overflow-x-hidden
         scroll-mt-32
-        mb-20
+        mb-10
         relative
         overflow-hidden
       "

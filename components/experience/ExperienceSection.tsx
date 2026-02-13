@@ -50,7 +50,7 @@ export default function ExperienceSection() {
   return (
     <motion.section
       id="experience"
-      className="px-6 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 mb-20"
+      className="px-6 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 mb-30"
       aria-label="Experience"
       onViewportEnter={() => setInView(true)}
       onViewportLeave={() => setInView(false)}
