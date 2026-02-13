@@ -1,4 +1,7 @@
+"use client";
+
 import { useEffect, useRef, useState } from "react";
+import { motion } from "framer-motion";
 import TraitsMarquee from "./TraitsMarquee";
 import Hero from "./Hero";
 
@@ -8,6 +11,8 @@ export default function HomeSection() {
 
   const dragKeyRef = useRef(0);
   const [dragKey, setDragKey] = useState(0);
+
+  const [inView, setInView] = useState(false);
 
   // Reset drag position when breakpoint flips AND when resize/zoom happens
   useEffect(() => {
@@ -35,7 +40,7 @@ export default function HomeSection() {
   }, []);
 
   return (
-    <section
+    <motion.section
       ref={homeRef}
       id="home"
       className="
@@ -48,12 +53,32 @@ export default function HomeSection() {
         relative
         overflow-hidden
       "
+      onViewportEnter={() => setInView(true)}
+      onViewportLeave={() => setInView(false)}
+      viewport={{ amount: 0.35 }}
     >
-      <Hero constraintsRef={constraintsRef} dragKey={dragKey} />
+      {/* Hero */}
+      <motion.div
+        initial={{ opacity: 0, y: 50 }}
+        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
+        transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
+      >
+        <Hero constraintsRef={constraintsRef} dragKey={dragKey} />
+      </motion.div>
 
-      <div className="mt-5 animate-fade-left animate-duration-1000">
+      {/* Marquee */}
+      <motion.div
+        className="mt-5"
+        initial={{ opacity: 0, x: -40 }}
+        animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
+        transition={{
+          duration: 0.9,
+          delay: inView ? 0.1 : 0, // small delay only when entering
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
         <TraitsMarquee />
-      </div>
-    </section>
+      </motion.div>
+    </motion.section>
   );
 }
