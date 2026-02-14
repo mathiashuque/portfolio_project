@@ -88,6 +88,7 @@ export const intentExamples: Array<{
       "what's your birth year",
       "whats your birth year",
       // ES
+      "cuantos años tenes",
       "cuántos años tienes",
       "cuantos años tienes",
       "qué edad tienes",

@@ -160,16 +160,17 @@ export default function ChatWidget({
   }
 
   function renderWithLinks(text: string) {
-    const urlRegex = /(https?:\/\/[^\s]+)/g;
+    const urlRegex = /((?:https?:\/\/|www\.)[^\s]+)/g;
 
     const parts = text.split(urlRegex);
 
     return parts.map((part, i) => {
       if (urlRegex.test(part)) {
+        const href = part.startsWith("http") ? part : `https://${part}`;
         return (
           <a
             key={i}
-            href={part}
+            href={href}
             target="_blank"
             rel="noopener noreferrer"
             className="underline text-blue-400 hover:text-blue-300 break-all"
