@@ -1,36 +1,126 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Portfolio — mathiashuque.dev
+
+![alt text](public/og-image-2.png)
+
+Personal portfolio website for **Mathias Huque**.
+
+Live: [https://www.mathiashuque.dev/](https://www.mathiashuque.dev/)
+
+---
+
+## Overview
+
+A single-page portfolio featuring sections for **About**, **Experience**, **Projects**, **Stack**, and **Contact**.
+
+Includes:
+
+* Theme toggle (light/dark)
+* CV access
+* Animated UI elements using Motion
+* Contact section with direct email + social links
+
+---
+
+## Tech Stack
+
+* **Next.js 16** (App Router)
+* **React 19**
+* **TypeScript**
+* **Tailwind CSS v4** (+ `tailwindcss-animated`)
+* **Motion / Framer Motion**
+* **Lucide React / React Icons**
+* **Resend** (email handling)
+
+---
 
 ## Getting Started
 
-First, run the development server:
+### Prerequisites
+
+* Node.js (LTS recommended)
+* npm (or pnpm/yarn/bun)
+
+### Install
+
+```bash
+npm install
+```
+
+### Run locally
 
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Open [http://localhost:3000](http://localhost:3000)
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### Typecheck
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run typecheck
+```
 
-## Learn More
+### Lint
 
-To learn more about Next.js, take a look at the following resources:
+```bash
+npm run lint
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+### Production Build
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+```bash
+npm run build
+npm run start
+```
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Deployment
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+This project is deployed using **Vercel**.
+
+Deploy via CLI:
+
+```bash
+npm run deploy
+```
+
+Or connect the repository directly in Vercel and use the default Next.js build configuration.
+
+---
+
+## Environment Variables
+
+If using Resend for contact functionality, you may need:
+
+```
+RESEND_API_KEY=your_api_key
+CONTACT_TO_EMAIL=your_email@example.com
+```
+
+Check the project source for the exact variable names used.
+
+---
+
+## Project Structure (Typical)
+
+```txt
+.
+├─ public/            # Static assets
+├─ src/
+│  ├─ app/            # App Router pages and layout
+│  ├─ components/     # Reusable UI components
+│  ├─ lib/            # Utilities and helpers
+│  └─ styles/         # Global styles
+├─ package.json
+└─ README.md
+```
+
+---
+
+## License
+
+Choose one:
+
+* MIT License (recommended for open portfolio code)
+* Or "All rights reserved" if you prefer restricted usage
