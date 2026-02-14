@@ -6,8 +6,13 @@ import type { Analysis } from "./types";
 
 export function respondFromAnalysis(analysis: Analysis) {
   const k = knowledge;
-
+  console.log("Responding to analysis:", JSON.stringify(analysis));
   switch (analysis.intent) {
+    case "profanity":
+      return isSpanish(analysis.lang)
+        ? templates.profanity_es({})
+        : templates.profanity_en({});
+
     case "greeting":
       return isSpanish(analysis.lang)
         ? templates.greeting_es({ name: k.person.name })
@@ -51,12 +56,12 @@ export function respondFromAnalysis(analysis: Analysis) {
       });
 
     case "age": {
-      const birth = k.person.birth; // { month, year, country }
+      const birth = k.person.birth;
       const now = new Date();
       const age = now.getFullYear() - birth.year;
 
       return isSpanish(analysis.lang)
-        ? `Nací en ${birth.month} de ${birth.year}, así que actualmente tengo ${age} años.`
+        ? `Nací en ${birth.year}, así que actualmente tengo ${age} años.`
         : `I was born in ${birth.month} ${birth.year}, so I’m currently ${age} years old.`;
     }
 
