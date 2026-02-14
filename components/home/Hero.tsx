@@ -12,11 +12,11 @@ export default function Hero({ constraintsRef, dragKey }: HeroProps) {
   const leftRef = useRef<HTMLDivElement | null>(null);
   const leftInView = useInView(leftRef, { amount: 0.35, once: true });
 
- const fullText = useMemo(
-  () =>
-    "I build complete digital products from start to finish, helping ideas become real, working solutions.",
-  [],
-);
+  const fullText = useMemo(
+    () =>
+      "I build software apps and complete digital products from start to finish, helping ideas turn into real, working solutions.",
+    [],
+  );
 
   return (
     <div className="flex-1 flex items-center justify-center max-w-9xl">
