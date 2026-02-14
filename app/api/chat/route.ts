@@ -1,54 +1,48 @@
-// src/app/api/chat/route.ts
 import { NextResponse } from "next/server";
-import { respond } from "./chatResponder";
+import { analyze } from "./analyze";
+import { respondFromAnalysis } from "./respond";
+import { detectLanguage } from "./analyze/language";
+import { Profanity } from "@2toad/profanity";
+import customWords from "./analyze/profanity.json";
 
-export const runtime = "nodejs";
+// Build once (module scope)
+const profanity = new Profanity({
+  languages: ["en", "es"],
+  wholeWord: true,      
+  grawlix: "*****",
+  grawlixChar: "$",
+});
+profanity.addWords(customWords);
 
-type ChatRequestBody = {
-  message?: unknown;
-};
 
 export async function POST(req: Request) {
-  try {
-    const body = (await req.json()) as ChatRequestBody;
+  const body = (await req.json()) as { message?: string };
+  const message = typeof body.message === "string" ? body.message.trim() : "";
 
-    const message =
-      typeof body?.message === "string" ? body.message.trim() : "";
-
-    if (!message) {
-      return NextResponse.json(
-        { error: "Message is required." },
-        { status: 400 },
-      );
-    }
-
-    if (message.length > 600) {
-      return NextResponse.json(
-        { error: "Message exceeds maximum length." },
-        { status: 413 },
-      );
-    }
-
-    // Very light anti-bot guard (basic sanity check)
-    if (message.replace(/\s/g, "").length < 2) {
-      return NextResponse.json(
-        { error: "Invalid message." },
-        { status: 400 },
-      );
-    }
-
-    const reply = respond(message);
-
-    return NextResponse.json(
-      { reply },
-      { status: 200 },
-    );
-  } catch (error) {
-    console.error("Chat API error:", error);
-
-    return NextResponse.json(
-      { error: "Internal server error." },
-      { status: 500 },
-    );
+  if (!message) {
+    return NextResponse.json({ error: "Message is required." }, { status: 400 });
   }
+
+  // Profanity guard
+  if (profanity.exists(message)) {
+    return NextResponse.json({
+      reply:
+        "Your message contains inappropriate language and will not be answered. Please rephrase and try again.",
+    });
+  }
+
+  // Language detection (avoid false "other" for short messages)
+  const lang = message.length < 12 ? "en" : detectLanguage(message);
+
+  if (lang === "other") {
+    return NextResponse.json({
+      reply:
+        "Sorry! At the moment, I speak only English and Spanish. Feel free to ask your question in either language.",
+    });
+  }
+
+  const analysis = analyze(message);
+  const reply = respondFromAnalysis({ ...analysis, lang });
+
+  return NextResponse.json({ reply });
 }

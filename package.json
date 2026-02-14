@@ -12,7 +12,12 @@
     "typecheck": "tsc --noEmit"
   },
   "dependencies": {
+    "@2toad/profanity": "^3.2.0",
+    "compromise": "^14.14.5",
     "framer-motion": "^12.33.0",
+    "franc-min": "^6.2.0",
+    "fuse.js": "^7.1.0",
+    "handlebars": "^4.7.8",
     "lucide-react": "^0.563.0",
     "motion": "^12.33.0",
     "next": "16.1.6",
@@ -20,7 +25,8 @@
     "react-dom": "19.2.3",
     "react-icons": "^5.5.0",
     "resend": "^6.9.1",
-    "tailwindcss-animated": "^2.0.0"
+    "tailwindcss-animated": "^2.0.0",
+    "translate": "^3.0.1"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
