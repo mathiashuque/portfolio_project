@@ -8,11 +8,13 @@ import Home from "@/components/home/home";
 import Contact from "@/components/contact/contact";
 import Stack from "@/components/Stack/Stack";
 import { Navbar } from "@/components/navbar";
+import ChatWidget from "@/components/chat/ChatWidget";
 
 function App() {
   return (
     <div className="min-h-screen bg-bg text-text">
       <Navbar />
+
       <main>
         <Home />
         <About />
@@ -22,6 +24,9 @@ function App() {
         <Contact />
         <Footer />
       </main>
+
+      {/* Floating chatbot */}
+      <ChatWidget />
     </div>
   );
 }
