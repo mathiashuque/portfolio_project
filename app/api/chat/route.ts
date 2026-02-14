@@ -31,8 +31,8 @@ export async function POST(req: Request) {
     });
   }
 
-  // Language detection (avoid false "other" for short messages)
-  const lang = message.length < 12 ? "en" : detectLanguage(message);
+  // Language detection
+  const lang = detectLanguage(message);
 
   if (lang === "other") {
     return NextResponse.json({

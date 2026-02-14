@@ -3,10 +3,10 @@ import Handlebars from "handlebars";
 
 export const templates = {
   greeting_en: Handlebars.compile(
-    `Hi! I’m {{name}}. How can I help—projects, stack, experience, or contact details?`
+    `Hi! I’m {{name}}. How can I help you?`
   ),
   greeting_es: Handlebars.compile(
-    `¡Hola! Soy {{name}}. ¿En qué puedo ayudarte—proyectos, stack, experiencia o contacto?`
+    `¡Hola! Soy {{name}}. ¿En qué puedo ayudarte?`
   ),
 
   about: Handlebars.compile(

@@ -1,8 +1,7 @@
-// src/app/api/chat/analyze/normalize.ts
-export function normalizeInput(s: string) {
-  return s
-    .toLowerCase()
+export function normalizeInput(text: string) {
+  return text
     .trim()
-    .replace(/[^\p{L}\p{N}\s?!.,'’-]/gu, "")
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, " ") // remove punctuation
     .replace(/\s+/g, " ");
 }
