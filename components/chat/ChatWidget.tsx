@@ -159,6 +159,30 @@ export default function ChatWidget({
     if (!open) setOpen(true);
   }
 
+  function renderWithLinks(text: string) {
+    const urlRegex = /(https?:\/\/[^\s]+)/g;
+
+    const parts = text.split(urlRegex);
+
+    return parts.map((part, i) => {
+      if (urlRegex.test(part)) {
+        return (
+          <a
+            key={i}
+            href={part}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="underline text-blue-400 hover:text-blue-300 break-all"
+          >
+            {part}
+          </a>
+        );
+      }
+
+      return <span key={i}>{part}</span>;
+    });
+  }
+
   return (
     <>
       {/* Floating button */}
@@ -228,11 +252,11 @@ export default function ChatWidget({
                   <div
                     className={
                       m.role === "user"
-                        ? "max-w-[85%] rounded-2xl rounded-br-md bg-white/10 px-3 py-2 text-sm text-white"
-                        : "max-w-[85%] rounded-2xl rounded-bl-md bg-white/5 px-3 py-2 text-sm text-white/90"
+                        ? "max-w-[85%] rounded-2xl rounded-br-md bg-white/10 px-3 py-2 text-sm text-white whitespace-pre-wrap wrap-anywhere"
+                        : "max-w-[85%] rounded-2xl rounded-bl-md bg-white/5 px-3 py-2 text-sm text-white/90 whitespace-pre-wrap wrap-anywhere"
                     }
                   >
-                    {m.content}
+                    {renderWithLinks(m.content)}
                   </div>
                 </div>
               ))}
