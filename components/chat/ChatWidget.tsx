@@ -110,7 +110,10 @@ export default function ChatWidget({
     try {
       const res = await fetch("/api/chatbot", {
         method: "POST",
-        headers: { "Content-Type": "application/json" },
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${process.env.NEXT_PUBLIC_CHATBOT_API_KEY}`,
+        },
         body: JSON.stringify({ message: trimmed }),
         cache: "no-store",
       });

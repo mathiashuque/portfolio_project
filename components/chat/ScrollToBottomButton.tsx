@@ -22,7 +22,7 @@ export function ScrollToBottomButton({
           transition={{ duration: 0.18 }}
           className="
   absolute left-1/2 -translate-x-1/2
-  bottom-25 z-20
+  bottom-28 z-20
   w-fit rounded-full border border-white/10
   bg-white/10 px-5 py-2.5 text-sm font-medium text-white
   shadow-xl backdrop-blur hover:bg-white/15
