@@ -17,7 +17,6 @@ html {
   scroll-behavior: smooth;
 }
 
-
 /* Marquee */
 
 .marquee {
@@ -39,11 +38,46 @@ html {
   }
 }
 
-
 @media (prefers-reduced-motion: reduce) {
   .marquee__inner {
     animation: none;
   }
 }
 
+/* Chrome, Edge, Safari */
+.chat-scroll::-webkit-scrollbar {
+  width: 8px;
+}
 
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: linear-gradient(
+    180deg,
+    rgba(255, 255, 255, 0.28),
+    rgba(255, 255, 255, 0.12)
+  );
+  border-radius: 999px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.18);
+  border-radius: 999px;
+}
+
+.chat-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.32);
+}
+
+/* Firefox */
+.chat-scroll {
+  scrollbar-width: thin;
+  scrollbar-color: rgba(255, 255, 255, 0.18) transparent;
+}
+
+.chat-scroll::-webkit-scrollbar {
+  width: 6px;
+  opacity: 0;
+}
+
+.chat-scroll:hover::-webkit-scrollbar {
+  opacity: 1;
+}
