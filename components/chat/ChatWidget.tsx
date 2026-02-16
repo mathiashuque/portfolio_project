@@ -105,7 +105,7 @@ export default function ChatWidget({
     setLoading(true);
 
     try {
-      const res = await fetch("/api/chat", {
+      const res = await fetch("/api/chatbot", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ message: trimmed }),
@@ -121,9 +121,11 @@ export default function ChatWidget({
         throw new Error(errText);
       }
 
-      const data = (await res.json()) as { reply: string };
+      const data = (await res.json()) as { answer?: string; reply?: string };
       const reply =
-        data.reply ?? "Sorry — I didn’t get a response. Please try again.";
+        data.answer ??
+        data.reply ??
+        "Sorry — I didn’t get a response. Please try again.";
 
       const assistantMsg: ChatMessage = {
         id: uid(),
