@@ -1,5 +1,5 @@
 // src/app/api/chat/analyze/entities.ts
-import { knowledge } from "../knowledge";
+import { knowledge } from "../knowledge/knowledge";
 
 export function extractEntities(text: string) {
   const lower = text.toLowerCase();

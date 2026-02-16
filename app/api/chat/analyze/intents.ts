@@ -93,9 +93,7 @@ function getCompiled(lang?: string): Compiled {
 
   const normalizedExamples = examples.map(({ intent, phrases }) => ({
     intent,
-    phrases: phrases
-      .map(normalizeExamplePhrase)
-      .filter(Boolean),
+    phrases: phrases.map(normalizeExamplePhrase).filter(Boolean),
   }));
 
   const STARTS_WITH_INTENTS: ExampleIntent[] = ["greeting", "support"];
@@ -219,13 +217,13 @@ export function detectIntent(text: string, lang?: string): Intent {
   if (isProfanity(t)) return "profanity";
 
   const exact = detectIntentExact(t, L);
-  logTopIntents(t, L);
+
   if (exact) return exact;
 
   const contains = detectIntentContains(t, L);
   if (contains) return contains;
 
-  logTopIntents(t, L);
+  logTopIntents(t, L, 3);
 
   const { intent, confidence } = detectIntentFuzzy(t, L);
   if (confidence < MIN_FUZZY_CONFIDENCE) return "fallback";
