@@ -1,36 +1,15 @@
 "use client";
 
 import { useEffect, useMemo, useRef, useState } from "react";
-import { AnimatePresence, motion } from "motion/react";
-import { MessageCircle, X, Send, Sparkles } from "lucide-react";
-import { TypingIndicator } from "./typing";
-import Typewriter from "./typewriter";
-
-type ChatRole = "assistant" | "user";
-
-type ChatMessage = {
-  id: string;
-  role: ChatRole;
-  content: string;
-  createdAt: number;
-};
-
-type ChatWidgetProps = {
-  /** Optional title shown in the header */
-  title?: string;
-  /** Optional subtitle shown below the title */
-  subtitle?: string;
-  /** Initial assistant message */
-  greeting?: string;
-  /** Suggested quick questions */
-  suggestions?: string[];
-  /** If provided, called when the user sends a message (for API integration later) */
-};
-
-function uid() {
-  // Good enough for UI ids (not crypto)
-  return Math.random().toString(36).slice(2) + Date.now().toString(36);
-}
+import { AnimatePresence } from "motion/react";
+import { ChatFabButton } from "./ChatFabButton";
+import { ChatBackdrop } from "./ChatBackdrop";
+import { ChatPanel } from "./ChatPanel";
+import { ChatHeader } from "./ChatHeader";
+import { ChatMessages } from "./ChatMessages";
+import { ScrollToBottomButton } from "./ScrollToBottomButton";
+import { ChatInputBar } from "./ChatInputBar";
+import { ChatMessage, ChatWidgetProps, uid } from "./types";
 
 export default function ChatWidget({
   title = "Ask Mathias",
@@ -48,13 +27,12 @@ export default function ChatWidget({
   const [loading, setLoading] = useState(false);
 
   const [messages, setMessages] = useState<ChatMessage[]>(() => [
-    {
-      id: uid(),
-      role: "assistant",
-      content: greeting,
-      createdAt: Date.now(),
-    },
+    { id: uid(), role: "assistant", content: greeting, createdAt: Date.now() },
   ]);
+
+  const [typedDoneIds, setTypedDoneIds] = useState<Set<string>>(
+    () => new Set(),
+  );
 
   const panelRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
@@ -65,13 +43,40 @@ export default function ChatWidget({
     [input, loading],
   );
 
+  // seed greeting as typed
+  useEffect(() => {
+    const first = messages[0];
+    if (first?.role === "assistant") {
+      setTypedDoneIds((prev) => {
+        if (prev.has(first.id)) return prev;
+        const next = new Set(prev);
+        next.add(first.id);
+        return next;
+      });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
+  function markTypedDone(id: string) {
+    setTypedDoneIds((prev) => {
+      if (prev.has(id)) return prev;
+      const next = new Set(prev);
+      next.add(id);
+      return next;
+    });
+  }
+
   useEffect(() => {
     if (!open) return;
-
-    // Focus input when opened
     const t = setTimeout(() => inputRef.current?.focus(), 50);
     return () => clearTimeout(t);
   }, [open]);
+
+  function scrollToBottom(behavior: ScrollBehavior = "smooth") {
+    const el = listRef.current;
+    if (!el) return;
+    el.scrollTo({ top: el.scrollHeight, behavior });
+  }
 
   useEffect(() => {
     if (!open) return;
@@ -79,9 +84,7 @@ export default function ChatWidget({
     if (!el) return;
 
     const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
-    const nearBottom = distanceFromBottom < 80;
-
-    if (nearBottom) scrollToBottom("smooth");
+    if (distanceFromBottom < 80) scrollToBottom("smooth");
   }, [messages, open]);
 
   useEffect(() => {
@@ -97,14 +100,10 @@ export default function ChatWidget({
     const trimmed = text.trim();
     if (!trimmed || loading) return;
 
-    const userMsg: ChatMessage = {
-      id: uid(),
-      role: "user",
-      content: trimmed,
-      createdAt: Date.now(),
-    };
-
-    setMessages((prev) => [...prev, userMsg]);
+    setMessages((prev) => [
+      ...prev,
+      { id: uid(), role: "user", content: trimmed, createdAt: Date.now() },
+    ]);
     setInput("");
     setLoading(true);
 
@@ -131,22 +130,21 @@ export default function ChatWidget({
         data.reply ??
         "Sorry — I didn’t get a response. Please try again.";
 
-      const assistantMsg: ChatMessage = {
-        id: uid(),
-        role: "assistant",
-        content: reply,
-        createdAt: Date.now(),
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
-    } catch (err) {
-      const assistantMsg: ChatMessage = {
-        id: uid(),
-        role: "assistant",
-        content:
-          "Sorry — something went wrong on my side. Please try again, or reach out via the Contact section.",
-        createdAt: Date.now(),
-      };
-      setMessages((prev) => [...prev, assistantMsg]);
+      setMessages((prev) => [
+        ...prev,
+        { id: uid(), role: "assistant", content: reply, createdAt: Date.now() },
+      ]);
+    } catch {
+      setMessages((prev) => [
+        ...prev,
+        {
+          id: uid(),
+          role: "assistant",
+          content:
+            "Sorry — something went wrong on my side. Please try again, or reach out via the Contact section.",
+          createdAt: Date.now(),
+        },
+      ]);
     } finally {
       setLoading(false);
       setTimeout(() => inputRef.current?.focus(), 0);
@@ -166,245 +164,64 @@ export default function ChatWidget({
   }
 
   const [showScrollToBottom, setShowScrollToBottom] = useState(false);
-
-  function scrollToBottom(behavior: ScrollBehavior = "smooth") {
-    const el = listRef.current;
-    if (!el) return;
-    el.scrollTo({ top: el.scrollHeight, behavior });
-  }
-
   useEffect(() => {
     const el = listRef.current;
     if (!el) return;
 
-    const THRESHOLD = 60; // px from bottom before we show the bubble
-
+    const THRESHOLD = 60;
     const onScroll = () => {
       const distanceFromBottom =
         el.scrollHeight - el.scrollTop - el.clientHeight;
       setShowScrollToBottom(distanceFromBottom > THRESHOLD);
     };
 
-    onScroll(); // initialize
+    onScroll();
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
   }, [open]);
-  function renderWithLinks(text: string) {
-    const urlRegex = /((?:https?:\/\/|www\.)[^\s]+)/g;
-
-    const parts = text.split(urlRegex);
-
-    return parts.map((part, i) => {
-      if (urlRegex.test(part)) {
-        const href = part.startsWith("http") ? part : `https://${part}`;
-        return (
-          <a
-            key={i}
-            href={href}
-            target="_blank"
-            rel="noopener noreferrer"
-            className="underline text-blue-400 hover:text-blue-300 break-all"
-          >
-            {part}
-          </a>
-        );
-      }
-
-      return <span key={i}>{part}</span>;
-    });
-  }
 
   return (
     <>
-      {/* Floating button */}
-      <motion.button
-        type="button"
-        aria-label={open ? "Close chat" : "Open chat"}
-        onClick={() => setOpen((v) => !v)}
-        className="fixed bottom-6 right-6 z-30 inline-flex h-12 w-12 items-center justify-center rounded-full border border-white/10 bg-zinc-900 text-white shadow-lg shadow-black/30 transition hover:scale-[1.02] hover:bg-zinc-800 focus:outline-none focus:ring-2 focus:ring-white/30 dark:border-white/10"
-        whileTap={{ scale: 0.95 }}
-      >
-        {open ? (
-          <X className="h-5 w-5" />
-        ) : (
-          <MessageCircle className="h-5 w-5" />
-        )}
-      </motion.button>
+      <ChatFabButton open={open} onToggle={() => setOpen((v) => !v)} />
 
-      {/* Chat panel */}
       <AnimatePresence>
         {open && (
           <>
-            {/* Backdrop (darken background) */}
-            <motion.div
-              className="fixed inset-0 z-60 bg-white/5 backdrop-blur-sm"
-              initial={{ opacity: 0 }}
-              animate={{ opacity: 1 }}
-              exit={{ opacity: 0 }}
-              onClick={() => setOpen(false)} // click outside to close (remove if you don't want this)
-            />
+            <ChatBackdrop onClose={() => setOpen(false)} />
 
-            {/* Center container */}
-            <div className="fixed inset-0 z-70 flex items-center justify-center p-4">
-              <motion.div
-                ref={panelRef}
-                initial={{ opacity: 0, y: 12, scale: 0.98 }}
-                animate={{ opacity: 1, y: 0, scale: 1 }}
-                exit={{ opacity: 0, y: 12, scale: 0.98 }}
-                transition={{ type: "spring", stiffness: 420, damping: 32 }}
-                className="
-w-[min(640px,92vw)]
-  h-[min(85vh,800px)]
-  
-  flex flex-col
-  overflow-hidden
-  rounded-2xl
-  border border-white/10
-  bg-zinc-950
-  text-white
-  shadow-2xl shadow-black/40
-"
-                role="dialog"
-                aria-modal="true"
-                aria-label="Chat widget"
-                onClick={(e) => e.stopPropagation()} // prevent backdrop click when clicking inside panel
-              >
-                {/* Header */}
-                <div className="flex items-start justify-between gap-3 border-b border-white/10 bg-zinc-950/80 px-4 py-3 backdrop-blur">
-                  <div className="min-w-0">
-                    <div className="flex items-center gap-2">
-                      <Sparkles className="h-4 w-4 text-white/80" />
-                      <p className="truncate text-base font-semibold">
-                        {title}
-                      </p>
-                    </div>
-                    <p className="mt-0.5 line-clamp-2 text-xs text-white/60">
-                      {subtitle}
-                    </p>
-                  </div>
-                  <button
-                    type="button"
-                    onClick={() => setOpen(false)}
-                    className="rounded-lg p-1 text-white/70 transition hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/20"
-                    aria-label="Close"
-                  >
-                    <X className="h-4 w-4" />
-                  </button>
-                </div>
+            <ChatPanel
+              panelRef={panelRef}
+              onClickInside={(e) => e.stopPropagation()}
+            >
+              <ChatHeader
+                title={title}
+                subtitle={subtitle}
+                onClose={() => setOpen(false)}
+              />
 
-                {/* Messages */}
-                <div
-                  ref={listRef}
-                  className="flex-1 space-y-3 overflow-y-auto px-4 py-3 chat-scroll"
-                >
-                  {messages.map((m) => (
-                    <div
-                      key={m.id}
-                      className={
-                        m.role === "user"
-                          ? "flex justify-end"
-                          : "flex justify-start"
-                      }
-                    >
-                      <div
-                        className={
-                          m.role === "user"
-                            ? "max-w-[85%] rounded-2xl rounded-br-md bg-white/10 px-4 py-2.5 text-base text-white whitespace-pre-wrap wrap-anywhere"
-                            : "max-w-[85%] rounded-2xl rounded-bl-md bg-white/5 px-4 py-2.5 text-base text-white/90 whitespace-pre-wrap wrap-anywhere"
-                        }
-                      >
-                        {m.role === "assistant" ? (
-                          <Typewriter
-                            text={m.content}
-                            start
-                            charsPerSecond={40}
-                          />
-                        ) : (
-                          renderWithLinks(m.content)
-                        )}
-                      </div>
-                    </div>
-                  ))}
+              <ChatMessages
+                messages={messages}
+                typedDoneIds={typedDoneIds}
+                onMarkTypedDone={markTypedDone}
+                loading={loading}
+                suggestions={suggestions}
+                onSuggestion={handleSuggestion}
+                listRef={listRef}
+              />
 
-                  {/* Suggestions (only show when there's basically just the greeting) */}
-                  {messages.length <= 1 && (
-                    <div className="pt-1">
-                      <p className="mb-2 text-xs text-white/60">
-                        Try one of these:
-                      </p>
-                      <div className="flex flex-wrap gap-2">
-                        {suggestions.map((s) => (
-                          <button
-                            key={s}
-                            type="button"
-                            onClick={() => handleSuggestion(s)}
-                            className="rounded-full border border-white/10 bg-white/5 px-3 py-1.5 text-xs text-white/80 transition hover:bg-white/10 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/20"
-                          >
-                            {s}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                  )}
+              <ScrollToBottomButton
+                show={showScrollToBottom}
+                onClick={() => scrollToBottom("smooth")}
+              />
 
-                  {loading && (
-                    <div className="flex justify-start">
-                      <div className="rounded-2xl rounded-bl-md bg-white/5 px-4 py-2.5">
-                        <TypingIndicator />
-                      </div>
-                    </div>
-                  )}
-                </div>
-
-                <AnimatePresence>
-                  {showScrollToBottom && (
-                    <motion.button
-                      type="button"
-                      onClick={() => scrollToBottom("smooth")}
-                      initial={{ opacity: 0, y: 8 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      exit={{ opacity: 0, y: 8 }}
-                      transition={{ duration: 0.18 }}
-                      className="sticky bottom-3 mx-auto w-fit rounded-full border border-white/10 bg-white/10 px-3 py-1.5 text-xs text-white/90 shadow-lg backdrop-blur hover:bg-white/15"
-                      aria-label="Scroll to latest message"
-                    >
-                      Jump to latest ↓
-                    </motion.button>
-                  )}
-                </AnimatePresence>
-
-                {/* Input */}
-                <form
-                  onSubmit={handleSubmit}
-                  className="border-t border-white/10 bg-zinc-950/80 px-3 py-3 backdrop-blur"
-                >
-                  <div className="flex items-center gap-2">
-                    <input
-                      ref={inputRef}
-                      value={input}
-                      onChange={(e) => setInput(e.target.value)}
-                      placeholder="Ask a question…"
-                      className="h-10 flex-1 rounded-xl border border-white/10 bg-white/5 px-3 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white/20 focus:ring-2 focus:ring-white/10"
-                      maxLength={600}
-                    />
-                    <button
-                      type="submit"
-                      disabled={!canSend}
-                      className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-white transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
-                      aria-label="Send"
-                    >
-                      <Send className="h-4 w-4" />
-                    </button>
-                  </div>
-
-                  <p className="mt-2 text-[11px] leading-snug text-white/45">
-                    Tip: Press{" "}
-                    <span className="rounded bg-white/10 px-1">Esc</span> to
-                    close.
-                  </p>
-                </form>
-              </motion.div>
-            </div>
+              <ChatInputBar
+                inputRef={inputRef}
+                value={input}
+                onChange={setInput}
+                onSubmit={handleSubmit}
+                canSend={canSend}
+              />
+            </ChatPanel>
           </>
         )}
       </AnimatePresence>
