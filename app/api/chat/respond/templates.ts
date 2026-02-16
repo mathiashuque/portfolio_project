@@ -34,7 +34,7 @@ export const templates = {
   ),
 
   about_es: Handlebars.compile(
-    `Soy {{name}}, un/a {{title}} viviendo en {{location}}.\n{{tagline}}\n\nSi quieres, puedo resumir mi experiencia, proyectos o stack técnico.`,
+    `Soy {{name}}, un {{title}} viviendo en {{location}}.`,
   ),
 
   // --------------------
@@ -170,6 +170,6 @@ export const templates = {
   ),
 
   fallback_es: Handlebars.compile(
-    `No estoy seguro de cómo responder a eso. Puedes preguntarme sobre mis proyectos, experiencia, stack técnico, información de contacto o CV.`,
+    `No estoy seguro de cómo responder a eso.`,
   ),
 } as const;

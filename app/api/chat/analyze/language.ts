@@ -1,6 +1,6 @@
 // src/app/api/chat/analyze/language.ts
 import { detect as detectHeavy } from "tinyld/heavy";
-import { normalizeInput } from "./normalize";
+import { normalize } from "./normalize";
 import customWords from "./profanity.json";
 
 export type Lang = "en" | "es" | "other";
@@ -46,7 +46,7 @@ function profanitySpanishOverride(clean: string): Lang | null {
 }
 
 export function detectLanguage(text: string): Lang {
-  const clean = normalizeInput(text);
+  const clean = normalize(text);
   if (!clean) return "other";
 
   // 0) Spanish profanity override (short inputs only)

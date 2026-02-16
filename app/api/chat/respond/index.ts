@@ -8,7 +8,6 @@ import { templates } from "./templates.i18n";
 export function respondFromAnalysis(analysis: Analysis) {
   const k = knowledge;
   const t = isSpanish(analysis.lang) ? templates.es : templates.en;
-
   const handlers: Record<Intent, (analysis: Analysis) => string> = {
     profanity: () => t.profanity({}),
 
@@ -22,7 +21,6 @@ export function respondFromAnalysis(analysis: Analysis) {
         name: k.person.name,
         title: k.person.title,
         location: k.person.location,
-        tagline: k.person.tagline,
       }),
 
     contact: () =>
@@ -79,6 +77,39 @@ export function respondFromAnalysis(analysis: Analysis) {
       throw new Error("Function not implemented.");
     },
     personal: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    availability: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    pricing: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    services: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    education: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    certifications: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    blog: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    scheduling: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    timezone: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    relocation: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    opensource: function (analysis: Analysis): string {
+      throw new Error("Function not implemented.");
+    },
+    support: function (analysis: Analysis): string {
       throw new Error("Function not implemented.");
     },
   };
