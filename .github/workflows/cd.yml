@@ -2,7 +2,7 @@ name: CD
 
 on:
   workflow_run:
-    workflows: ["CI"]   # must match the 'name:' at top of your CI workflow
+    workflows: ["CI"] # must match the 'name:' at top of your CI workflow
     types: [completed]
 
 concurrency:
@@ -36,13 +36,18 @@ jobs:
           test -n "${VERCEL_PROJECT_ID}" || (echo "VERCEL_PROJECT_ID is missing/empty" && exit 1)
           test -n "${RESEND_API_KEY}" || (echo "RESEND_API_KEY is missing/empty" && exit 1)
           test -n "${CONTACT_TO_EMAIL}" || (echo "CONTACT_TO_EMAIL is missing/empty" && exit 1)
-          test -n "${OPENAI_API_KEY}" || (echo "OPENAI_API_KEY is missing/empty" && exit 1) 
+          test -n "${OPENAI_API_KEY}" || (echo "OPENAI_API_KEY is missing/empty" && exit 1)
           test -n "${UPSTASH_REDIS_REST_URL}" || (echo "UPSTASH_REDIS_REST_URL is missing/empty" && exit 1)
           test -n "${UPSTASH_REDIS_REST_TOKEN}" || (echo "UPSTASH_REDIS_REST_TOKEN is missing/empty" && exit 1)
         env:
           VERCEL_TOKEN: ${{ secrets.VERCEL_TOKEN }}
           VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
           VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
+          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
+          CONTACT_TO_EMAIL: ${{ secrets.CONTACT_TO_EMAIL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
+          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
 
       - name: Deploy to Vercel (prod)
         run: npx vercel --prod --token "${VERCEL_TOKEN}"
@@ -55,5 +60,3 @@ jobs:
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
           UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
           UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}
-
-          
