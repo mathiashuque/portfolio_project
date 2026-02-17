@@ -91,14 +91,19 @@ Or connect the repository directly in Vercel and use the default Next.js build c
 
 ## Environment Variables
 
-If using Resend for contact functionality, you may need:
+Create a `.env.local` file in the project root and define the following variables:
 
-```
-RESEND_API_KEY=your_api_key
+```env
+RESEND_API_KEY=your_resend_api_key
 CONTACT_TO_EMAIL=your_email@example.com
+OPENAI_API_KEY=your_openai_api_key
+UPSTASH_REDIS_REST_URL=your_upstash_redis_rest_url
+UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_rest_token
 ```
 
-Check the project source for the exact variable names used.
+> ⚠️ Never commit real API keys or tokens to your repository. Always use environment variables and keep sensitive credentials private.
+
+Ensure these variables are also configured in your Vercel project settings for production deployments.
 
 ---
 
