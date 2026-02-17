@@ -7,12 +7,14 @@ export function ChatInputBar({
   onChange,
   onSubmit,
   canSend,
+  disabled,
 }: {
   inputRef: React.RefObject<HTMLInputElement | null>;
   value: string;
   onChange: (v: string) => void;
   onSubmit: (e: React.FormEvent) => void;
   canSend: boolean;
+  disabled: boolean;
 }) {
   return (
     <form
@@ -27,10 +29,11 @@ export function ChatInputBar({
           placeholder="Ask a question…"
           className="h-10 flex-1 rounded-xl border border-white/10 bg-white/5 px-3 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white/20 focus:ring-2 focus:ring-white/10"
           maxLength={100}
+          disabled={disabled}
         />
         <button
           type="submit"
-          disabled={!canSend}
+          disabled={!canSend || disabled}
           className="inline-flex h-10 w-10 items-center justify-center rounded-xl border border-white/10 bg-white/10 text-white transition hover:bg-white/15 disabled:cursor-not-allowed disabled:opacity-50"
           aria-label="Send"
         >

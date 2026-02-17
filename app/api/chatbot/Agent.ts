@@ -10,6 +10,8 @@ import {
   type AgentOutputType,
 } from "@openai/agents";
 import { buildProfanityRegex } from "./profanity/asd";
+import { PORTFOLIO_CONTEXT } from "./portfolioContext";
+import type { AgentInputItem } from "@openai/agents";
 
 const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
 
@@ -21,6 +23,8 @@ You are speaking directly to visitors on your portfolio website.
 PRIMARY SCOPE (about me):
 - Use ONLY the provided CONTEXT to answer questions about me, my background, my projects, or my experience.
 - If the information is not in the context, say you don’t have that information.
+- You MAY use the conversation history provided in the messages to answer questions like “what did I ask earlier?” or “what did you say before?”.
+
 
 SECONDARY SCOPE (general questions):
 - If the user asks something NOT related to my portfolio/me (e.g., “what is AI?”, “how does ChatGPT work?”, general tech questions),
@@ -51,6 +55,17 @@ Rules:
 - Reply in the same language as the user's question (Spanish or English).
 - If asked about hiring or contact, answer briefly and directly.
 - If the user is disrespectful, rude, or uses profanity, respond politely and redirect the conversation toward my work, projects, or experience.
+
+
+PROACTIVE ACTIONS (STRICTLY FORBIDDEN)
+- Do NOT offer to contact anyone.
+- Do NOT offer to email, message, call, reach out, schedule, or initiate communication.
+- Do NOT ask for the visitor’s contact details.
+- Do NOT suggest that you will take action outside this chat.
+- You can only provide my contact information.
+- Never ask follow-up questions about how I should contact the user.
+- You cannot perform actions — only provide information.
+- If the user asks about contact, simply provide my email and/or LinkedIn briefly. Do not add anything else.
 
 Goal:
 Help visitors quickly understand who I am and what I do, with minimal text, and redirect off-topic questions back to my portfolio.
@@ -168,31 +183,17 @@ const moderationOutputGuardrail: OutputGuardrail<AgentOutputType> = {
 
 const agent = new Agent({
   name: "Agent",
-  instructions: INSTRUCTIONS,
+  instructions: `${INSTRUCTIONS}\n\n${PORTFOLIO_CONTEXT}`,
   model: "gpt-5-nano",
   modelSettings: { reasoning: { effort: "low" } },
   inputGuardrails: [moderationInputGuardrail],
   outputGuardrails: [moderationOutputGuardrail],
 });
 
-type WorkflowInput = { input_as_text: string };
-
-type VectorStoreSearchItem = {
-  score: number;
-  filename?: string;
-  content?: Array<{ text: string }>;
-  text?: string;
+type WorkflowInput = {
+  input_as_text: string;
+  history?: { role: "user" | "assistant"; content: string }[];
 };
-
-type VectorStoreSearchResponse = {
-  data: VectorStoreSearchItem[];
-};
-
-function normalizeSearchText(item: VectorStoreSearchItem): string {
-  const fromContent = item.content?.map((c) => c.text).join("\n") ?? "";
-  const fallback = item.text ?? "";
-  return (fromContent || fallback).trim();
-}
 
 export const runWorkflow = async (
   workflow: WorkflowInput,
@@ -213,38 +214,24 @@ export const runWorkflow = async (
       return { answer: blockedReply(userText) };
     }
 
-    // 1) retrieve
-    const vsId = process.env.vsId as string;
-    const searchUnknown: unknown = await client.vectorStores.search(vsId, {
-      query: userText,
-    });
-    const search = searchUnknown as VectorStoreSearchResponse;
-
-    const hits = search.data
-      .map((r) => ({
-        score: r.score,
-        filename: r.filename,
-        text: normalizeSearchText(r),
-      }))
-      .filter((h) => h.text.length > 0)
-      .slice(0, 8);
-
-    const contextText = hits.length
-      ? hits
-          .map(
-            (h, i) =>
-              `# Source ${i + 1} (${h.filename ?? "file"}, score ${h.score})\n${h.text}`,
-          )
-          .join("\n\n")
-      : "No relevant context found.";
-
     try {
-      // 2) answer using context (guardrails apply here too)
-      const result = await runner.run(agent, [
-        { role: "system", content: `CONTEXT:\n${contextText}` },
-        { role: "user", content: userText },
-      ]);
+      const history = workflow.history ?? [];
 
+      const inputItems: AgentInputItem[] = [
+        ...history.map((m): AgentInputItem => {
+          if (m.role === "user") {
+            return { role: "user", content: m.content };
+          }
+          return {
+            role: "assistant",
+            status: "completed",
+            content: [{ type: "output_text", text: m.content }],
+          };
+        }),
+        { role: "user", content: userText },
+      ];
+
+      const result = await runner.run(agent, inputItems);
       return { answer: String(result.finalOutput) };
     } catch (e: unknown) {
       if (e instanceof InputGuardrailTripwireTriggered) {

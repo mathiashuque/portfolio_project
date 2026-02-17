@@ -38,9 +38,15 @@ export default function ChatWidget({
   const inputRef = useRef<HTMLInputElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
 
+  const assistantTyping = useMemo(() => {
+    return messages.some(
+      (m) => m.role === "assistant" && !typedDoneIds.has(m.id),
+    );
+  }, [messages, typedDoneIds]);
+
   const canSend = useMemo(
-    () => input.trim().length > 0 && !loading,
-    [input, loading],
+    () => input.trim().length > 0 && !loading && !assistantTyping,
+    [input, loading, assistantTyping],
   );
 
   // seed greeting as typed
@@ -78,6 +84,10 @@ export default function ChatWidget({
     el.scrollTo({ top: el.scrollHeight, behavior });
   }
 
+  function scrollNextFrame(behavior: ScrollBehavior = "smooth") {
+    requestAnimationFrame(() => scrollToBottom(behavior));
+  }
+
   useEffect(() => {
     if (!open) return;
     const el = listRef.current;
@@ -104,6 +114,7 @@ export default function ChatWidget({
       ...prev,
       { id: uid(), role: "user", content: trimmed, createdAt: Date.now() },
     ]);
+    scrollNextFrame("smooth");
     setInput("");
     setLoading(true);
 
@@ -114,9 +125,26 @@ export default function ChatWidget({
           "Content-Type": "application/json",
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_CHATBOT_API_KEY}`,
         },
+        credentials: "include",
         body: JSON.stringify({ message: trimmed }),
         cache: "no-store",
       });
+
+      // ✅ Handle rate limit (429) with a friendly message
+      if (res.status === 429) {
+        setMessages((prev) => [
+          ...prev,
+          {
+            id: uid(),
+            role: "assistant",
+            content:
+              "You’ve reached the question limit for now. Please contact Mathias if you have any more questions.",
+            createdAt: Date.now(),
+          },
+        ]);
+        //scrollNextFrame("smooth");
+        return; // stop here, skip normal parsing
+      }
 
       if (!res.ok) {
         let errText = "Chat API error";
@@ -223,6 +251,7 @@ export default function ChatWidget({
                 onChange={setInput}
                 onSubmit={handleSubmit}
                 canSend={canSend}
+                disabled={assistantTyping}
               />
             </ChatPanel>
           </>

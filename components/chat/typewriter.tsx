@@ -5,20 +5,12 @@ import { motion } from "motion/react";
 
 type TypewriterProps = {
   text: string;
-  /** Start/restart typing when true */
   start?: boolean;
-  /** Typing speed */
   charsPerSecond?: number;
-  /** Bubble styling */
   className?: string;
-  /** Optional callback when typing finishes */
   onDone?: () => void;
 };
 
-/**
- * Typewriter bubble that reveals `text` character-by-character.
- * Drop this inside your assistant message bubble instead of rendering the full string.
- */
 export default function Typewriter({
   text,
   start = true,
@@ -31,25 +23,30 @@ export default function Typewriter({
   const timerRef = useRef<number | null>(null);
   const doneRef = useRef(false);
 
+  // ✅ keep the latest onDone without retriggering the typing effect
+  const onDoneRef = useRef(onDone);
+  useEffect(() => {
+    onDoneRef.current = onDone;
+  }, [onDone]);
+
   const stepMs = useMemo(
     () => Math.max(10, Math.floor(1000 / charsPerSecond)),
     [charsPerSecond],
   );
 
   useEffect(() => {
-    // ✅ If we're not typing, just show the full text and do nothing else.
     if (!start) {
       if (timerRef.current) {
         window.clearInterval(timerRef.current);
         timerRef.current = null;
       }
       doneRef.current = true;
+
       // eslint-disable-next-line react-hooks/set-state-in-effect
       setShown(text);
       return;
     }
 
-    // reset typing
     if (timerRef.current) {
       window.clearInterval(timerRef.current);
       timerRef.current = null;
@@ -61,8 +58,7 @@ export default function Typewriter({
 
     timerRef.current = window.setInterval(() => {
       iRef.current += 1;
-      const next = text.slice(0, iRef.current);
-      setShown(next);
+      setShown(text.slice(0, iRef.current));
 
       if (iRef.current >= text.length) {
         if (timerRef.current) {
@@ -71,7 +67,7 @@ export default function Typewriter({
         }
         if (!doneRef.current) {
           doneRef.current = true;
-          onDone?.();
+          onDoneRef.current?.();
         }
       }
     }, stepMs);
@@ -82,7 +78,7 @@ export default function Typewriter({
         timerRef.current = null;
       }
     };
-  }, [start, text, stepMs, onDone]);
+  }, [start, text, stepMs]); // ✅ removed onDone
 
   const isDone = shown.length >= text.length;
 
