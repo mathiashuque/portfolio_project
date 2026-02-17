@@ -26,5 +26,66 @@
       "frontend": "Desarrollo frontend",
       "designSystems": "Sistemas de diseño"
     }
+  },
+
+  "Contact": {
+    "kicker": "CONTACTO",
+    "title": "Hablemos",
+    "cardTitle": "Trabajemos juntos",
+    "cardBody": "Siempre me interesan nuevas oportunidades y proyectos emocionantes. Si tienes una pregunta o solo quieres saludar, ¡escríbeme!",
+    "links": {
+      "email": "Correo",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    },
+    "field": {
+      "name": {
+        "label": "Nombre",
+        "placeholder": "Tu nombre"
+      },
+      "email": {
+        "label": "Correo",
+        "placeholder": "tu@ejemplo.com"
+      },
+      "message": {
+        "label": "Mensaje",
+        "placeholder": "Cuéntame sobre tu proyecto..."
+      }
+    },
+    "form": {
+      "title": "Enviar un mensaje",
+      "nameLabel": "Tu nombre",
+      "namePlaceholder": "Tu nombre",
+      "emailLabel": "Tu correo",
+      "emailPlaceholder": "Tu correo",
+      "messageLabel": "Tu mensaje",
+      "messagePlaceholder": "Tu mensaje",
+      "sendButton": "Enviar mensaje",
+      "note": "Al enviar, es posible que se abra tu cliente de correo.",
+      "errors": {
+        "missingFields": "Por favor completa todos los campos.",
+        "invalidEmail": "Por favor ingresa un correo válido.",
+        "sendFailed": "No se pudo enviar"
+      },
+      "status": {
+        "sending": "Enviando…",
+        "sent": "Mensaje enviado. ¡Gracias!",
+        "fallback": "No se pudo enviar automáticamente — abriendo tu cliente de correo…"
+      },
+      "mailto": {
+        "subject": "Mensaje del portafolio de {name}",
+        "body": "Nombre: {name}\nCorreo: {email}\n\n{message}"
+      }
+    }
+  },
+
+  "Footer": {
+    "subtitle": "Desarrollador Full-Stack apasionado por crear aplicaciones web hermosas y funcionales que marcan la diferencia.",
+    "credits": "Diseñado de forma informal en Figma y programado en Visual Studio Code por mí. Construido con Next.js y Tailwind CSS, desplegado con Vercel.",
+    "social": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Correo"
+    }
   }
 }

@@ -26,5 +26,66 @@
       "frontend": "Frontend Development",
       "designSystems": "Design Systems"
     }
+  },
+
+  "Contact": {
+    "kicker": "CONTACT",
+    "title": "Get In Touch",
+    "cardTitle": "Let's Work Together",
+    "cardBody": "I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hi, feel free to reach out!",
+    "links": {
+      "email": "Email",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    },
+    "field": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Your name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "you@example.com"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Tell me about your project..."
+      }
+    },
+    "form": {
+      "title": "Send a Message",
+      "nameLabel": "Your Name",
+      "namePlaceholder": "Your Name",
+      "emailLabel": "Your Email",
+      "emailPlaceholder": "Your Email",
+      "messageLabel": "Your Message",
+      "messagePlaceholder": "Your Message",
+      "sendButton": "Send Message",
+      "note": "By sending, your email client may open.",
+      "errors": {
+        "missingFields": "Please fill in all fields.",
+        "invalidEmail": "Please enter a valid email address.",
+        "sendFailed": "Failed to send"
+      },
+      "status": {
+        "sending": "Sending…",
+        "sent": "Message sent. Thanks!",
+        "fallback": "Couldn’t send automatically — opening your email client…"
+      },
+      "mailto": {
+        "subject": "Portfolio message from {name}",
+        "body": "Name: {name}\nEmail: {email}\n\n{message}"
+      }
+    }
+  },
+
+  "Footer": {
+    "subtitle": "Full-Stack Developer passionate about creating beautiful, functional web applications that make a difference.",
+    "credits": "Loosely designed in Figma and coded in Visual Studio Code by yours truly. Built with Next.JS and Tailwind CSS, deployed with Vercel.",
+    "social": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Email"
+    }
   }
 }

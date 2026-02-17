@@ -1,5 +1,8 @@
+"use client";
+
 import React, { useState } from "react";
 import { AlertCircle, CheckCircle2, Send } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Field from "./Field";
 import type { Status } from "./types";
 
@@ -8,8 +11,9 @@ type ContactFormProps = {
 };
 
 export default function ContactForm({ mailtoTo }: ContactFormProps) {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const t = useTranslations("Contact.form");
 
+  const [form, setForm] = useState({ name: "", email: "", message: "" });
   const [status, setStatus] = useState<Status>({ state: "idle" });
 
   function updateField<K extends keyof typeof form>(
@@ -25,10 +29,8 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
   }
 
   function openMailtoFallback(name: string, email: string, message: string) {
-    const subject = encodeURIComponent(`Portfolio message from ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\n${message}`,
-    );
+    const subject = encodeURIComponent(t("mailto.subject", { name }));
+    const body = encodeURIComponent(t("mailto.body", { name, email, message }));
 
     window.location.href = `mailto:${mailtoTo}?subject=${subject}&body=${body}`;
   }
@@ -41,17 +43,16 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
     const message = form.message.trim();
 
     if (!name || !email || !message) {
-      setStatus({ state: "error", text: "Please fill in all fields." });
+      setStatus({ state: "error", text: t("errors.missingFields") });
       return;
     }
     if (!isValidEmail(email)) {
-      setStatus({ state: "error", text: "Please enter a valid email address." });
+      setStatus({ state: "error", text: t("errors.invalidEmail") });
       return;
     }
 
     try {
-      // NOTE: your original code used "success" for "Sending…" as well.
-      setStatus({ state: "success", text: "Sending…" });
+      setStatus({ state: "success", text: t("status.sending") });
 
       const res = await fetch("/api/contact", {
         method: "POST",
@@ -59,15 +60,19 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
         body: JSON.stringify({ name, email, message }),
       });
 
-      const data = await res.json().catch(() => ({})) as Record<string, unknown>;
-      if (!res.ok) throw new Error((data?.error as string) || "Failed to send");
+      const data = (await res.json().catch(() => ({}))) as Record<
+        string,
+        unknown
+      >;
+      if (!res.ok)
+        throw new Error((data?.error as string) || t("errors.sendFailed"));
 
       setForm({ name: "", email: "", message: "" });
-      setStatus({ state: "success", text: "Message sent. Thanks!" });
+      setStatus({ state: "success", text: t("status.sent") });
     } catch {
       setStatus({
         state: "success",
-        text: "Couldn’t send automatically — opening your email client…",
+        text: t("status.fallback"),
       });
 
       openMailtoFallback(name, email, message);
@@ -80,23 +85,23 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
 
   return (
     <div className="rounded-2xl bg-panel p-5 shadow-sm ring-1 ring-border/10 sm:p-6">
-      <h3 className="text-xl font-semibold text-text">Send a Message</h3>
+      <h3 className="text-xl font-semibold text-text">{t("title")}</h3>
 
       <form onSubmit={handleSubmit} className="mt-4 space-y-2.5">
         <Field
-          label="Your Name"
+          label={t("nameLabel")}
           value={form.name}
           onChange={(v) => updateField("name", v)}
-          placeholder="Your Name"
+          placeholder={t("namePlaceholder")}
           autoComplete="name"
           className={inputClass}
         />
 
         <Field
-          label="Your Email"
+          label={t("emailLabel")}
           value={form.email}
           onChange={(v) => updateField("email", v)}
-          placeholder="Your Email"
+          placeholder={t("emailPlaceholder")}
           inputMode="email"
           autoComplete="email"
           className={inputClass}
@@ -104,12 +109,12 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
 
         <div className="space-y-1.5">
           <label className="text-sm font-medium text-muted/90">
-            Your Message
+            {t("messageLabel")}
           </label>
           <textarea
             value={form.message}
             onChange={(e) => updateField("message", e.target.value)}
-            placeholder="Your Message"
+            placeholder={t("messagePlaceholder")}
             rows={3}
             className={inputClass.replace("w-full", "w-full resize-none")}
           />
@@ -144,12 +149,10 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
           "
         >
           <Send className="h-4 w-4" />
-          Send Message
+          {t("sendButton")}
         </button>
 
-        <p className="text-center text-xs text-faint/90">
-          By sending, your email client may open.
-        </p>
+        <p className="text-center text-xs text-faint/90">{t("note")}</p>
       </form>
     </div>
   );

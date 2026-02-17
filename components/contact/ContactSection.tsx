@@ -7,32 +7,34 @@ import ContactLinks from "./ContactLinks";
 import ContactForm from "./ContactForm";
 import NetworkPattern from "./NetworkPattern";
 import type { ContactLink } from "./types";
+import { useTranslations } from "next-intl";
 
 export default function ContactSection() {
   const [inView, setInView] = useState(false);
+  const t = useTranslations("Contact");
 
   const links: ContactLink[] = useMemo(
     () => [
       {
-        label: "Email",
+        label: t("links.email"),
         value: "contact@mathiashuque.dev",
         href: `mailto:${atob("Y29udGFjdEBtYXRoaWFzaHVxdWUuZGV2")}`,
         icon: <Mail className="h-5 w-5" />,
       },
       {
-        label: "LinkedIn",
+        label: t("links.linkedin"),
         value: "linkedin.com/in/mathias-huque",
         href: "https://linkedin.com/in/mathias-huque",
         icon: <Linkedin className="h-5 w-5" />,
       },
       {
-        label: "GitHub",
+        label: t("links.github"),
         value: "github.com/mathiashuque",
         href: "https://github.com/mathiashuque",
         icon: <Github className="h-5 w-5" />,
       },
     ],
-    [],
+    [t],
   );
 
   return (
@@ -63,10 +65,10 @@ export default function ContactSection() {
           }}
         >
           <p className="text-xs font-semibold tracking-[0.22em] text-faint/90">
-            CONTACT
+            {t("kicker")}
           </p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight text-text sm:text-4xl">
-            Get In Touch
+            {t("title")}
           </h2>
         </motion.div>
 
