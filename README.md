@@ -97,8 +97,6 @@ Create a `.env.local` file in the project root and define the following variable
 RESEND_API_KEY=your_resend_api_key
 CONTACT_TO_EMAIL=your_email@example.com
 OPENAI_API_KEY=your_openai_api_key
-CHATBOT_API_KEY=your_internal_chatbot_api_key
-NEXT_PUBLIC_CHATBOT_API_KEY=your_public_chatbot_api_key
 UPSTASH_REDIS_REST_URL=your_upstash_redis_rest_url
 UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_rest_token
 ```

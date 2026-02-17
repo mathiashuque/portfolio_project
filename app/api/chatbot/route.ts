@@ -56,24 +56,8 @@ async function ttlSeconds(key: string): Promise<number> {
 
 export async function POST(req: NextRequest) {
   try {
-    // 1) AUTH (tu lógica original)
-    const apiKey = process.env.CHATBOT_API_KEY;
-    if (!apiKey) {
-      console.error("Missing CHATBOT_API_KEY env var");
-      return NextResponse.json(
-        { error: "Server misconfigured" },
-        { status: 500 },
-      );
-    }
 
-    const auth = req.headers.get("authorization") ?? "";
-    const token = auth.startsWith("Bearer ") ? auth.slice(7) : "";
-
-    if (!token || !safeEqual(token, apiKey)) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
-    }
-
-    // 2) INPUT VALIDATION (tu lógica original)
+    // 1) INPUT VALIDATION (tu lógica original)
     const body = (await req.json().catch(() => ({}))) as Record<
       string,
       unknown
@@ -96,7 +80,7 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    // 3) RATE LIMIT (IP + sesión)
+    // 2) RATE LIMIT (IP + sesión)
     const ip = getIP(req);
     const { sid, isNew } = getSID(req);
 
@@ -131,14 +115,14 @@ export async function POST(req: NextRequest) {
       return out;
     }
 
-    // 4) LOAD HISTORY (per session)
+    // 3) LOAD HISTORY (per session)
     const historyKey = `chat:sid:${sid}`;
 
     type StoredMsg = { role: "user" | "assistant"; content: string };
 
     const history = (await redis.get<StoredMsg[]>(historyKey)) ?? [];
 
-    // 5) RUN WITH MEMORY
+    // 4) RUN WITH MEMORY
     const { answer } = await runWorkflow({
       input_as_text: input,
       history,

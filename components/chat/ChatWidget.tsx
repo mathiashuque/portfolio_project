@@ -123,7 +123,6 @@ export default function ChatWidget({
         method: "POST",
         headers: {
           "Content-Type": "application/json",
-          Authorization: `Bearer ${process.env.NEXT_PUBLIC_CHATBOT_API_KEY}`,
         },
         credentials: "include",
         body: JSON.stringify({ message: trimmed }),
