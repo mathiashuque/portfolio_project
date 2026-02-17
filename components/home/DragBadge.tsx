@@ -1,4 +1,5 @@
 import { motion } from "motion/react";
+import { useTranslations } from "next-intl";
 
 type DragBadgeProps = {
   dragKey: number;
@@ -6,6 +7,8 @@ type DragBadgeProps = {
 };
 
 export default function DragBadge({ dragKey, constraintsRef }: DragBadgeProps) {
+  const t = useTranslations("Home");
+
   return (
     // give it a bit more room so centering looks natural
     <div className="relative h-16 w-full">
@@ -24,7 +27,7 @@ export default function DragBadge({ dragKey, constraintsRef }: DragBadgeProps) {
         initial={{ x: 0, y: 0 }}
       >
         <div className="relative rounded-md border border-border bg-bg px-6 sm:px-5 py-3 text-sm sm:text-base font-medium animate-fade-down animate-duration-1000 whitespace-nowrap">
-          Hello, World! 👋 I’m Mathias!
+          {t("badge")}
           <span className="absolute -left-1.5 -top-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
           <span className="absolute -right-1.5 -top-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />
           <span className="absolute -left-1.5 -bottom-1.5 h-3 w-3 bg-accent border border-border rounded-xs" />

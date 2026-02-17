@@ -6,5 +6,25 @@
     "projects": "Projects",
     "stack": "Stack",
     "contact": "Contact"
+  },
+  "Home": {
+    "badge": "Hello, World! 👋 I’m Mathias!",
+    "headline": "I Build Software Apps That Turn {br} {highlight}.",
+    "headlineHighlight": "Ideas Into Reality",
+    "paragraph": "I build software apps and complete digital products from start to finish, helping ideas turn into real, working solutions.",
+    "contactCta": "Contact →",
+    "cvCta": "Open CV ↓",
+    "traits": {
+      "cleanCode": "Clean Code",
+      "uxAware": "UX-Aware Development",
+      "responsive": "Responsive Design",
+      "accessibility": "Accessibility",
+      "webDesign": "Web Design",
+      "mobileAppDesign": "Mobile App Design",
+      "brandIdentity": "Brand Identity",
+      "uiux": "UI/UX",
+      "frontend": "Frontend Development",
+      "designSystems": "Design Systems"
+    }
   }
 }
