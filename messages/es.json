@@ -1,1 +1,10 @@
-{}
+{
+  "Nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "stack": "Tecnologías",
+    "contact": "Contacto"
+  }
+}

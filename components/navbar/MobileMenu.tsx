@@ -5,6 +5,7 @@ import type { Variants } from "motion/react";
 import { motion, stagger } from "motion/react";
 import type { NavLink } from "./types";
 import ThemeToggle from "./ThemeToggle";
+import LanguageSwitcher from "./LanguageSwitcher";
 
 const menuVariants = {
   open: {
@@ -174,7 +175,7 @@ export default function MobileMenu({
                         : "text-slate-700 dark:text-white/80",
                     ].join(" ")}
                   >
-                    {l.label}
+                    {l.key}
                   </a>
                 </motion.li>
               );
@@ -183,6 +184,7 @@ export default function MobileMenu({
 
           <div className="mt-6 pt-5 border-t border-slate-900/10 dark:border-white/10">
             <motion.div variants={itemVariants} className="flex items-center">
+              <LanguageSwitcher />
               <ThemeToggle
                 dark={dark}
                 onToggle={onToggleTheme}
