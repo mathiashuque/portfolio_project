@@ -241,5 +241,40 @@
       "linkedin": "LinkedIn",
       "email": "Correo"
     }
+  },
+  "ChatWidget": {
+    "fab": { "open": "Chat", "close": "Cerrar" },
+    "aria": {
+      "openChat": "Abrir chat",
+      "closeChat": "Cerrar chat",
+      "close": "Cerrar",
+      "send": "Enviar",
+      "dialog": "Widget de chat",
+      "scrollLatest": "Ir al mensaje más reciente"
+    },
+    "header": {
+      "title": "Preguntale a Mathias",
+      "subtitle": "Preguntas rápidas sobre mi trabajo, proyectos o disponibilidad."
+    },
+    "greeting": "¡Hey! 👋 Preguntame lo que quieras sobre mis proyectos, stack o experiencia.",
+    "input": {
+      "placeholder": "Hacé una pregunta…",
+      "tipPrefix": "Tip: Presioná",
+      "tipSuffix": "para cerrar."
+    },
+    "suggestions": {
+      "label": "Probá con alguna de estas:",
+      "items": [
+        "Contame sobre tu proyecto más reciente.",
+        "¿Qué tipo de roles estás buscando?",
+        "¿Cómo puedo contactarte?"
+      ]
+    },
+    "scrollToBottom": { "label": "Ir al final ↓" },
+    "rateLimit": "Por ahora alcanzaste el límite de preguntas. Contactá a Mathias si tenés más consultas.",
+    "errors": {
+      "noResponse": "Perdón — no recibí respuesta. Probá de nuevo.",
+      "generic": "Perdón — algo falló de mi lado. Probá de nuevo o escribime desde la sección de Contacto."
+    }
   }
 }

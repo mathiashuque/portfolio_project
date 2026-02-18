@@ -241,5 +241,41 @@
       "linkedin": "LinkedIn",
       "email": "Email"
     }
+  },
+
+  "ChatWidget": {
+    "fab": { "open": "Chat", "close": "Close" },
+    "aria": {
+      "openChat": "Open chat",
+      "closeChat": "Close chat",
+      "close": "Close",
+      "send": "Send",
+      "dialog": "Chat widget",
+      "scrollLatest": "Scroll to latest message"
+    },
+    "header": {
+      "title": "Ask Mathias",
+      "subtitle": "Quick questions about my work, projects, or availability."
+    },
+    "greeting": "Hey! 👋 Ask me anything about my projects, stack, or experience.",
+    "input": {
+      "placeholder": "Ask a question…",
+      "tipPrefix": "Tip: Press",
+      "tipSuffix": "to close."
+    },
+    "suggestions": {
+      "label": "Try one of these:",
+      "items": [
+        "Tell me about your most recent project.",
+        "What kind of roles are you looking for?",
+        "How can I contact you?"
+      ]
+    },
+    "scrollToBottom": { "label": "Jump to latest ↓" },
+    "rateLimit": "You’ve reached the question limit for now. Please contact Mathias if you have any more questions.",
+    "errors": {
+      "noResponse": "Sorry — I didn’t get a response. Please try again.",
+      "generic": "Sorry — something went wrong on my side. Please try again, or reach out via the Contact section."
+    }
   }
 }

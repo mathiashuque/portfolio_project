@@ -1,4 +1,5 @@
 import { Sparkles, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function ChatHeader({
   title,
@@ -9,6 +10,8 @@ export function ChatHeader({
   subtitle: string;
   onClose: () => void;
 }) {
+  const t = useTranslations("ChatWidget");
+
   return (
     <div className="flex items-start justify-between gap-3 border-b border-white/10 bg-zinc-950/80 px-4 py-3 backdrop-blur">
       <div className="min-w-0">
@@ -22,7 +25,7 @@ export function ChatHeader({
         type="button"
         onClick={onClose}
         className="rounded-lg p-1 text-white/70 transition hover:bg-white/5 hover:text-white focus:outline-none focus:ring-2 focus:ring-white/20"
-        aria-label="Close"
+        aria-label={t("aria.close")}
       >
         <X className="h-4 w-4" />
       </button>

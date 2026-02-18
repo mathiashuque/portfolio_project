@@ -10,18 +10,23 @@ import { ChatMessages } from "./ChatMessages";
 import { ScrollToBottomButton } from "./ScrollToBottomButton";
 import { ChatInputBar } from "./ChatInputBar";
 import { ChatMessage, ChatWidgetProps, uid } from "./types";
+import { useTranslations } from "next-intl";
+import { ChatSuggestions } from "./ChatSuggestions";
 
-export default function ChatWidget({
-  title = "Ask Mathias",
-  subtitle = "Quick questions about my work, projects, or availability.",
-  greeting = "Hey! 👋 Ask me anything about my projects, stack, or experience.",
-  suggestions = [
-    "What’s your tech stack?",
-    "Tell me about your most recent project.",
-    "What kind of roles are you looking for?",
-    "How can I contact you?",
-  ],
-}: ChatWidgetProps) {
+export default function ChatWidget(props: ChatWidgetProps) {
+  const t = useTranslations("ChatWidget");
+
+  const title = props.title ?? t("header.title");
+  const subtitle = props.subtitle ?? t("header.subtitle");
+  const greeting = props.greeting ?? t("greeting");
+
+  const suggestions =
+    props.suggestions ??
+    (() => {
+      const raw = t.raw("suggestions.items");
+      return Array.isArray(raw) ? (raw as string[]) : [];
+    })();
+
   const [open, setOpen] = useState(false);
   const [input, setInput] = useState("");
   const [loading, setLoading] = useState(false);
@@ -234,10 +239,19 @@ export default function ChatWidget({
                 typedDoneIds={typedDoneIds}
                 onMarkTypedDone={markTypedDone}
                 loading={loading}
-                suggestions={suggestions}
-                onSuggestion={handleSuggestion}
                 listRef={listRef}
               />
+
+              {/* ✅ sugerencias abajo, arriba del input */}
+              {messages.length <= 1 && (
+                <div className="border-t border-white/10 bg-zinc-950/80 px-4 py-3 backdrop-blur">
+                  <ChatSuggestions
+                    suggestions={suggestions}
+                    onPick={handleSuggestion}
+                    disabled={loading || assistantTyping}
+                  />
+                </div>
+              )}
 
               <ScrollToBottomButton
                 show={showScrollToBottom}
