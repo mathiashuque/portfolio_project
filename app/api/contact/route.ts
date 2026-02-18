@@ -1,56 +1,110 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
 
+type ContactPayload = {
+  name?: string;
+  email?: string;
+  message?: string;
+  website?: string; // honeypot
+};
+
+const MAX_NAME = 80;
+const MAX_EMAIL = 254;
+const MAX_MESSAGE = 4000;
+
+// Basic burst protection (best-effort; resets on cold start)
+const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+const RATE_LIMIT_MAX = 5;
+const buckets = new Map<string, { count: number; resetAt: number }>();
+
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
 }
 
-function getResendClient() {
+function clamp(str: string, max: number) {
+  const s = String(str ?? "");
+  return s.length > max ? s.slice(0, max) : s;
+}
+
+function getClientIp(req: Request) {
+  const xff = req.headers.get("x-forwarded-for");
+  if (xff) return xff.split(",")[0]?.trim() || "unknown";
+  return req.headers.get("x-real-ip") ?? "unknown";
+}
+
+function rateLimit(key: string) {
+  const now = Date.now();
+  const current = buckets.get(key);
+
+  if (!current || current.resetAt <= now) {
+    buckets.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
+    return true;
+  }
+
+  if (current.count >= RATE_LIMIT_MAX) return false;
+
+  current.count += 1;
+  return true;
+}
+
+function getResend() {
   const key = process.env.RESEND_API_KEY;
-  if (!key) return null;
-  return new Resend(key);
+  return key ? new Resend(key) : null;
 }
 
 export async function POST(req: Request) {
+  const ip = getClientIp(req);
+
+  if (!rateLimit(ip)) {
+    return NextResponse.json(
+      { error: "Too many requests. Try again later." },
+      { status: 429 },
+    );
+  }
+
+  let payload: ContactPayload;
   try {
-    const { name, email, message } = (await req.json()) as {
-      name?: string;
-      email?: string;
-      message?: string;
-    };
+    payload = (await req.json()) as ContactPayload;
+  } catch {
+    return NextResponse.json({ error: "Invalid request" }, { status: 400 });
+  }
 
-    if (!name?.trim() || !email?.trim() || !message?.trim()) {
-      return NextResponse.json({ error: "Missing fields" }, { status: 400 });
-    }
-    if (!isValidEmail(email)) {
-      return NextResponse.json({ error: "Invalid email" }, { status: 400 });
-    }
+  // Honeypot: if bots fill it, pretend success (don’t teach them)
+  if (String(payload.website ?? "").trim()) {
+    return NextResponse.json({ ok: true });
+  }
 
-    const to = process.env.CONTACT_TO_EMAIL;
-    if (!to) {
-      return NextResponse.json(
-        { error: "Email service not configured (missing CONTACT_TO_EMAIL)" },
-        { status: 500 },
-      );
-    }
+  const name = clamp(String(payload.name ?? "").trim(), MAX_NAME);
+  const email = clamp(String(payload.email ?? "").trim(), MAX_EMAIL);
+  const message = clamp(String(payload.message ?? "").trim(), MAX_MESSAGE);
 
-    const resend = getResendClient();
-    if (!resend) {
-      return NextResponse.json(
-        { error: "Email service not configured (missing RESEND_API_KEY)" },
-        { status: 500 },
-      );
-    }
+  if (!name || !email || !message) {
+    return NextResponse.json({ error: "Missing fields" }, { status: 400 });
+  }
+  if (!isValidEmail(email)) {
+    return NextResponse.json({ error: "Invalid email" }, { status: 400 });
+  }
 
-    const from = "Portfolio <contact@mathiashuque.dev>";
-    
+  const to = process.env.CONTACT_TO_EMAIL;
+  const resend = getResend();
 
+  // Keep responses generic to avoid leaking config state
+  if (!to || !resend) {
+    return NextResponse.json({ error: "Service not configured" }, { status: 500 });
+  }
+
+  // IMPORTANT:
+  // For Resend, `from` must be from a verified domain/sender.
+  // Prefer a no-reply/alias rather than your personal inbox.
+  const from = process.env.CONTACT_FROM_EMAIL ?? "Portfolio <no-reply@mathiashuque.dev>";
+
+  try {
     await resend.emails.send({
       from,
       to,
       replyTo: email,
       subject: `Portfolio message from ${name}`,
-      text: `Name: ${name}\nEmail: ${email}\n\n${message}`,
+      text: `Name: ${name}\nEmail: ${email}\nIP: ${ip}\n\n${message}`,
     });
 
     return NextResponse.json({ ok: true });

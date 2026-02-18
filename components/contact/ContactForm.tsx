@@ -6,20 +6,18 @@ import { useTranslations } from "next-intl";
 import Field from "./Field";
 import type { Status } from "./types";
 
-type ContactFormProps = {
-  mailtoTo: string;
-};
-
-export default function ContactForm({ mailtoTo }: ContactFormProps) {
+export default function ContactForm() {
   const t = useTranslations("Contact.form");
 
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+    website: "", // honeypot
+  });
   const [status, setStatus] = useState<Status>({ state: "idle" });
 
-  function updateField<K extends keyof typeof form>(
-    key: K,
-    value: (typeof form)[K],
-  ) {
+  function updateField<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
     if (status.state !== "idle") setStatus({ state: "idle" });
   }
@@ -28,19 +26,13 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   }
 
-  function openMailtoFallback(name: string, email: string, message: string) {
-    const subject = encodeURIComponent(t("mailto.subject", { name }));
-    const body = encodeURIComponent(t("mailto.body", { name, email, message }));
-
-    window.location.href = `mailto:${mailtoTo}?subject=${subject}&body=${body}`;
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const name = form.name.trim();
     const email = form.email.trim();
     const message = form.message.trim();
+    const website = form.website.trim(); // honeypot
 
     if (!name || !email || !message) {
       setStatus({ state: "error", text: t("errors.missingFields") });
@@ -51,31 +43,29 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
       return;
     }
 
+    // Honeypot hit → pretend success (don’t teach bots)
+    if (website) {
+      setForm({ name: "", email: "", message: "", website: "" });
+      setStatus({ state: "success", text: t("status.sent") });
+      return;
+    }
+
     try {
       setStatus({ state: "success", text: t("status.sending") });
 
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, website }),
       });
 
-      const data = (await res.json().catch(() => ({}))) as Record<
-        string,
-        unknown
-      >;
-      if (!res.ok)
-        throw new Error((data?.error as string) || t("errors.sendFailed"));
+      const data = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+      if (!res.ok) throw new Error((data?.error as string) || t("errors.sendFailed"));
 
-      setForm({ name: "", email: "", message: "" });
+      setForm({ name: "", email: "", message: "", website: "" });
       setStatus({ state: "success", text: t("status.sent") });
     } catch {
-      setStatus({
-        state: "success",
-        text: t("status.fallback"),
-      });
-
-      openMailtoFallback(name, email, message);
+      setStatus({ state: "error", text: t("errors.sendFailed") });
     }
   }
 
@@ -88,6 +78,20 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
       <h3 className="text-xl font-semibold text-text">{t("title")}</h3>
 
       <form onSubmit={handleSubmit} className="mt-4 space-y-2.5">
+        {/* Honeypot: visually hidden, still in DOM for bots */}
+        <div className="hidden" aria-hidden="true">
+          <label>
+            Website
+            <input
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={form.website}
+              onChange={(e) => updateField("website", e.target.value)}
+            />
+          </label>
+        </div>
+
         <Field
           label={t("nameLabel")}
           value={form.name}
@@ -108,9 +112,7 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
         />
 
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-muted/90">
-            {t("messageLabel")}
-          </label>
+          <label className="text-sm font-medium text-muted/90">{t("messageLabel")}</label>
           <textarea
             value={form.message}
             onChange={(e) => updateField("message", e.target.value)}

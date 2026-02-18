@@ -2,7 +2,7 @@
 
 import React, { useMemo, useState } from "react";
 import { motion } from "framer-motion";
-import { Github, Linkedin, Mail } from "lucide-react";
+import { Github, Linkedin } from "lucide-react";
 import ContactLinks from "./ContactLinks";
 import ContactForm from "./ContactForm";
 import NetworkPattern from "./NetworkPattern";
@@ -15,12 +15,6 @@ export default function ContactSection() {
 
   const links: ContactLink[] = useMemo(
     () => [
-      {
-        label: t("links.email"),
-        value: "contact@mathiashuque.dev",
-        href: `mailto:${atob("Y29udGFjdEBtYXRoaWFzaHVxdWUuZGV2")}`,
-        icon: <Mail className="h-5 w-5" />,
-      },
       {
         label: t("links.linkedin"),
         value: "linkedin.com/in/mathias-huque",
@@ -49,20 +43,15 @@ export default function ContactSection() {
       onViewportLeave={() => setInView(false)}
       viewport={{ amount: 0.1 }}
     >
-      {/* Background */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-bg via-bg to-bg-elev" />
       <NetworkPattern />
 
       <div className="w-full">
-        {/* Header */}
         <motion.div
           className="text-center"
           initial={{ opacity: 0, y: 50 }}
           animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{
-            duration: 0.9,
-            ease: [0.22, 1, 0.36, 1],
-          }}
+          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
         >
           <p className="text-xs font-semibold tracking-[0.22em] text-faint/90">
             {t("kicker")}
@@ -72,7 +61,6 @@ export default function ContactSection() {
           </h2>
         </motion.div>
 
-        {/* Content */}
         <motion.div
           className="mt-10 grid gap-8 lg:mt-12 lg:grid-cols-2 lg:items-stretch"
           initial={{ opacity: 0, y: 40 }}
@@ -84,7 +72,7 @@ export default function ContactSection() {
           }}
         >
           <ContactLinks links={links} />
-          <ContactForm mailtoTo={atob("Y29udGFjdEBtYXRoaWFzaHVxdWUuZGV2")} />
+          <ContactForm />
         </motion.div>
       </div>
     </motion.section>
