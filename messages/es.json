@@ -28,6 +28,73 @@
     }
   },
 
+  "Experience": {
+    "eyebrow": "EXPERIENCIA",
+    "title": "Mi Hoja de Ruta",
+    "subtitle": "Un recorrido por la academia y la industria, destacando roles y contribuciones clave.",
+
+    "items": [
+      {
+        "role": "Profesor",
+        "focus": "Fundamentos de Computación",
+        "organization": "Universidad ORT Uruguay",
+        "period": "Marzo 2026 – Actualidad",
+        "duration": "En curso",
+        "location": "Montevideo, Uruguay",
+        "modality": "Híbrido",
+        "badgeLabel": "Part-time",
+        "badgeIcon": "🎓",
+        "description": [
+          "Enseño conceptos fundamentales a través de matemáticas y razonamiento formal",
+          "Presento la programación como una actividad matemática, enfatizando funciones, abstracción y corrección",
+          "Introduzco modelos computacionales derivados de estructuras matemáticas y teoría",
+          "Ayudo a formar modelos mentales fuertes que conectan código, lógica y computación"
+        ]
+      },
+      {
+        "role": "Asistente",
+        "focus": "Estructuras de Datos y Algoritmos",
+        "organization": "Universidad ORT Uruguay",
+        "period": "Marzo 2025 – Diciembre 2025",
+        "duration": "9 meses",
+        "location": "Montevideo, Uruguay",
+        "modality": "Híbrido",
+        "badgeLabel": "Temporal",
+        "badgeIcon": "🎓",
+        "description": [
+          "Guío estudiantes en estructuras de datos y técnicas algorítmicas",
+          "Diseño proyectos prácticos de implementación para reforzar la teoría",
+          "Ayudo a convertir conceptos abstractos en habilidades de resolución de problemas"
+        ]
+      }
+    ]
+  },
+
+  "Projects": {
+    "view": "Ver",
+    "header": {
+      "kicker": "MIS PROYECTOS",
+      "title": "Trabajo seleccionado",
+      "subtitle": "Una selección de proyectos que he construido en aplicaciones web, sistemas de UI y experimentos."
+    },
+    "items": {
+      "portfolioWebsite": "Portafolio personal creado con React y Tailwind para mostrar mi trabajo y experiencia."
+    }
+  },
+
+  "Stack": {
+    "header": {
+      "kicker": "STACK",
+      "title": "Habilidades y tecnologías",
+      "subtitle": "Explora las tecnologías que uso para crear software listo para producción."
+    },
+    "categories": {
+      "programmingLanguages": "Lenguajes de programación",
+      "librariesFrameworks": "Librerías y frameworks",
+      "toolsPlatforms": "Herramientas y plataformas"
+    }
+  },
+
   "Contact": {
     "kicker": "CONTACTO",
     "title": "Hablemos",

@@ -28,6 +28,73 @@
     }
   },
 
+  "Experience": {
+    "eyebrow": "EXPERIENCE",
+    "title": "My Experience RoadMap",
+    "subtitle": "Journey through academia and industry, highlighting key roles and contributions along the way.",
+
+    "items": [
+      {
+        "role": "Professor",
+        "focus": "Fundamentals Of Computing",
+        "organization": "Universidad ORT Uruguay",
+        "period": "March 2026 – Present",
+        "duration": "Ongoing",
+        "location": "Montevideo, Uruguay",
+        "modality": "Hybrid",
+        "badgeLabel": "Part-time",
+        "badgeIcon": "🎓",
+        "description": [
+          "Teach fundamental computing concepts through the lens of mathematics and formal reasoning",
+          "Present programming as a mathematical activity, emphasizing functions, abstraction, and correctness",
+          "Introduce computational models derived from mathematical structures and theory",
+          "Help students build strong mental models that connect code, logic, and computation"
+        ]
+      },
+      {
+        "role": "Assistant Professor",
+        "focus": "Data Structures and Algorithms",
+        "organization": "Universidad ORT Uruguay",
+        "period": "March 2025 – December 2025",
+        "duration": "9 months",
+        "location": "Montevideo, Uruguay",
+        "modality": "Hybrid",
+        "badgeLabel": "Temporary",
+        "badgeIcon": "🎓",
+        "description": [
+          "Guide students through core data structures and algorithmic techniques",
+          "Design hands-on language implementation projects to reinforce theory",
+          "Help students translate abstract concepts into practical problem-solving skills"
+        ]
+      }
+    ]
+  },
+
+  "Projects": {
+    "view": "View",
+    "header": {
+      "kicker": "MY PROJECTS",
+      "title": "Selected Work",
+      "subtitle": "A selection of projects I’ve built across web apps, UI systems, and experiments."
+    },
+    "items": {
+      "portfolioWebsite": "Personal portfolio built with React and Tailwind to showcase my work and experience."
+    }
+  },
+
+  "Stack": {
+    "header": {
+      "kicker": "STACK",
+      "title": "Skills & Technologies",
+      "subtitle": "Explore the stacks I rely on to ship production-ready software."
+    },
+    "categories": {
+      "programmingLanguages": "Programming Languages",
+      "librariesFrameworks": "Libraries & Frameworks",
+      "toolsPlatforms": "Tools & Platforms"
+    }
+  },
+
   "Contact": {
     "kicker": "CONTACT",
     "title": "Get In Touch",
