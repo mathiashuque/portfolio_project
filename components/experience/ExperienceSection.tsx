@@ -25,7 +25,7 @@ export default function ExperienceSection() {
       aria-label="Experience"
       onViewportEnter={() => setInView(true)}
       onViewportLeave={() => setInView(false)}
-      viewport={{ amount: 0.3 }}
+      viewport={{ amount: 0.1 }}
     >
       {/* Header */}
       <motion.div

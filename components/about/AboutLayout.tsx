@@ -11,7 +11,7 @@ export default function AboutLayout({
   const [inView, setInView] = useState(false);
 
   return (
-    <section id="about" className="scroll-mt-32 mb-10" aria-label="About">
+    <section id="about" className="scroll-mt-32 mb-20" aria-label="About">
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
         <div className="relative isolate overflow-hidden rounded-3xl">
           <motion.div
@@ -25,8 +25,8 @@ export default function AboutLayout({
             }}
             // toggle state when entering/leaving viewport
             onViewportEnter={() => setInView(true)}
-            onViewportLeave={() => setInView(false)}
-            viewport={{ amount: 0.4 }}
+            //onViewportLeave={() => setInView(false)}
+            viewport={{ amount: 0.1 }}
             className="mx-auto max-w-4xl text-center"
           >
             {children}

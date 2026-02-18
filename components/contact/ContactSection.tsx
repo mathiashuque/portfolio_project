@@ -47,7 +47,7 @@ export default function ContactSection() {
       "
       onViewportEnter={() => setInView(true)}
       onViewportLeave={() => setInView(false)}
-      viewport={{ amount: 0.3 }}
+      viewport={{ amount: 0.1 }}
     >
       {/* Background */}
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-bg via-bg to-bg-elev" />

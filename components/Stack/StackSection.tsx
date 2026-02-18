@@ -17,7 +17,7 @@ export default function StackSection() {
       className="px-6 mb-20 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32"
       onViewportEnter={() => setInView(true)}
       onViewportLeave={() => setInView(false)}
-      viewport={{ amount: 0.3 }}
+      viewport={{ amount: 0.1 }}
     >
       {/* Header */}
       <motion.div
