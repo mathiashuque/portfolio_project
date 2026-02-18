@@ -1,0 +1,280 @@
+{
+  "Nav": {
+    "home": "Inicio",
+    "about": "Sobre mí",
+    "experience": "Experiencia",
+    "projects": "Proyectos",
+    "stack": "Tecnologías",
+    "contact": "Contacto"
+  },
+  "Home": {
+    "badge": "¡Hola, mundo! 👋 ¡Soy Mathias!",
+    "headline": "Creo aplicaciones de software que convierten{br}{highlight}",
+    "headlineHighlight": "ideas en realidad",
+    "paragraph": "Creo aplicaciones de software y productos digitales completos de principio a fin, ayudando a que las ideas se conviertan en soluciones reales y funcionales.",
+    "contactCta": "Contacto →",
+    "cvCta": "Abrir CV ↓",
+    "traits": {
+      "cleanCode": "Código limpio",
+      "uxAware": "Desarrollo con enfoque UX",
+      "responsive": "Diseño responsive",
+      "accessibility": "Accesibilidad",
+      "webDesign": "Diseño web",
+      "mobileAppDesign": "Diseño de apps móviles",
+      "brandIdentity": "Identidad de marca",
+      "uiux": "UI/UX",
+      "frontend": "Desarrollo frontend",
+      "designSystems": "Sistemas de diseño"
+    }
+  },
+
+  "About": {
+    "tabs": {
+      "bio": { "label": "Sobre mí" },
+      "services": { "label": "Servicios" },
+      "impact": { "label": "Impacto" }
+    },
+
+    "bio": {
+      "title": "Sobre Mathias Huque",
+      "paragraphs": [
+        "Soy un desarrollador de software enfocado en construir sistemas confiables y bien estructurados que resuelven problemas reales. Trabajo en distintas capas del stack—diseñando, implementando y refinando aplicaciones y servicios con arquitectura limpia, comportamiento predecible y un fuerte énfasis en rendimiento y experiencia de usuario.",
+        "Más allá de escribir código, me importa cómo el software se estructura, se mantiene y evoluciona con el tiempo. Encaro la ingeniería con una mentalidad pragmática—equilibrando profundidad técnica con restricciones del mundo real para entregar soluciones eficientes, escalables y duraderas."
+      ]
+    },
+
+    "services": {
+      "title": "Lo que puedo construir para vos",
+      "subtitle": "Servicios de desarrollo end-to-end para negocios modernos.",
+      "items": [
+        {
+          "iconKey": "layoutGrid",
+          "title": "Aplicaciones web a medida",
+          "description": "Plataformas escalables adaptadas a las necesidades de tu negocio."
+        },
+        {
+          "iconKey": "smartphone",
+          "title": "Apps móviles",
+          "description": "Experiencias móviles de alta calidad para iOS y Android."
+        },
+        {
+          "iconKey": "gauge",
+          "title": "Paneles de administración",
+          "description": "Visualización de datos y herramientas de gestión para operaciones internas."
+        },
+        {
+          "iconKey": "creditCard",
+          "title": "Sistemas fintech",
+          "description": "Integraciones de pago seguras y flujos financieros."
+        },
+        {
+          "iconKey": "shoppingCart",
+          "title": "Plataformas e-commerce",
+          "description": "Tiendas online de alto rendimiento con una experiencia de usuario fluida."
+        },
+        {
+          "iconKey": "database",
+          "title": "API y backend",
+          "description": "Servicios e integraciones confiables que impulsan tus aplicaciones."
+        }
+      ]
+    },
+
+    "impact": {
+      "title": "Cómo ayudo a que los negocios crezcan",
+      "subtitle": "La tecnología es una inversión, no un gasto. Así es como impulso el ROI.",
+      "before": "ANTES",
+      "after": "DESPUÉS",
+      "items": [
+        {
+          "left": "Procesos manuales que hacen perder tiempo",
+          "right": "Automatización de operaciones"
+        },
+        {
+          "left": "Sin presencia online",
+          "right": "Diseño sitios web que convierten"
+        },
+        {
+          "left": "Idea, pero sin producto",
+          "right": "Convierto ideas en apps reales"
+        },
+        {
+          "left": "Bajo engagement de clientes",
+          "right": "Construyo apps que la gente disfruta usar"
+        },
+        {
+          "left": "Mala escalabilidad",
+          "right": "Diseño arquitectura lista para crecer"
+        }
+      ],
+      "footnote": "Resultados Antes → Después en operaciones, producto y crecimiento."
+    },
+
+    "header": {
+      "title": "Me enfoco en construir software que se mantenga entendible a medida que crece."
+    }
+  },
+
+  "Experience": {
+    "eyebrow": "EXPERIENCIA",
+    "title": "Mi Hoja de Ruta",
+    "subtitle": "Un recorrido por la academia y la industria, destacando roles y contribuciones clave.",
+
+    "items": [
+      {
+        "role": "Profesor",
+        "focus": "Fundamentos de Computación",
+        "organization": "Universidad ORT Uruguay",
+        "period": "Marzo 2026 – Actualidad",
+        "duration": "En curso",
+        "location": "Montevideo, Uruguay",
+        "modality": "Híbrido",
+        "badgeLabel": "Part-time",
+        "badgeIcon": "🎓",
+        "description": [
+          "Enseño conceptos fundamentales a través de matemáticas y razonamiento formal",
+          "Presento la programación como una actividad matemática, enfatizando funciones, abstracción y corrección",
+          "Introduzco modelos computacionales derivados de estructuras matemáticas y teoría",
+          "Ayudo a formar modelos mentales fuertes que conectan código, lógica y computación"
+        ]
+      },
+      {
+        "role": "Asistente",
+        "focus": "Estructuras de Datos y Algoritmos",
+        "organization": "Universidad ORT Uruguay",
+        "period": "Marzo 2025 – Diciembre 2025",
+        "duration": "9 meses",
+        "location": "Montevideo, Uruguay",
+        "modality": "Híbrido",
+        "badgeLabel": "Temporal",
+        "badgeIcon": "🎓",
+        "description": [
+          "Guío estudiantes en estructuras de datos y técnicas algorítmicas",
+          "Diseño proyectos prácticos de implementación para reforzar la teoría",
+          "Ayudo a convertir conceptos abstractos en habilidades de resolución de problemas"
+        ]
+      }
+    ]
+  },
+
+  "Projects": {
+    "view": "Ver",
+    "header": {
+      "kicker": "MIS PROYECTOS",
+      "title": "Trabajo seleccionado",
+      "subtitle": "Una selección de proyectos que he construido en aplicaciones web, sistemas de UI y experimentos."
+    },
+    "items": {
+      "portfolioWebsite": "Portafolio personal creado con React y Tailwind para mostrar mi trabajo y experiencia."
+    }
+  },
+
+  "Stack": {
+    "header": {
+      "kicker": "STACK",
+      "title": "Habilidades y tecnologías",
+      "subtitle": "Explora las tecnologías que uso para crear software listo para producción."
+    },
+    "categories": {
+      "programmingLanguages": "Lenguajes de programación",
+      "librariesFrameworks": "Librerías y frameworks",
+      "toolsPlatforms": "Herramientas y plataformas"
+    }
+  },
+
+  "Contact": {
+    "kicker": "CONTACTO",
+    "title": "Hablemos",
+    "cardTitle": "Trabajemos juntos",
+    "cardBody": "Siempre me interesan nuevas oportunidades y proyectos emocionantes. Si tienes una pregunta o solo quieres saludar, ¡escríbeme!",
+    "links": {
+      "email": "Correo",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    },
+    "field": {
+      "name": {
+        "label": "Nombre",
+        "placeholder": "Tu nombre"
+      },
+      "email": {
+        "label": "Correo",
+        "placeholder": "tu@ejemplo.com"
+      },
+      "message": {
+        "label": "Mensaje",
+        "placeholder": "Cuéntame sobre tu proyecto..."
+      }
+    },
+    "form": {
+      "title": "Enviar un mensaje",
+      "nameLabel": "Tu nombre",
+      "namePlaceholder": "Tu nombre",
+      "emailLabel": "Tu correo",
+      "emailPlaceholder": "Tu correo",
+      "messageLabel": "Tu mensaje",
+      "messagePlaceholder": "Tu mensaje",
+      "sendButton": "Enviar mensaje",
+      "note": "Al enviar, es posible que se abra tu cliente de correo.",
+      "errors": {
+        "missingFields": "Por favor completa todos los campos.",
+        "invalidEmail": "Por favor ingresa un correo válido.",
+        "sendFailed": "No se pudo enviar"
+      },
+      "status": {
+        "sending": "Enviando…",
+        "sent": "Mensaje enviado. ¡Gracias!",
+        "fallback": "No se pudo enviar automáticamente — abriendo tu cliente de correo…"
+      },
+      "mailto": {
+        "subject": "Mensaje del portafolio de {name}",
+        "body": "Nombre: {name}\nCorreo: {email}\n\n{message}"
+      }
+    }
+  },
+
+  "Footer": {
+    "subtitle": "Desarrollador Full-Stack apasionado por crear aplicaciones web hermosas y funcionales que marcan la diferencia.",
+    "credits": "Diseñado de forma informal en Figma y programado en Visual Studio Code por mí. Construido con Next.js y Tailwind CSS, desplegado con Vercel.",
+    "social": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Correo"
+    }
+  },
+  "ChatWidget": {
+    "fab": { "open": "Chat", "close": "Cerrar" },
+    "aria": {
+      "openChat": "Abrir chat",
+      "closeChat": "Cerrar chat",
+      "close": "Cerrar",
+      "send": "Enviar",
+      "dialog": "Widget de chat",
+      "scrollLatest": "Ir al mensaje más reciente"
+    },
+    "header": {
+      "title": "Preguntale a Mathias",
+      "subtitle": "Preguntas rápidas sobre mi trabajo, proyectos o disponibilidad."
+    },
+    "greeting": "¡Hey! 👋 Preguntame lo que quieras sobre mis proyectos, stack o experiencia.",
+    "input": {
+      "placeholder": "Hacé una pregunta…",
+      "tipPrefix": "Tip: Presioná",
+      "tipSuffix": "para cerrar."
+    },
+    "suggestions": {
+      "label": "Probá con alguna de estas:",
+      "items": [
+        "Contame sobre tu proyecto más reciente.",
+        "¿Qué tipo de roles estás buscando?",
+        "¿Cómo puedo contactarte?"
+      ]
+    },
+    "scrollToBottom": { "label": "Ir al final ↓" },
+    "rateLimit": "Por ahora alcanzaste el límite de preguntas. Contactá a Mathias si tenés más consultas.",
+    "errors": {
+      "noResponse": "Perdón — no recibí respuesta. Probá de nuevo.",
+      "generic": "Perdón — algo falló de mi lado. Probá de nuevo o escribime desde la sección de Contacto."
+    }
+  }
+}

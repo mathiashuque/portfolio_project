@@ -1,3 +1,5 @@
+
+import { useTranslations } from "next-intl";
 import { ContactLink } from "./types";
 
 type ContactLinksProps = {
@@ -5,13 +7,13 @@ type ContactLinksProps = {
 };
 
 export default function ContactLinks({ links }: ContactLinksProps) {
+  const t = useTranslations("Contact");
+
   return (
     <div className="rounded-2xl bg-panel p-5 shadow-sm ring-1 ring-border/10 sm:p-6">
-      <h3 className="text-xl font-semibold text-text">Let&apos;s Work Together</h3>
+      <h3 className="text-xl font-semibold text-text">{t("cardTitle")}</h3>
       <p className="mt-3 max-w-prose text-sm leading-relaxed text-muted/90">
-        I&apos;m always interested in new opportunities and exciting projects.
-        Whether you have a question or just want to say hi, feel free to reach
-        out!
+        {t("cardBody")}
       </p>
 
       <div className="mt-6 space-y-3">

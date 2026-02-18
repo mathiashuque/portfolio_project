@@ -3,21 +3,22 @@
 import React, { useMemo } from "react";
 import AboutLayout from "./AboutLayout";
 import AboutTabs from "./AboutTabs";
-import AboutProgress from "./AboutProgress";
 import AboutStyles from "./AboutStyles";
 import AboutTabContent from "./AboutTabContent";
-import { ABOUT_TABS } from "./data";
 import { useAboutTabs } from "./useAboutTabs";
+import { useTranslations } from "next-intl";
+import { buildAboutTabs } from "./getAboutTabs";
 
 export default function AboutSection() {
-  const tabs = useMemo(() => ABOUT_TABS, []);
-  const ROTATE_MS = 15000; // Rotate every 10 seconds
+  const t = useTranslations("About");
+
+  const tabs = useMemo(() => buildAboutTabs(t), [t]);
+  const ROTATE_MS = 15000;
 
   const { active, setActive, activeTab } = useAboutTabs(tabs, ROTATE_MS);
 
   return (
     <AboutLayout>
-      {/* If you want to remove the old header, you can delete AboutHeader usage entirely */}
       <AboutTabs
         tabs={tabs}
         active={active}
