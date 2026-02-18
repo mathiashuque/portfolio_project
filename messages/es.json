@@ -28,6 +28,93 @@
     }
   },
 
+  "About": {
+    "tabs": {
+      "bio": { "label": "Sobre mí" },
+      "services": { "label": "Servicios" },
+      "impact": { "label": "Impacto" }
+    },
+
+    "bio": {
+      "title": "Sobre Mathias Huque",
+      "paragraphs": [
+        "Soy un desarrollador de software enfocado en construir sistemas confiables y bien estructurados que resuelven problemas reales. Trabajo en distintas capas del stack—diseñando, implementando y refinando aplicaciones y servicios con arquitectura limpia, comportamiento predecible y un fuerte énfasis en rendimiento y experiencia de usuario.",
+        "Más allá de escribir código, me importa cómo el software se estructura, se mantiene y evoluciona con el tiempo. Encaro la ingeniería con una mentalidad pragmática—equilibrando profundidad técnica con restricciones del mundo real para entregar soluciones eficientes, escalables y duraderas."
+      ]
+    },
+
+    "services": {
+      "title": "Lo que puedo construir para vos",
+      "subtitle": "Servicios de desarrollo end-to-end para negocios modernos.",
+      "items": [
+        {
+          "iconKey": "layoutGrid",
+          "title": "Aplicaciones web a medida",
+          "description": "Plataformas escalables adaptadas a las necesidades de tu negocio."
+        },
+        {
+          "iconKey": "smartphone",
+          "title": "Apps móviles",
+          "description": "Experiencias móviles de alta calidad para iOS y Android."
+        },
+        {
+          "iconKey": "gauge",
+          "title": "Paneles de administración",
+          "description": "Visualización de datos y herramientas de gestión para operaciones internas."
+        },
+        {
+          "iconKey": "creditCard",
+          "title": "Sistemas fintech",
+          "description": "Integraciones de pago seguras y flujos financieros."
+        },
+        {
+          "iconKey": "shoppingCart",
+          "title": "Plataformas e-commerce",
+          "description": "Tiendas online de alto rendimiento con una experiencia de usuario fluida."
+        },
+        {
+          "iconKey": "database",
+          "title": "API y backend",
+          "description": "Servicios e integraciones confiables que impulsan tus aplicaciones."
+        }
+      ]
+    },
+
+    "impact": {
+      "title": "Cómo ayudo a que los negocios crezcan",
+      "subtitle": "La tecnología es una inversión, no un gasto. Así es como impulso el ROI.",
+      "before": "ANTES",
+      "after": "DESPUÉS",
+      "items": [
+        {
+          "left": "Procesos manuales que hacen perder tiempo",
+          "right": "Construyo sistemas que automatizan operaciones"
+        },
+        {
+          "left": "Sin presencia online",
+          "right": "Diseño sitios web que convierten"
+        },
+        {
+          "left": "Idea, pero sin producto",
+          "right": "Convierto ideas en apps reales"
+        },
+        {
+          "left": "Bajo engagement de clientes",
+          "right": "Construyo apps que la gente disfruta usar"
+        },
+        {
+          "left": "Mala escalabilidad",
+          "right": "Diseño arquitectura lista para crecer"
+        }
+      ],
+      "footnote": "Resultados Antes → Después en operaciones, producto y crecimiento."
+    },
+
+    "header": {
+      "title": "Me enfoco en construir software que se mantenga entendible a medida que crece."
+    }
+  },
+
   "Experience": {
     "eyebrow": "EXPERIENCIA",
     "title": "Mi Hoja de Ruta",
