@@ -1,21 +1,23 @@
+"use client";
+
 import React, { useState } from "react";
 import { AlertCircle, CheckCircle2, Send } from "lucide-react";
+import { useTranslations } from "next-intl";
 import Field from "./Field";
 import type { Status } from "./types";
 
-type ContactFormProps = {
-  mailtoTo: string;
-};
+export default function ContactForm() {
+  const t = useTranslations("Contact.form");
 
-export default function ContactForm({ mailtoTo }: ContactFormProps) {
-  const [form, setForm] = useState({ name: "", email: "", message: "" });
-
+  const [form, setForm] = useState({
+    name: "",
+    email: "",
+    message: "",
+    website: "", // honeypot
+  });
   const [status, setStatus] = useState<Status>({ state: "idle" });
 
-  function updateField<K extends keyof typeof form>(
-    key: K,
-    value: (typeof form)[K],
-  ) {
+  function updateField<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
     setForm((prev) => ({ ...prev, [key]: value }));
     if (status.state !== "idle") setStatus({ state: "idle" });
   }
@@ -24,53 +26,46 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
     return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email.trim());
   }
 
-  function openMailtoFallback(name: string, email: string, message: string) {
-    const subject = encodeURIComponent(`Portfolio message from ${name}`);
-    const body = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\n\n${message}`,
-    );
-
-    window.location.href = `mailto:${mailtoTo}?subject=${subject}&body=${body}`;
-  }
-
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault();
 
     const name = form.name.trim();
     const email = form.email.trim();
     const message = form.message.trim();
+    const website = form.website.trim(); // honeypot
 
     if (!name || !email || !message) {
-      setStatus({ state: "error", text: "Please fill in all fields." });
+      setStatus({ state: "error", text: t("errors.missingFields") });
       return;
     }
     if (!isValidEmail(email)) {
-      setStatus({ state: "error", text: "Please enter a valid email address." });
+      setStatus({ state: "error", text: t("errors.invalidEmail") });
+      return;
+    }
+
+    // Honeypot hit → pretend success (don’t teach bots)
+    if (website) {
+      setForm({ name: "", email: "", message: "", website: "" });
+      setStatus({ state: "success", text: t("status.sent") });
       return;
     }
 
     try {
-      // NOTE: your original code used "success" for "Sending…" as well.
-      setStatus({ state: "success", text: "Sending…" });
+      setStatus({ state: "success", text: t("status.sending") });
 
       const res = await fetch("/api/contact", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ name, email, message }),
+        body: JSON.stringify({ name, email, message, website }),
       });
 
-      const data = await res.json().catch(() => ({})) as Record<string, unknown>;
-      if (!res.ok) throw new Error((data?.error as string) || "Failed to send");
+      const data = (await res.json().catch(() => ({}))) as Record<string, unknown>;
+      if (!res.ok) throw new Error((data?.error as string) || t("errors.sendFailed"));
 
-      setForm({ name: "", email: "", message: "" });
-      setStatus({ state: "success", text: "Message sent. Thanks!" });
+      setForm({ name: "", email: "", message: "", website: "" });
+      setStatus({ state: "success", text: t("status.sent") });
     } catch {
-      setStatus({
-        state: "success",
-        text: "Couldn’t send automatically — opening your email client…",
-      });
-
-      openMailtoFallback(name, email, message);
+      setStatus({ state: "error", text: t("errors.sendFailed") });
     }
   }
 
@@ -80,36 +75,48 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
 
   return (
     <div className="rounded-2xl bg-panel p-5 shadow-sm ring-1 ring-border/10 sm:p-6">
-      <h3 className="text-xl font-semibold text-text">Send a Message</h3>
+      <h3 className="text-xl font-semibold text-text">{t("title")}</h3>
 
       <form onSubmit={handleSubmit} className="mt-4 space-y-2.5">
+        {/* Honeypot: visually hidden, still in DOM for bots */}
+        <div className="hidden" aria-hidden="true">
+          <label>
+            Website
+            <input
+              type="text"
+              tabIndex={-1}
+              autoComplete="off"
+              value={form.website}
+              onChange={(e) => updateField("website", e.target.value)}
+            />
+          </label>
+        </div>
+
         <Field
-          label="Your Name"
+          label={t("nameLabel")}
           value={form.name}
           onChange={(v) => updateField("name", v)}
-          placeholder="Your Name"
+          placeholder={t("namePlaceholder")}
           autoComplete="name"
           className={inputClass}
         />
 
         <Field
-          label="Your Email"
+          label={t("emailLabel")}
           value={form.email}
           onChange={(v) => updateField("email", v)}
-          placeholder="Your Email"
+          placeholder={t("emailPlaceholder")}
           inputMode="email"
           autoComplete="email"
           className={inputClass}
         />
 
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-muted/90">
-            Your Message
-          </label>
+          <label className="text-sm font-medium text-muted/90">{t("messageLabel")}</label>
           <textarea
             value={form.message}
             onChange={(e) => updateField("message", e.target.value)}
-            placeholder="Your Message"
+            placeholder={t("messagePlaceholder")}
             rows={3}
             className={inputClass.replace("w-full", "w-full resize-none")}
           />
@@ -144,12 +151,10 @@ export default function ContactForm({ mailtoTo }: ContactFormProps) {
           "
         >
           <Send className="h-4 w-4" />
-          Send Message
+          {t("sendButton")}
         </button>
 
-        <p className="text-center text-xs text-faint/90">
-          By sending, your email client may open.
-        </p>
+        <p className="text-center text-xs text-faint/90">{t("note")}</p>
       </form>
     </div>
   );

@@ -8,10 +8,18 @@ export type BioTab = {
   paragraphs: string[];
 };
 
+export type ServiceIconKey =
+  | "layoutGrid"
+  | "smartphone"
+  | "gauge"
+  | "creditCard"
+  | "shoppingCart"
+  | "database";
+
 export type Service = {
   title: string;
   description: string;
-  icon?: React.ReactNode;
+  iconKey?: ServiceIconKey;
 };
 
 export type ServicesTab = {
@@ -24,8 +32,8 @@ export type ServicesTab = {
 };
 
 export type ImpactItem = {
-  left: string;        // problem text
-  right: string;       // solution text
+  left: string;
+  right: string;
 };
 
 export type ImpactTab = {

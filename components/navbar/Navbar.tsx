@@ -6,6 +6,8 @@ import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
 import ThemeToggle from "./ThemeToggle";
 import { NAV_LINKS } from "./constants";
+import LanguageSwitcher from "./LanguageSwitcher";
+
 
 function getInitialDark(): boolean {
   // In Next.js client components this will run on the client,
@@ -157,6 +159,7 @@ export default function Navbar() {
 
         {/* Right (desktop) */}
         <div className="hidden lg:flex ml-auto items-center gap-4 text-2xl">
+          <LanguageSwitcher />  
           <ThemeToggle dark={dark} onToggle={toggleTheme} variant="icon" />
         </div>
 

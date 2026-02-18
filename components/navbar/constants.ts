@@ -1,10 +1,10 @@
 export const NAV_LINKS = [
-  { href: "#home", label: "Home" },
-  { href: "#about", label: "About" },
-  { href: "#experience", label: "Experience" },
-  { href: "#projects", label: "Projects" },
-  { href: "#stack", label: "Stack" },
-  { href: "#contact", label: "Contact" },
+  { href: "#home", key: "home" },
+  { href: "#about", key: "about" },
+  { href: "#experience", key: "experience" },
+  { href: "#projects", key: "projects" },
+  { href: "#stack", key: "stack" },
+  { href: "#contact", key: "contact" },
 ] as const;
 
 export const linkBase =

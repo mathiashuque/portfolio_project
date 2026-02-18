@@ -2,6 +2,7 @@
 
 import { motion } from "motion/react";
 import { MessageCircle, X } from "lucide-react";
+import { useTranslations } from "next-intl";
 
 export function ChatFabButton({
   open,
@@ -10,10 +11,12 @@ export function ChatFabButton({
   open: boolean;
   onToggle: () => void;
 }) {
+  const t = useTranslations("ChatWidget");
+
   return (
     <motion.button
       type="button"
-      aria-label={open ? "Close chat" : "Open chat"}
+      aria-label={open ? t("aria.closeChat") : t("aria.openChat")}
       onClick={onToggle}
       className="
         fixed bottom-6 right-6 z-30
@@ -30,12 +33,12 @@ export function ChatFabButton({
       {open ? (
         <>
           <X className="h-5 w-5" />
-          <span className="text-sm font-medium">Close</span>
+          <span className="text-sm font-medium">{t("fab.close")}</span>
         </>
       ) : (
         <>
           <MessageCircle className="h-5 w-5" />
-          <span className="text-sm font-medium">Chat</span>
+          <span className="text-sm font-medium">{t("fab.open")}</span>
         </>
       )}
     </motion.button>

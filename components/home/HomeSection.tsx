@@ -55,7 +55,7 @@ export default function HomeSection() {
       "
       onViewportEnter={() => setInView(true)}
       onViewportLeave={() => setInView(false)}
-      viewport={{ amount: 0.35 }}
+      viewport={{ amount: 0.1 }}
     >
       {/* Hero */}
       <motion.div

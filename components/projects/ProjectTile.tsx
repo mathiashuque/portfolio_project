@@ -1,14 +1,20 @@
+"use client";
+
 import Image from "next/image";
 import { cn } from "./cn";
-import type { Project } from "./types";
+
+import { useTranslations } from "next-intl";
+import { Project } from "./types";
 
 export default function ProjectTile({ project }: { project: Project }) {
+  const t = useTranslations("Projects");
+
   return (
     <a
       href={project.link}
       className={cn(
         "group relative block w-full overflow-hidden rounded-2xl",
-        "aspect-4/3", 
+        "aspect-4/3",
         "border border-border/10 bg-panel",
         "transition-transform duration-300 hover:-translate-y-1",
         "focus:outline-none focus-visible:ring-2 focus-visible:ring-accent/60",
@@ -41,9 +47,6 @@ export default function ProjectTile({ project }: { project: Project }) {
             <p className="truncate text-sm font-semibold text-white">
               {project.name}
             </p>
-            <p className="mt-1 text-[11px] tracking-[0.18em] text-white/70">
-              {project.category.toUpperCase()}
-            </p>
           </div>
 
           <span
@@ -53,7 +56,7 @@ export default function ProjectTile({ project }: { project: Project }) {
               "opacity-90 transition-opacity group-hover:opacity-100",
             )}
           >
-            View →
+            {t("view")} →
           </span>
         </div>
       </div>

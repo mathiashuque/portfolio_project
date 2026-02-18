@@ -1,3 +1,5 @@
+import { useTranslations } from "next-intl";
+
 export function ChatSuggestions({
   suggestions,
   onPick,
@@ -7,9 +9,11 @@ export function ChatSuggestions({
   onPick: (s: string) => void;
   disabled?: boolean;
 }) {
+  const t = useTranslations("ChatWidget");
+
   return (
     <div className="pt-1">
-      <p className="mb-2 text-xs text-white/60">Try one of these:</p>
+      <p className="mb-2 text-xs text-white/60">{t("suggestions.label")}</p>
       <div className="flex flex-wrap gap-2">
         {suggestions.map((s) => (
           <button

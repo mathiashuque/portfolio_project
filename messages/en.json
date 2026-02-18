@@ -1,0 +1,281 @@
+{
+  "Nav": {
+    "home": "Home",
+    "about": "About",
+    "experience": "Experience",
+    "projects": "Projects",
+    "stack": "Stack",
+    "contact": "Contact"
+  },
+  "Home": {
+    "badge": "Hello, World! 👋 I’m Mathias!",
+    "headline": "I Build Software Apps That Turn {br} {highlight}.",
+    "headlineHighlight": "Ideas Into Reality",
+    "paragraph": "I build software apps and complete digital products from start to finish, helping ideas turn into real, working solutions.",
+    "contactCta": "Contact →",
+    "cvCta": "Open CV ↓",
+    "traits": {
+      "cleanCode": "Clean Code",
+      "uxAware": "UX-Aware Development",
+      "responsive": "Responsive Design",
+      "accessibility": "Accessibility",
+      "webDesign": "Web Design",
+      "mobileAppDesign": "Mobile App Design",
+      "brandIdentity": "Brand Identity",
+      "uiux": "UI/UX",
+      "frontend": "Frontend Development",
+      "designSystems": "Design Systems"
+    }
+  },
+
+  "About": {
+    "tabs": {
+      "bio": { "label": "About" },
+      "services": { "label": "Services" },
+      "impact": { "label": "Impact" }
+    },
+
+    "bio": {
+      "title": "About Mathias Huque",
+      "paragraphs": [
+        "I am a Software Developer focused on building reliable, well-structured software systems that solve real problems. I work across different layers of the stack—designing, implementing, and refining applications and services with clean architecture, predictable behavior, and a strong emphasis on performance and user experience.",
+        "Beyond writing code, I care about how software is structured, maintained, and evolved over time. I approach engineering with a pragmatic mindset—balancing technical depth with real-world constraints to deliver solutions that are efficient, scalable, and built to last."
+      ]
+    },
+
+    "services": {
+      "title": "What I Can Build For You",
+      "subtitle": "End-to-end development services for modern businesses.",
+      "items": [
+        {
+          "iconKey": "layoutGrid",
+          "title": "Custom Web Applications",
+          "description": "Scalable web platforms tailored to your business needs."
+        },
+        {
+          "iconKey": "smartphone",
+          "title": "Mobile Apps",
+          "description": "High-quality mobile experiences for iOS and Android."
+        },
+        {
+          "iconKey": "gauge",
+          "title": "Admin Dashboards",
+          "description": "Data visualization and management tools for internal operations."
+        },
+        {
+          "iconKey": "creditCard",
+          "title": "Fintech Systems",
+          "description": "Secure payment integrations and financial workflows."
+        },
+        {
+          "iconKey": "shoppingCart",
+          "title": "E-commerce Platforms",
+          "description": "High-performance online stores with seamless user experiences."
+        },
+        {
+          "iconKey": "database",
+          "title": "API & Backend",
+          "description": "Reliable services and integrations that power your applications."
+        }
+      ]
+    },
+
+    "impact": {
+      "title": "How I Help Businesses Grow",
+      "subtitle": "Technology is an investment, not an expense. Here is how I drive ROI.",
+      "items": [
+        {
+          "left": "Manual processes wasting time",
+          "right": "I build systems that automate operations"
+        },
+        {
+          "left": "No online presence",
+          "right": "I design high-converting websites"
+        },
+        {
+          "left": "Idea but no product",
+          "right": "I turn ideas into live apps"
+        },
+        {
+          "left": "Low customer engagement",
+          "right": "I build apps users love to use"
+        },
+        {
+          "left": "Poor scalability",
+          "right": "I build with architecture ready for growth"
+        }
+      ],
+      "before": "BEFORE",
+      "after": "AFTER",
+      "footnote": "Before → After outcomes across operations, product, and growth."
+    },
+
+    "header": {
+      "title": "I focus on building software that stays understandable as it grows."
+    }
+  },
+
+  "Experience": {
+    "eyebrow": "EXPERIENCE",
+    "title": "My Experience RoadMap",
+    "subtitle": "Journey through academia and industry, highlighting key roles and contributions along the way.",
+
+    "items": [
+      {
+        "role": "Professor",
+        "focus": "Fundamentals Of Computing",
+        "organization": "Universidad ORT Uruguay",
+        "period": "March 2026 – Present",
+        "duration": "Ongoing",
+        "location": "Montevideo, Uruguay",
+        "modality": "Hybrid",
+        "badgeLabel": "Part-time",
+        "badgeIcon": "🎓",
+        "description": [
+          "Teach fundamental computing concepts through the lens of mathematics and formal reasoning",
+          "Present programming as a mathematical activity, emphasizing functions, abstraction, and correctness",
+          "Introduce computational models derived from mathematical structures and theory",
+          "Help students build strong mental models that connect code, logic, and computation"
+        ]
+      },
+      {
+        "role": "Assistant Professor",
+        "focus": "Data Structures and Algorithms",
+        "organization": "Universidad ORT Uruguay",
+        "period": "March 2025 – December 2025",
+        "duration": "9 months",
+        "location": "Montevideo, Uruguay",
+        "modality": "Hybrid",
+        "badgeLabel": "Temporary",
+        "badgeIcon": "🎓",
+        "description": [
+          "Guide students through core data structures and algorithmic techniques",
+          "Design hands-on language implementation projects to reinforce theory",
+          "Help students translate abstract concepts into practical problem-solving skills"
+        ]
+      }
+    ]
+  },
+
+  "Projects": {
+    "view": "View",
+    "header": {
+      "kicker": "MY PROJECTS",
+      "title": "Selected Work",
+      "subtitle": "A selection of projects I’ve built across web apps, UI systems, and experiments."
+    },
+    "items": {
+      "portfolioWebsite": "Personal portfolio built with React and Tailwind to showcase my work and experience."
+    }
+  },
+
+  "Stack": {
+    "header": {
+      "kicker": "STACK",
+      "title": "Skills & Technologies",
+      "subtitle": "Explore the stacks I rely on to ship production-ready software."
+    },
+    "categories": {
+      "programmingLanguages": "Programming Languages",
+      "librariesFrameworks": "Libraries & Frameworks",
+      "toolsPlatforms": "Tools & Platforms"
+    }
+  },
+
+  "Contact": {
+    "kicker": "CONTACT",
+    "title": "Get In Touch",
+    "cardTitle": "Let's Work Together",
+    "cardBody": "I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hi, feel free to reach out!",
+    "links": {
+      "email": "Email",
+      "linkedin": "LinkedIn",
+      "github": "GitHub"
+    },
+    "field": {
+      "name": {
+        "label": "Name",
+        "placeholder": "Your name"
+      },
+      "email": {
+        "label": "Email",
+        "placeholder": "you@example.com"
+      },
+      "message": {
+        "label": "Message",
+        "placeholder": "Tell me about your project..."
+      }
+    },
+    "form": {
+      "title": "Send a Message",
+      "nameLabel": "Your Name",
+      "namePlaceholder": "Your Name",
+      "emailLabel": "Your Email",
+      "emailPlaceholder": "Your Email",
+      "messageLabel": "Your Message",
+      "messagePlaceholder": "Your Message",
+      "sendButton": "Send Message",
+      "note": "By sending, your email client may open.",
+      "errors": {
+        "missingFields": "Please fill in all fields.",
+        "invalidEmail": "Please enter a valid email address.",
+        "sendFailed": "Failed to send"
+      },
+      "status": {
+        "sending": "Sending…",
+        "sent": "Message sent. Thanks!",
+        "fallback": "Couldn’t send automatically — opening your email client…"
+      },
+      "mailto": {
+        "subject": "Portfolio message from {name}",
+        "body": "Name: {name}\nEmail: {email}\n\n{message}"
+      }
+    }
+  },
+
+  "Footer": {
+    "subtitle": "Full-Stack Developer passionate about creating beautiful, functional web applications that make a difference.",
+    "credits": "Loosely designed in Figma and coded in Visual Studio Code by yours truly. Built with Next.JS and Tailwind CSS, deployed with Vercel.",
+    "social": {
+      "github": "GitHub",
+      "linkedin": "LinkedIn",
+      "email": "Email"
+    }
+  },
+
+  "ChatWidget": {
+    "fab": { "open": "Chat", "close": "Close" },
+    "aria": {
+      "openChat": "Open chat",
+      "closeChat": "Close chat",
+      "close": "Close",
+      "send": "Send",
+      "dialog": "Chat widget",
+      "scrollLatest": "Scroll to latest message"
+    },
+    "header": {
+      "title": "Ask Mathias",
+      "subtitle": "Quick questions about my work, projects, or availability."
+    },
+    "greeting": "Hey! 👋 Ask me anything about my projects, stack, or experience.",
+    "input": {
+      "placeholder": "Ask a question…",
+      "tipPrefix": "Tip: Press",
+      "tipSuffix": "to close."
+    },
+    "suggestions": {
+      "label": "Try one of these:",
+      "items": [
+        "Tell me about your most recent project.",
+        "What kind of roles are you looking for?",
+        "How can I contact you?"
+      ]
+    },
+    "scrollToBottom": { "label": "Jump to latest ↓" },
+    "rateLimit": "You’ve reached the question limit for now. Please contact Mathias if you have any more questions.",
+    "errors": {
+      "noResponse": "Sorry — I didn’t get a response. Please try again.",
+      "generic": "Sorry — something went wrong on my side. Please try again, or reach out via the Contact section."
+    }
+  }
+}

@@ -41,7 +41,6 @@ import sqlserverLogo from "../../../public/logos/sqlserver.logo.svg";
 import type { StaticImageData } from "next/image";
 import { TechColor } from "./types";
 
-
 export type StackItem = {
   name: string;
   logo: StaticImageData;
@@ -49,7 +48,7 @@ export type StackItem = {
 };
 
 export const STACK = {
-  "Programming Languages": [
+  programmingLanguages: [
     { name: "HTML5", logo: htmlLogo, color: "html" },
     { name: "CSS3", logo: cssLogo, color: "css" },
     { name: "JavaScript", logo: jsLogo, color: "js" },
@@ -61,7 +60,7 @@ export const STACK = {
     { name: ".NET", logo: dotnetLogo, color: "dotnet" },
   ],
 
-  "Libraries & Frameworks": [
+  librariesFrameworks: [
     { name: "React", logo: reactLogo, color: "react" },
     { name: "Angular", logo: angularLogo, color: "angular" },
     { name: "React Native", logo: reactNativeLogo, color: "react" },
@@ -83,7 +82,7 @@ export const STACK = {
     { name: "Cypress", logo: cypressLogo, color: "cypress" },
   ],
 
-  "Tools & Platforms": [
+  toolsPlatforms: [
     { name: "Node.js", logo: nodeLogo, color: "node" },
     { name: "Shopify", logo: shopifyLogo, color: "shopify" },
     { name: "Docker", logo: dockerLogo, color: "docker" },
@@ -99,8 +98,6 @@ export const STACK = {
     { name: "PostgreSQL", logo: postgresqlLogo, color: "postgresql" },
     { name: "MongoDB", logo: mongodbLogo, color: "mongodb" },
     { name: "SQL Server", logo: sqlserverLogo, color: "sql server" },
-
-
   ],
 } as const satisfies Record<string, readonly StackItem[]>;
 

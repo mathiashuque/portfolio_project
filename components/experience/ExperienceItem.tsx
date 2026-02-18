@@ -30,7 +30,7 @@ export default function ExperienceItem({
       }}
       onViewportEnter={() => setInView(true)}
       onViewportLeave={() => setInView(false)}
-      viewport={{ amount: 0.35 }}
+      viewport={{ amount: 0.1 }}
     >
       {/* timeline dot */}
       <div

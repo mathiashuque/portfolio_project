@@ -1,15 +1,4 @@
-const traits = [
-  "Clean Code",
-  "Ux-Aware Development",
-  "Responsive Design",
-  "Accessibility",
-  "Web Design",
-  "Mobile App Design",
-  "Brand Identity",
-  "UI/UX",
-  "Frontend Development",
-  "Design Systems",
-];
+import { useTranslations } from "next-intl";
 
 function Star() {
   return (
@@ -35,6 +24,20 @@ function Track({ items }: { items: string[] }) {
 }
 
 export default function TraitsMarquee() {
+  const t = useTranslations("Home.traits");
+
+  const traits = [
+    t("cleanCode"),
+    t("uxAware"),
+    t("responsive"),
+    t("accessibility"),
+    t("webDesign"),
+    t("mobileAppDesign"),
+    t("brandIdentity"),
+    t("uiux"),
+    t("frontend"),
+    t("designSystems"),
+  ];
   const items = [...traits, ...traits, ...traits];
 
   return (
