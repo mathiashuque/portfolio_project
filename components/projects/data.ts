@@ -12,7 +12,7 @@ export const PROJECTS: Project[] = [
     name: "Algorithm Visualizer",
     descriptionKey: "algorithmVisualizer",
         tech: ["React", "Tailwind", "TypeScript"],
-    link: "https://algorithms-visualizer-alae4ldhc-mathias-huques-projects.vercel.app/en/glossary",
+    link: "https://algoviz.mathiashuque.dev/",
     image: "/projects/algorithm-visualizer.png",
   },
             
