@@ -164,9 +164,9 @@
       "title": "Trabajo seleccionado",
       "subtitle": "Una selección de proyectos que he construido en aplicaciones web, sistemas de UI y experimentos."
     },
-    "items": {
-      "portfolioWebsite": "Portafolio personal creado con React y Tailwind para mostrar mi trabajo y experiencia."
-    }
+    "portfolioWebsite": "Sitio personal para mostrar mi trabajo",
+    "algorithmVisualizer": "Herramienta interactiva para explorar algoritmos",
+    "interviewForge": "Práctica entrevistas con preguntas reales"
   },
 
   "Stack": {

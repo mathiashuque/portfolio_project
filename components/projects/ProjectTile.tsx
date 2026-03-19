@@ -47,6 +47,10 @@ export default function ProjectTile({ project }: { project: Project }) {
             <p className="truncate text-sm font-semibold text-white">
               {project.name}
             </p>
+
+            <p className="text-xs text-white/70 line-clamp-2">
+              {t(project.descriptionKey)}
+            </p>
           </div>
 
           <span

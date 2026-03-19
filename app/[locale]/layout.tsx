@@ -59,7 +59,7 @@ export const metadata: Metadata = {
     locale: "en_US",
     images: [
       {
-        url: `${BASE_URL}/og-image.png`,
+        url: `${BASE_URL}/og/default.png`,
         width: 1200,
         height: 630,
         alt: "Mathias Huque Portfolio Preview",
@@ -70,12 +70,12 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Mathias Huque | Software Developer",
     description: "I Build Software Apps That Turn Ideas Into Reality.",
-    images: [`${BASE_URL}/og-image.png`],
+    images: [`${BASE_URL}/og/default.png`],
   },
   icons: {
-    icon: "/mh.logo.svg",
-    shortcut: "/mh.logo.svg",
-    apple: "/mh.logo.svg",
+    icon: "/favicon.ico",
+    shortcut: "/favicon.ico",
+    apple: "/favicon.ico",
   },
   category: "technology",
 };
