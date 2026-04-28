@@ -1,35 +1,34 @@
 import type { MetadataRoute } from "next";
+import { absoluteUrl } from "@/lib/site";
 
 export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = "https://mathiashuque.dev";
-
   return [
     {
-      url: `${baseUrl}`,
+      url: absoluteUrl(),
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 1,
     },
     {
-      url: `${baseUrl}/#about`,
+      url: absoluteUrl("/#about"),
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.8,
     },
     {
-      url: `${baseUrl}/#projects`,
+      url: absoluteUrl("/#projects"),
       lastModified: new Date(),
       changeFrequency: "monthly",
       priority: 0.9,
     },
     {
-      url: `${baseUrl}/#experience`,
+      url: absoluteUrl("/#experience"),
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.7,
     },
     {
-      url: `${baseUrl}/#contact`,
+      url: absoluteUrl("/#contact"),
       lastModified: new Date(),
       changeFrequency: "yearly",
       priority: 0.6,

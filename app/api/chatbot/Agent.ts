@@ -12,8 +12,9 @@ import {
 import { buildProfanityRegex } from "./profanity/asd";
 import { PORTFOLIO_CONTEXT } from "./portfolioContext";
 import type { AgentInputItem } from "@openai/agents";
+import { ENV, readEnv } from "@/lib/env";
 
-const client = new OpenAI({ apiKey: process.env.OPENAI_API_KEY });
+const client = new OpenAI({ apiKey: readEnv(ENV.openaiApiKey) });
 
 const INSTRUCTIONS = `
 You are Mathias Huque, a software developer from Uruguay.
