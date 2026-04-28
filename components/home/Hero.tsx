@@ -20,6 +20,11 @@ export default function Hero({ constraintsRef, dragKey }: HeroProps) {
   const cvHref = `/Mathias_Huque_CV_${locale}.pdf`;
 
   const fullText = useMemo(() => t("paragraph"), [t]);
+  const [headlineBefore, headlineAfter] = useMemo(() => {
+    const template = (t.raw("headline") as string).replace("{br}", " ");
+    const [before = "", after = ""] = template.split("{highlight}");
+    return [before, after];
+  }, [t]);
 
   return (
     <div className="flex-1 flex items-center justify-center max-w-9xl">
@@ -35,21 +40,11 @@ export default function Hero({ constraintsRef, dragKey }: HeroProps) {
             <DragBadge dragKey={dragKey} constraintsRef={constraintsRef} />
 
             <h1 className="max-w-4xl text-5xl sm:text-6xl md:text-7xl font-extrabold leading-[1.05] tracking-tight animate-fade-up">
-              {
-                t("headline", {
-                  br: " ",
-                  highlight: "",
-                }).split("{highlight}")[0]
-              }
+              {headlineBefore}
               <span className="bg-linear-to-r from-sky-400 to-indigo-500 bg-clip-text text-transparent">
                 {t("headlineHighlight")}
               </span>
-              {
-                t("headline", {
-                  br: " ",
-                  highlight: "",
-                }).split("{highlight}")[1]
-              }
+              {headlineAfter}
             </h1>
 
             <div className="max-w-3xl">
