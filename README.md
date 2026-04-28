@@ -1,7 +1,5 @@
 # Portfolio - mathiashuque.dev
 
-![Portfolio preview](public/og/default.png)
-
 Personal portfolio website for **Mathias Huque**.
 
 Live site: [https://www.mathiashuque.dev/](https://www.mathiashuque.dev/)
