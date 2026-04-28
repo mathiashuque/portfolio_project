@@ -1,5 +1,7 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { ENV, readEnv } from "@/lib/env";
+import { SITE } from "@/lib/site";
 
 type ContactPayload = {
   name?: string;
@@ -48,7 +50,7 @@ function rateLimit(key: string) {
 }
 
 function getResend() {
-  const key = process.env.RESEND_API_KEY;
+  const key = readEnv(ENV.resendApiKey);
   return key ? new Resend(key) : null;
 }
 
@@ -85,7 +87,7 @@ export async function POST(req: Request) {
     return NextResponse.json({ error: "Invalid email" }, { status: 400 });
   }
 
-  const to = process.env.CONTACT_TO_EMAIL;
+  const to = readEnv(ENV.contactToEmail);
   const resend = getResend();
 
   // Keep responses generic to avoid leaking config state
@@ -96,7 +98,7 @@ export async function POST(req: Request) {
   // IMPORTANT:
   // For Resend, `from` must be from a verified domain/sender.
   // Prefer a no-reply/alias rather than your personal inbox.
-  const from = process.env.CONTACT_FROM_EMAIL ?? "Portfolio <no-reply@mathiashuque.dev>";
+  const from = readEnv(ENV.contactFromEmail) ?? SITE.defaultContactFrom;
 
   try {
     await resend.emails.send({

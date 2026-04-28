@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
+import { absoluteUrl, isLocale, SITE } from "@/lib/site";
 import "../globals.css";
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
@@ -9,23 +10,19 @@ const geistMono = Geist_Mono({
   subsets: ["latin"],
 });
 
-const BASE_URL = "https://mathiashuque.dev";
-const locales = ["en", "es"] as const;
-
 export const viewport: Viewport = {
   width: "device-width",
   initialScale: 1,
 };
 
-// Keep metadata for now in English, we’ll localize it later via generateMetadata.
+// Keep metadata for now in English; localize later via generateMetadata if needed.
 export const metadata: Metadata = {
-  metadataBase: new URL(BASE_URL),
+  metadataBase: new URL(SITE.url),
   title: {
-    default: "Mathias Huque | Software Developer",
+    default: SITE.title,
     template: "%s | Mathias Huque",
   },
-  description:
-    "Portfolio of Mathias Huque, software developer building modern, scalable web applications from architecture to polished user experiences.",
+  description: SITE.description,
   keywords: [
     "Mathias Huque",
     "Software Developer",
@@ -36,9 +33,9 @@ export const metadata: Metadata = {
     "TypeScript",
     "Portfolio",
   ],
-  authors: [{ name: "Mathias Huque" }],
-  creator: "Mathias Huque",
-  publisher: "Mathias Huque",
+  authors: [{ name: SITE.owner }],
+  creator: SITE.owner,
+  publisher: SITE.owner,
   robots: {
     index: true,
     follow: true,
@@ -52,25 +49,25 @@ export const metadata: Metadata = {
   },
   openGraph: {
     type: "website",
-    url: BASE_URL,
-    title: "Mathias Huque | Software Developer",
-    description: "I Build Software Apps That Turn Ideas Into Reality.",
-    siteName: "Mathias Huque Portfolio",
+    url: SITE.url,
+    title: SITE.title,
+    description: SITE.shortDescription,
+    siteName: SITE.name,
     locale: "en_US",
     images: [
       {
-        url: `${BASE_URL}/og/default.png`,
+        url: absoluteUrl(SITE.ogImagePath),
         width: 1200,
         height: 630,
-        alt: "Mathias Huque Portfolio Preview",
+        alt: `${SITE.owner} Portfolio Preview`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: "Mathias Huque | Software Developer",
-    description: "I Build Software Apps That Turn Ideas Into Reality.",
-    images: [`${BASE_URL}/og/default.png`],
+    title: SITE.title,
+    description: SITE.shortDescription,
+    images: [absoluteUrl(SITE.ogImagePath)],
   },
   icons: {
     icon: "/favicon.ico",
@@ -89,11 +86,11 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params;
 
-  if (!locales.includes(locale as (typeof locales)[number])) {
+  if (!isLocale(locale)) {
     notFound();
   }
 
-   const messages = (await import(`../../messages/${locale}.json`)).default;
+  const messages = (await import(`../../messages/${locale}.json`)).default;
 
   return (
     <html lang={locale}>
