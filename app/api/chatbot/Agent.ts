@@ -12,10 +12,23 @@ import {
 import { buildProfanityRegex } from "./profanity/asd";
 import { PORTFOLIO_CONTEXT } from "./portfolioContext";
 import type { AgentInputItem } from "@openai/agents";
-import { ENV, readEnv } from "@/lib/env";
+import { ENV, missingEnvMessage, readEnv } from "@/lib/env";
 import { blockedReply } from "./blockedReply";
 
-const client = new OpenAI({ apiKey: readEnv(ENV.openaiApiKey) });
+let client: OpenAI | undefined;
+
+function getOpenAIClient(): OpenAI {
+  if (client) return client;
+
+  const apiKey = readEnv(ENV.openaiApiKey);
+  if (!apiKey) {
+    throw new Error(missingEnvMessage([ENV.openaiApiKey]));
+  }
+
+  client = new OpenAI({ apiKey });
+  return client;
+}
+
 const runner = new Runner({
   traceMetadata: { __trace_source__: "agent-builder" },
 });
@@ -89,7 +102,7 @@ type ModerationAPIResponse = {
 };
 
 async function isFlaggedByModeration(text: string): Promise<boolean> {
-  const respUnknown: unknown = await client.moderations.create({
+  const respUnknown: unknown = await getOpenAIClient().moderations.create({
     model: "omni-moderation-latest",
     input: text,
   });

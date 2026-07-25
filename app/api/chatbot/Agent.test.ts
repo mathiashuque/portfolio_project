@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from "vitest";
+import { afterAll, beforeEach, describe, expect, it, vi } from "vitest";
 
 type GuardrailResult = {
   tripwireTriggered: boolean;
@@ -75,9 +75,13 @@ vi.mock("@openai/agents", () => {
   };
 });
 
+const originalOpenAIApiKey = process.env.OPENAI_API_KEY;
+delete process.env.OPENAI_API_KEY;
+
 const { runWorkflow } = await import("./Agent");
 
 beforeEach(() => {
+  process.env.OPENAI_API_KEY = "test-api-key";
   state.finalOutput = "Safe portfolio response";
   state.modelRuns = 0;
   state.moderationFlags = [];
@@ -87,7 +91,26 @@ beforeEach(() => {
   }));
 });
 
+afterAll(() => {
+  if (originalOpenAIApiKey === undefined) {
+    delete process.env.OPENAI_API_KEY;
+  } else {
+    process.env.OPENAI_API_KEY = originalOpenAIApiKey;
+  }
+});
+
 describe("runWorkflow safety behavior", () => {
+  it("reports missing credentials at request time instead of module load", async () => {
+    delete process.env.OPENAI_API_KEY;
+
+    await expect(runWorkflow({ input_as_text: "hello" })).rejects.toThrow(
+      "Set OPENAI_API_KEY.",
+    );
+
+    expect(state.modelRuns).toBe(0);
+    expect(state.moderationsCreate).not.toHaveBeenCalled();
+  });
+
   it("reuses a single module-level runner across requests", async () => {
     await runWorkflow({ input_as_text: "hello" });
     await runWorkflow({ input_as_text: "tell me about your work" });
