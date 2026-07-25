@@ -1,0 +1,39 @@
+name: Daily Resend Production Health Check
+
+on:
+  schedule:
+    # Runs every day at 10:22 UTC.
+    - cron: "22 10 * * *"
+  workflow_dispatch:
+
+permissions: {}
+
+jobs:
+  check-resend-health:
+    name: Check deployed Resend health endpoint
+    runs-on: ubuntu-latest
+    timeout-minutes: 2
+    env:
+      HEALTHCHECK_TOKEN: ${{ secrets.HEALTHCHECK_TOKEN }}
+
+    steps:
+      - name: Call production health endpoint
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          : "${HEALTHCHECK_TOKEN:?Set the HEALTHCHECK_TOKEN Actions secret}"
+
+          response="$(
+            curl \
+              --fail-with-body \
+              --silent \
+              --show-error \
+              --connect-timeout 5 \
+              --max-time 15 \
+              -H "Authorization: Bearer ${HEALTHCHECK_TOKEN}" \
+              "https://www.mathiashuque.dev/api/health?service=resend"
+          )"
+
+          echo "Resend production health response:"
+          printf '%s\n' "${response}"

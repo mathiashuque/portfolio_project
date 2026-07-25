@@ -63,19 +63,20 @@ RESEND_API_KEY=your_resend_api_key
 CONTACT_TO_EMAIL=your_email@example.com
 CONTACT_FROM_EMAIL=Portfolio <no-reply@mathiashuque.dev>
 
-# Chatbot
+# Chatbot and shared API rate limiting
 OPENAI_API_KEY=your_openai_api_key
 UPSTASH_REDIS_REST_URL=your_upstash_redis_rest_url
 UPSTASH_REDIS_REST_TOKEN=your_upstash_redis_rest_token
 
-# Optional health endpoint protection
+# Required health endpoint protection
 HEALTHCHECK_TOKEN=choose_a_private_token
 ```
 
 Notes:
 
 - `CONTACT_FROM_EMAIL` is optional in code, but should be set in production to a Resend-verified sender/domain.
-- `HEALTHCHECK_TOKEN` is optional. If set, `/api/health` requires `Authorization: Bearer <token>` or `?token=<token>`.
+- `HEALTHCHECK_TOKEN` is required. `/api/health` fails closed with `503` when it is missing and otherwise requires `Authorization: Bearer <token>`.
+- Configure the same `HEALTHCHECK_TOKEN` in Vercel and as a GitHub Actions repository secret.
 - Never commit `.env.local` or real secrets.
 - The chatbot API imports `Redis.fromEnv()`, so missing Upstash variables can break chatbot requests even if the page itself loads.
 
@@ -90,6 +91,9 @@ npm run typecheck
 
 # ESLint
 npm run lint
+
+# Automated tests
+npm test
 
 # Production build
 npm run build
@@ -228,7 +232,7 @@ Important behavior:
 - Redis stores the last 3 Q&A pairs for short session memory.
 - If Redis is unavailable, the chatbot returns `503` with `error: "redis_unavailable"` instead of silently continuing.
 - The agent uses `gpt-5-nano` with low reasoning effort.
-- It uses a deterministic profanity blocklist plus OpenAI moderation.
+- It uses a deterministic profanity blocklist plus OpenAI input/output moderation.
 - It should answer in the same language as the user, using only portfolio context for personal questions.
 
 If the chatbot gives outdated or incomplete answers, update:
@@ -258,7 +262,7 @@ It includes:
 
 - Required `name`, `email`, and `message`.
 - `website` honeypot field for bots.
-- Basic in-memory burst protection: 5 requests per IP per minute.
+- Redis-backed burst protection shared across instances: 5 requests per IP per minute.
 - Resend email delivery.
 - Generic error responses to avoid leaking configuration state.
 
@@ -268,6 +272,8 @@ Production needs these Vercel environment variables:
 RESEND_API_KEY=
 CONTACT_TO_EMAIL=
 CONTACT_FROM_EMAIL=
+UPSTASH_REDIS_REST_URL=
+UPSTASH_REDIS_REST_TOKEN=
 ```
 
 ## Health Check Notes
@@ -281,23 +287,27 @@ GET /api/health
 It checks:
 
 - Upstash Redis using `PING`.
-- OpenAI by calling the models endpoint with `OPENAI_API_KEY`.
+- OpenAI reachability and `OPENAI_API_KEY` authentication by calling `GET https://api.openai.com/v1/models`.
 - Resend by calling the domains endpoint with `RESEND_API_KEY`.
 
-It does not send email, create Redis keys, or run a chatbot completion.
+It does not send email, create Redis keys, or run a paid model generation.
 
 Local check:
 
 ```bash
-curl http://localhost:3000/api/health
+curl -H "Authorization: Bearer $HEALTHCHECK_TOKEN" \
+  http://localhost:3000/api/health
 ```
 
 Check one service:
 
 ```bash
-curl "http://localhost:3000/api/health?service=redis"
-curl "http://localhost:3000/api/health?service=openai"
-curl "http://localhost:3000/api/health?service=resend"
+curl -H "Authorization: Bearer $HEALTHCHECK_TOKEN" \
+  "http://localhost:3000/api/health?service=redis"
+curl -H "Authorization: Bearer $HEALTHCHECK_TOKEN" \
+  "http://localhost:3000/api/health?service=openai"
+curl -H "Authorization: Bearer $HEALTHCHECK_TOKEN" \
+  "http://localhost:3000/api/health?service=resend"
 ```
 
 Production check with a token:
@@ -323,6 +333,27 @@ Expected healthy response shape:
 ```
 
 If any service is missing or fails, the endpoint returns HTTP `503` with that service marked as `missing_env` or `error`.
+
+### Daily production health checks
+
+Three independent GitHub Actions workflows check each external service:
+
+| Workflow | Endpoint | Daily schedule |
+| --- | --- | --- |
+| `Daily OpenAI Production Health Check` | `/api/health?service=openai` | `10:17 UTC` |
+| `Daily Resend Production Health Check` | `/api/health?service=resend` | `10:22 UTC` |
+| `Daily Upstash Production Health Check` | `/api/health?service=redis` | `10:27 UTC` |
+
+Each check can also be started manually from the repository's **Actions** tab by selecting the workflow and choosing **Run workflow**.
+
+The checks run outside Vercel, use short connection and request timeouts, and fail on network errors or any non-2xx response (including `401` and the endpoint's `503`). GitHub's normal failed-workflow notification is the alert for an unhealthy scheduled check.
+
+Set `HEALTHCHECK_TOKEN` in both places:
+
+1. The Vercel project environment variables.
+2. The GitHub repository's Actions secret named `HEALTHCHECK_TOKEN`.
+
+The workflows fail immediately when the GitHub secret is empty and never place the token in the URL.
 
 ## Styling Notes
 
@@ -401,6 +432,7 @@ This project is intended for Vercel.
 Before deploying:
 
 ```bash
+npm test
 npm run lint
 npm run typecheck
 npm run build

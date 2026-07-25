@@ -3,11 +3,14 @@ import { Redis } from "@upstash/redis";
 import { runWorkflow } from "./Agent";
 import crypto from "crypto";
 import { clampToLast3Pairs, type StoredMsg } from "./history";
+import { getClientIp } from "@/lib/serverSecurity";
 
 const redis = Redis.fromEnv();
 
 const MAX_INPUT_CHARS = 100;
 const REDIS_TIMEOUT_MS = 1_500;
+const SID_COOKIE = "chat_sid_v2";
+const SID_MAX_AGE_SECONDS = 60 * 60 * 24;
 
 const SESSION_LIMIT = 10; // max 10 messages per session
 const IP_LIMIT = 30;
@@ -17,26 +20,19 @@ type RateLimitResult =
   | { ok: true }
   | { ok: false; retryAfter: number; message: string };
 
-function getIP(req: NextRequest): string {
-  const xff = req.headers.get("x-forwarded-for");
-  if (xff) return xff.split(",")[0].trim();
-  // @ts-expect-error - a veces existe en runtime
-  return req.ip ?? "unknown";
-}
-
 function getSID(req: NextRequest): { sid: string; isNew: boolean } {
-  const existing = req.cookies.get("sid")?.value;
+  const existing = req.cookies.get(SID_COOKIE)?.value;
   if (existing) return { sid: existing, isNew: false };
   return { sid: crypto.randomUUID(), isNew: true };
 }
 
 function setSIDCookie(res: NextResponse, sid: string) {
-  res.cookies.set("sid", sid, {
+  res.cookies.set(SID_COOKIE, sid, {
     httpOnly: true,
     sameSite: "lax",
     secure: process.env.NODE_ENV === "production",
     path: "/",
-    maxAge: 60 * 60 * 24 * 365,
+    maxAge: SID_MAX_AGE_SECONDS,
   });
 }
 
@@ -67,9 +63,7 @@ function redisUnavailableResponse(label: string, error: unknown) {
   return NextResponse.json(
     {
       error: "redis_unavailable",
-      message:
-        "Chatbot storage is temporarily unavailable. Check the Upstash Redis configuration and try again.",
-      detail: message,
+      message: "Chatbot storage is temporarily unavailable. Try again later.",
     },
     { status: 503 },
   );
@@ -143,7 +137,7 @@ export async function POST(req: NextRequest) {
     }
 
     // 2) RATE LIMIT (IP + sesión)
-    const ip = getIP(req);
+    const ip = getClientIp(req);
     const { sid, isNew } = getSID(req);
 
     const ipKey = `rl:ip:${encodeURIComponent(ip)}`;

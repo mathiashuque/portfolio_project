@@ -3,24 +3,91 @@ name: CI
 on:
   pull_request:
   push:
-    branches: [main]
+    branches:
+      - main
+      - develop
 
 concurrency:
   group: ci-${{ github.ref }}
   cancel-in-progress: true
 
 jobs:
-  ci:
+  dependency-audit:
+    name: Dependency Audit
     runs-on: ubuntu-latest
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
+      - name: Setup Node
+        uses: actions/setup-node@v5
         with:
-          node-version: 20
+          node-version: 26
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Audit high-severity vulnerabilities
+        run: npm run audit:high
+
+  lint:
+    name: Lint
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 26
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Lint
+        run: npm run lint
+
+  typecheck:
+    name: Typecheck
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 26
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Typecheck
+        run: npm run typecheck
+
+  build:
+    name: Production Build
+    runs-on: ubuntu-latest
+    needs:
+      - dependency-audit
+      - lint
+      - typecheck
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+
+      - name: Setup Node
+        uses: actions/setup-node@v5
+        with:
+          node-version: 26
           cache: npm
 
       - name: Install dependencies
@@ -34,21 +101,7 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-next-${{ hashFiles('package-lock.json') }}-
 
-      - name: Lint
-        run: npm run lint
-
-      - name: Typecheck (if configured)
-        run: npm run typecheck --if-present
-
-      - name: Test (if configured)
-        run: npm test --if-present
-
       - name: Build
         run: npm run build
         env:
           NEXT_TELEMETRY_DISABLED: "1"
-          RESEND_API_KEY: ${{ secrets.RESEND_API_KEY }}
-          CONTACT_TO_EMAIL: ${{ secrets.CONTACT_TO_EMAIL }}
-          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          UPSTASH_REDIS_REST_URL: ${{ secrets.UPSTASH_REDIS_REST_URL }}
-          UPSTASH_REDIS_REST_TOKEN: ${{ secrets.UPSTASH_REDIS_REST_TOKEN }}

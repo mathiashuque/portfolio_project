@@ -36,7 +36,7 @@ export default function ChatWidget(props: ChatWidgetProps) {
   ]);
 
   const [typedDoneIds, setTypedDoneIds] = useState<Set<string>>(
-    () => new Set(),
+    () => new Set([messages[0].id]),
   );
 
   const panelRef = useRef<HTMLDivElement | null>(null);
@@ -53,20 +53,6 @@ export default function ChatWidget(props: ChatWidgetProps) {
     () => input.trim().length > 0 && !loading && !assistantTyping,
     [input, loading, assistantTyping],
   );
-
-  // seed greeting as typed
-  useEffect(() => {
-    const first = messages[0];
-    if (first?.role === "assistant") {
-      setTypedDoneIds((prev) => {
-        if (prev.has(first.id)) return prev;
-        const next = new Set(prev);
-        next.add(first.id);
-        return next;
-      });
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
 
   function markTypedDone(id: string) {
     setTypedDoneIds((prev) => {

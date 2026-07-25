@@ -1,6 +1,7 @@
 import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
-import { ENV, missingEnvMessage, readEnv, type EnvName } from "@/lib/env";
+import { ENV, readEnv, type EnvName } from "@/lib/env";
+import { tokensEqual } from "@/lib/serverSecurity";
 
 export const dynamic = "force-dynamic";
 
@@ -27,17 +28,12 @@ function json(status: number, body: unknown) {
 
 function isAuthorized(req: NextRequest) {
   const token = readEnv(ENV.healthcheckToken);
-  if (!token) return true;
+  if (!token) return false;
 
   const auth = req.headers.get("authorization");
   const bearer = auth?.startsWith("Bearer ") ? auth.slice("Bearer ".length) : "";
-  const queryToken = req.nextUrl.searchParams.get("token") ?? "";
 
-  return bearer === token || queryToken === token;
-}
-
-function errorMessage(error: unknown) {
-  return error instanceof Error ? error.message : "Unknown error";
+  return tokensEqual(bearer, token);
 }
 
 async function withTimeout<T>(label: string, work: Promise<T>): Promise<T> {
@@ -57,7 +53,10 @@ async function withTimeout<T>(label: string, work: Promise<T>): Promise<T> {
   }
 }
 
-async function measure(work: () => Promise<void>): Promise<ServiceHealth> {
+async function measure(
+  service: ServiceName,
+  work: () => Promise<void>,
+): Promise<ServiceHealth> {
   const startedAt = Date.now();
 
   try {
@@ -67,18 +66,20 @@ async function measure(work: () => Promise<void>): Promise<ServiceHealth> {
       latencyMs: Date.now() - startedAt,
     };
   } catch (error) {
+    console.error(`[health] ${service} check failed`, error);
     return {
       status: "error",
       latencyMs: Date.now() - startedAt,
-      message: errorMessage(error),
+      message: "Service check failed",
     };
   }
 }
 
 function missingEnv(names: EnvName[]): ServiceHealth {
+  console.error(`[health] Missing required environment: ${names.join(", ")}`);
   return {
     status: "missing_env",
-    message: missingEnvMessage(names),
+    message: "Required service configuration is missing",
   };
 }
 
@@ -88,7 +89,7 @@ async function checkRedis(): Promise<ServiceHealth> {
     return missingEnv(requiredEnv);
   }
 
-  return measure(async () => {
+  return measure("redis", async () => {
     const redis = Redis.fromEnv();
     await withTimeout("Redis", redis.ping());
   });
@@ -100,7 +101,7 @@ async function checkOpenAI(): Promise<ServiceHealth> {
     return missingEnv([ENV.openaiApiKey]);
   }
 
-  return measure(async () => {
+  return measure("openai", async () => {
     const response = await withTimeout(
       "OpenAI",
       fetch("https://api.openai.com/v1/models", {
@@ -123,7 +124,7 @@ async function checkResend(): Promise<ServiceHealth> {
     return missingEnv([ENV.resendApiKey]);
   }
 
-  return measure(async () => {
+  return measure("resend", async () => {
     const response = await withTimeout(
       "Resend",
       fetch("https://api.resend.com/domains", {
@@ -161,7 +162,13 @@ function requestedServices(req: NextRequest): ServiceName[] {
 }
 
 export async function GET(req: NextRequest) {
+  if (!readEnv(ENV.healthcheckToken)) {
+    console.error("[health] HEALTHCHECK_TOKEN is not configured");
+    return json(503, { ok: false, error: "Health check unavailable" });
+  }
+
   if (!isAuthorized(req)) {
+    console.warn("[health] Unauthorized health check request");
     return json(401, { ok: false, error: "Unauthorized" });
   }
 

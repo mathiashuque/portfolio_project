@@ -13,8 +13,12 @@ import { buildProfanityRegex } from "./profanity/asd";
 import { PORTFOLIO_CONTEXT } from "./portfolioContext";
 import type { AgentInputItem } from "@openai/agents";
 import { ENV, readEnv } from "@/lib/env";
+import { blockedReply } from "./blockedReply";
 
 const client = new OpenAI({ apiKey: readEnv(ENV.openaiApiKey) });
+const runner = new Runner({
+  traceMetadata: { __trace_source__: "agent-builder" },
+});
 
 const INSTRUCTIONS = `
 You are Mathias Huque, a software developer from Uruguay.
@@ -71,19 +75,6 @@ PROACTIVE ACTIONS (STRICTLY FORBIDDEN)
 Goal:
 Help visitors quickly understand who I am and what I do, with minimal text, and redirect off-topic questions back to my portfolio.
 `;
-
-type Lang = "en" | "es";
-
-function detectLang(text: string): Lang {
-  return /[áéíóúñ¿¡]/i.test(text) ? "es" : "en";
-}
-
-function blockedReply(text: string): string {
-  const lang = detectLang(text);
-  return lang === "es"
-    ? "No hace falta hablar así. Si querés, preguntame sobre mi trabajo, proyectos o experiencia."
-    : "No need for that. Feel free to ask about my work, projects, or experience.";
-}
 
 /**
  * Optional: personal profanity blocklist (cheap + deterministic).
@@ -146,7 +137,7 @@ function extractLastUserText(input: unknown): string {
 
 /**
  * Input guardrail: blocks model execution if it trips.
- * (Note: it runs inside runner.run; to save vector-store cost too, we also pre-check before retrieval.)
+ * It runs serially inside runner.run, before model execution.
  */
 const moderationInputGuardrail: InputGuardrail = {
   name: "moderation_input",
@@ -200,18 +191,11 @@ export const runWorkflow = async (
   workflow: WorkflowInput,
 ): Promise<{ answer: string }> => {
   return await withTrace("New agent", async () => {
-    const runner = new Runner({
-      traceMetadata: { __trace_source__: "agent-builder" },
-    });
-
     const userText = workflow.input_as_text ?? "";
 
-    // Pre-check BEFORE retrieval to avoid wasting vector-store calls on junk.
-    // (This complements the input guardrail, which runs inside runner.run.)
+    // Keep the deterministic fast-path so known profanity never reaches the model.
+    // The same check remains in the input guardrail as a safety boundary.
     if (PROFANITY_RE.test(userText)) {
-      return { answer: blockedReply(userText) };
-    }
-    if (await isFlaggedByModeration(userText)) {
       return { answer: blockedReply(userText) };
     }
 

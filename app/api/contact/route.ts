@@ -1,6 +1,11 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
+import { Redis } from "@upstash/redis";
 import { ENV, readEnv } from "@/lib/env";
+import {
+  getClientIp,
+  sanitizeEmailHeaderValue,
+} from "@/lib/serverSecurity";
 import { SITE } from "@/lib/site";
 
 type ContactPayload = {
@@ -14,10 +19,10 @@ const MAX_NAME = 80;
 const MAX_EMAIL = 254;
 const MAX_MESSAGE = 4000;
 
-// Basic burst protection (best-effort; resets on cold start)
-const RATE_LIMIT_WINDOW_MS = 60_000; // 1 minute
+const redis = Redis.fromEnv();
+const REDIS_TIMEOUT_MS = 1_500;
+const RATE_LIMIT_WINDOW_SECONDS = 60;
 const RATE_LIMIT_MAX = 5;
-const buckets = new Map<string, { count: number; resetAt: number }>();
 
 function isValidEmail(email: string) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(String(email || "").trim());
@@ -28,25 +33,40 @@ function clamp(str: string, max: number) {
   return s.length > max ? s.slice(0, max) : s;
 }
 
-function getClientIp(req: Request) {
-  const xff = req.headers.get("x-forwarded-for");
-  if (xff) return xff.split(",")[0]?.trim() || "unknown";
-  return req.headers.get("x-real-ip") ?? "unknown";
+async function withRedisTimeout<T>(work: Promise<T>): Promise<T> {
+  let timeout: ReturnType<typeof setTimeout> | undefined;
+  const timeoutPromise = new Promise<never>((_, reject) => {
+    timeout = setTimeout(
+      () => reject(new Error("Contact rate limiter timed out")),
+      REDIS_TIMEOUT_MS,
+    );
+  });
+
+  try {
+    return await Promise.race([work, timeoutPromise]);
+  } finally {
+    if (timeout) clearTimeout(timeout);
+  }
 }
 
-function rateLimit(key: string) {
-  const now = Date.now();
-  const current = buckets.get(key);
+async function rateLimit(ip: string) {
+  const key = `rl:contact:ip:${encodeURIComponent(ip)}`;
+  const [count] = await withRedisTimeout(
+    redis
+      .multi()
+      .incr(key)
+      .expire(key, RATE_LIMIT_WINDOW_SECONDS, "NX")
+      .exec(),
+  );
 
-  if (!current || current.resetAt <= now) {
-    buckets.set(key, { count: 1, resetAt: now + RATE_LIMIT_WINDOW_MS });
-    return true;
-  }
+  if (count <= RATE_LIMIT_MAX) return { allowed: true, retryAfter: 0 };
 
-  if (current.count >= RATE_LIMIT_MAX) return false;
-
-  current.count += 1;
-  return true;
+  const ttl = await withRedisTimeout(redis.ttl(key));
+  return {
+    allowed: false,
+    retryAfter:
+      typeof ttl === "number" && ttl > 0 ? ttl : RATE_LIMIT_WINDOW_SECONDS,
+  };
 }
 
 function getResend() {
@@ -57,10 +77,24 @@ function getResend() {
 export async function POST(req: Request) {
   const ip = getClientIp(req);
 
-  if (!rateLimit(ip)) {
+  let limit: Awaited<ReturnType<typeof rateLimit>>;
+  try {
+    limit = await rateLimit(ip);
+  } catch (error) {
+    console.error("[contact] Redis rate limiter failed", error);
+    return NextResponse.json(
+      { error: "Service temporarily unavailable" },
+      { status: 503 },
+    );
+  }
+
+  if (!limit.allowed) {
     return NextResponse.json(
       { error: "Too many requests. Try again later." },
-      { status: 429 },
+      {
+        status: 429,
+        headers: { "Retry-After": String(limit.retryAfter) },
+      },
     );
   }
 
@@ -76,7 +110,10 @@ export async function POST(req: Request) {
     return NextResponse.json({ ok: true });
   }
 
-  const name = clamp(String(payload.name ?? "").trim(), MAX_NAME);
+  const name = clamp(
+    sanitizeEmailHeaderValue(String(payload.name ?? "").trim()),
+    MAX_NAME,
+  );
   const email = clamp(String(payload.email ?? "").trim(), MAX_EMAIL);
   const message = clamp(String(payload.message ?? "").trim(), MAX_MESSAGE);
 
