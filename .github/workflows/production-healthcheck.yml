@@ -1,20 +1,27 @@
-name: Post-Deployment Production Health Checks
+name: Production Health Checks
 
 on:
+  schedule:
+    # Runs every day at 10:22 UTC.
+    - cron: "22 10 * * *"
+  workflow_dispatch:
   deployment_status:
 
 permissions: {}
 
 concurrency:
-  group: post-deployment-health-${{ github.event.deployment.id }}
+  group: production-health-${{ github.event.deployment.id || github.run_id }}
   cancel-in-progress: false
 
 jobs:
   health-check:
     name: Check ${{ matrix.service }}
     if: >-
-      github.event.deployment_status.state == 'success' &&
-      github.event.deployment.environment == 'Production'
+      github.event_name != 'deployment_status' ||
+      (
+        github.event.deployment_status.state == 'success' &&
+        github.event.deployment.environment == 'Production'
+      )
     runs-on: ubuntu-latest
     timeout-minutes: 3
 

@@ -334,26 +334,22 @@ Expected healthy response shape:
 
 If any service is missing or fails, the endpoint returns HTTP `503` with that service marked as `missing_env` or `error`.
 
-### Daily production health checks
+### Production health checks
 
-Three independent GitHub Actions workflows check each external service:
+The `Production Health Checks` GitHub Actions workflow checks OpenAI, Resend, and Upstash Redis in parallel. It runs:
 
-| Workflow | Endpoint | Daily schedule |
-| --- | --- | --- |
-| `Daily OpenAI Production Health Check` | `/api/health?service=openai` | `10:17 UTC` |
-| `Daily Resend Production Health Check` | `/api/health?service=resend` | `10:22 UTC` |
-| `Daily Upstash Production Health Check` | `/api/health?service=redis` | `10:27 UTC` |
+- once per day at `10:22 UTC`;
+- after Vercel reports a successful `Production` deployment;
+- manually from the repository's **Actions** tab with **Run workflow**.
 
-Each check can also be started manually from the repository's **Actions** tab by selecting the workflow and choosing **Run workflow**.
-
-The checks run outside Vercel, use short connection and request timeouts, and fail on network errors or any non-2xx response (including `401` and the endpoint's `503`). GitHub's normal failed-workflow notification is the alert for an unhealthy scheduled check.
+The checks run outside Vercel, retry briefly after a deployment, use short connection and request timeouts, and fail on network errors or any non-2xx response (including `401` and the endpoint's `503`). GitHub's normal failed-workflow notification is the alert for an unhealthy service.
 
 Set `HEALTHCHECK_TOKEN` in both places:
 
 1. The Vercel project environment variables.
 2. The GitHub repository's Actions secret named `HEALTHCHECK_TOKEN`.
 
-The workflows fail immediately when the GitHub secret is empty and never place the token in the URL.
+The workflow fails immediately when the GitHub secret is empty and never places the token in the URL.
 
 ## Styling Notes
 
