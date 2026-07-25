@@ -1,0 +1,57 @@
+name: Post-Deployment Production Health Checks
+
+on:
+  deployment_status:
+
+permissions: {}
+
+concurrency:
+  group: post-deployment-health-${{ github.event.deployment.id }}
+  cancel-in-progress: false
+
+jobs:
+  health-check:
+    name: Check ${{ matrix.service }}
+    if: >-
+      github.event.deployment_status.state == 'success' &&
+      github.event.deployment.environment == 'Production'
+    runs-on: ubuntu-latest
+    timeout-minutes: 3
+
+    strategy:
+      fail-fast: false
+      matrix:
+        service:
+          - openai
+          - resend
+          - redis
+
+    env:
+      HEALTHCHECK_TOKEN: ${{ secrets.HEALTHCHECK_TOKEN }}
+      HEALTHCHECK_URL: https://www.mathiashuque.dev/api/health?service=${{ matrix.service }}
+
+    steps:
+      - name: Check deployed ${{ matrix.service }} service
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          : "${HEALTHCHECK_TOKEN:?Set the HEALTHCHECK_TOKEN Actions secret}"
+
+          response="$(
+            curl \
+              --fail-with-body \
+              --silent \
+              --show-error \
+              --connect-timeout 5 \
+              --max-time 20 \
+              --retry 4 \
+              --retry-all-errors \
+              --retry-delay 5 \
+              --retry-max-time 60 \
+              -H "Authorization: Bearer ${HEALTHCHECK_TOKEN}" \
+              "${HEALTHCHECK_URL}"
+          )"
+
+          echo "${{ matrix.service }} production health response:"
+          printf '%s\n' "${response}"
