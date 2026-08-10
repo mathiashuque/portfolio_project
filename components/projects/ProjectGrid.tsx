@@ -4,9 +4,11 @@ import type { Project } from "./types";
 
 export default function ProjectGrid({ projects }: { projects: Project[] }) {
   return (
-    <div className={cn("grid gap-10", "grid-cols-1 sm:grid-cols-3")}>
+    <div
+      className={cn("grid gap-x-10 gap-y-6", "grid-cols-1 sm:grid-cols-3")}
+    >
       {projects.map((project) => (
-        <div key={project.name} className="aspect-square w-full">
+        <div key={project.name} className="aspect-4/3 w-full">
           <ProjectTile project={project} />
         </div>
       ))}

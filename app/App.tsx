@@ -22,8 +22,9 @@ function App() {
         <Projects />
         <Stack />
         <Contact />
-        <Footer />
       </main>
+
+      <Footer />
 
       {/* Floating chatbot */}
       <ChatWidget />

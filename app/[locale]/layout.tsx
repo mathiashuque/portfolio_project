@@ -2,8 +2,16 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
-import { absoluteUrl, isLocale, SITE } from "@/lib/site";
+import {
+  absoluteUrl,
+  isLocale,
+  localePath,
+  LOCALES,
+  SEO,
+  SITE,
+} from "@/lib/site";
 import "../globals.css";
+
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({
   variable: "--font-geist-mono",
@@ -15,67 +23,83 @@ export const viewport: Viewport = {
   initialScale: 1,
 };
 
-// Keep metadata for now in English; localize later via generateMetadata if needed.
-export const metadata: Metadata = {
-  metadataBase: new URL(SITE.url),
-  title: {
-    default: SITE.title,
-    template: "%s | Mathias Huque",
-  },
-  description: SITE.description,
-  keywords: [
-    "Mathias Huque",
-    "Software Developer",
-    "Full Stack Developer",
-    "Web Developer",
-    "Next.js",
-    "React",
-    "TypeScript",
-    "Portfolio",
-  ],
-  authors: [{ name: SITE.owner }],
-  creator: SITE.owner,
-  publisher: SITE.owner,
-  robots: {
-    index: true,
-    follow: true,
-    googleBot: {
+export function generateStaticParams() {
+  return LOCALES.map((locale) => ({ locale }));
+}
+
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ locale: string }>;
+}): Promise<Metadata> {
+  const { locale: localeParam } = await params;
+
+  if (!isLocale(localeParam)) {
+    return {};
+  }
+
+  const locale = localeParam;
+  const seo = SEO[locale];
+  const pathname = localePath(locale);
+  const alternateLocale = locale === "en" ? SEO.es.ogLocale : SEO.en.ogLocale;
+
+  return {
+    metadataBase: new URL(SITE.url),
+    title: seo.title,
+    description: seo.description,
+    alternates: {
+      canonical: pathname,
+      languages: {
+        en: "/en",
+        es: "/es",
+        "x-default": "/en",
+      },
+    },
+    authors: [{ name: SITE.owner, url: SITE.url }],
+    creator: SITE.owner,
+    publisher: SITE.owner,
+    robots: {
       index: true,
       follow: true,
-      "max-video-preview": -1,
-      "max-image-preview": "large",
-      "max-snippet": -1,
-    },
-  },
-  openGraph: {
-    type: "website",
-    url: SITE.url,
-    title: SITE.title,
-    description: SITE.shortDescription,
-    siteName: SITE.name,
-    locale: "en_US",
-    images: [
-      {
-        url: absoluteUrl(SITE.ogImagePath),
-        width: 1200,
-        height: 630,
-        alt: `${SITE.owner} Portfolio Preview`,
+      googleBot: {
+        index: true,
+        follow: true,
+        "max-video-preview": -1,
+        "max-image-preview": "large",
+        "max-snippet": -1,
       },
-    ],
-  },
-  twitter: {
-    card: "summary_large_image",
-    title: SITE.title,
-    description: SITE.shortDescription,
-    images: [absoluteUrl(SITE.ogImagePath)],
-  },
-  icons: {
-    icon: "/favicon.ico",
-    shortcut: "/favicon.ico",
-    apple: "/favicon.ico",
-  },
-  category: "technology",
-};
+    },
+    openGraph: {
+      type: "profile",
+      url: pathname,
+      title: seo.title,
+      description: seo.description,
+      siteName: SITE.name,
+      locale: seo.ogLocale,
+      alternateLocale: [alternateLocale],
+      images: [
+        {
+          url: SITE.ogImagePath,
+          width: 1200,
+          height: 630,
+          alt: `${SITE.owner} — Software Developer`,
+        },
+      ],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: seo.title,
+      description: seo.description,
+      images: [SITE.ogImagePath],
+    },
+    icons: {
+      icon: "/favicon.ico",
+      shortcut: "/favicon.ico",
+      apple: "/favicon.ico",
+    },
+    category: "technology",
+  };
+}
 
 export default async function LocaleLayout({
   children,
@@ -91,12 +115,59 @@ export default async function LocaleLayout({
   }
 
   const messages = (await import(`../../messages/${locale}.json`)).default;
+  const seo = SEO[locale];
+  const pageUrl = absoluteUrl(localePath(locale));
+  const structuredData = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Person",
+        "@id": absoluteUrl("/#person"),
+        name: SITE.owner,
+        url: SITE.url,
+        jobTitle:
+          locale === "es" ? "Desarrollador de Software" : "Software Developer",
+        sameAs: [SITE.githubUrl, SITE.linkedInUrl],
+        address: {
+          "@type": "PostalAddress",
+          addressCountry: "UY",
+          addressLocality: "Montevideo",
+        },
+        knowsAbout: ["React", "Next.js", "TypeScript", ".NET", "Node.js"],
+      },
+      {
+        "@type": "WebSite",
+        "@id": absoluteUrl("/#website"),
+        url: SITE.url,
+        name: SITE.name,
+        inLanguage: LOCALES,
+        publisher: { "@id": absoluteUrl("/#person") },
+      },
+      {
+        "@type": "ProfilePage",
+        "@id": `${pageUrl}#profile`,
+        url: pageUrl,
+        name: seo.title,
+        description: seo.description,
+        inLanguage: locale,
+        isPartOf: { "@id": absoluteUrl("/#website") },
+        mainEntity: { "@id": absoluteUrl("/#person") },
+      },
+    ],
+  };
 
   return (
     <html lang={locale}>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
+        <script
+          id="structured-data"
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
+          }}
+        />
         <NextIntlClientProvider locale={locale} messages={messages}>
           {children}
         </NextIntlClientProvider>

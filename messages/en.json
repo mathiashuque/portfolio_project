@@ -167,7 +167,8 @@
 
     "portfolioWebsite": "Personal site to showcase my work",
     "algorithmVisualizer": "Interactive tool to explore algorithms",
-    "interviewForge": "Practice interviews with real questions"
+    "interviewForge": "Practice interviews with real questions",
+    "mlPlayground": "Interactive lab for exploring machine learning"
   },
 
   "Stack": {
