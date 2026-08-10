@@ -35,7 +35,7 @@ export default function ContactSection() {
     <motion.section
       id="contact"
       className="
-        relative overflow-hidden scroll-mt-32
+        relative min-h-dvh snap-start snap-always overflow-hidden scroll-mt-32
         max-w-7xl 2xl:max-w-360 mx-auto px-6
         pb-16
       "

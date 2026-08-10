@@ -12,7 +12,7 @@ export default function ProjectsSection() {
   return (
     <motion.section
       id="projects"
-      className="px-6 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 mb-10"
+      className="min-h-dvh snap-start snap-always px-6 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 mb-10"
       onViewportEnter={() => setInView(true)}
       onViewportLeave={() => setInView(false)}
       viewport={{ amount: 0.1 }}

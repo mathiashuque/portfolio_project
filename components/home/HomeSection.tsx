@@ -47,6 +47,7 @@ export default function HomeSection() {
         bg-bg text-text
         flex flex-col
         lg:pt-5
+        min-h-dvh snap-start snap-always
         overflow-x-hidden
         scroll-mt-32
         mb-10

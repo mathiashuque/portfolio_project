@@ -3,6 +3,7 @@ import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
 import { headers } from "next/headers";
+import ThemeInitScript from "@/components/ThemeInitScript";
 import {
   absoluteUrl,
   isLocale,
@@ -167,17 +168,13 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale} suppressHydrationWarning>
+    <html
+      lang={locale}
+      className="snap-y snap-mandatory motion-reduce:snap-none"
+      suppressHydrationWarning
+    >
       <head>
-        <script
-          id="theme-init"
-          nonce={nonce}
-          suppressHydrationWarning
-          dangerouslySetInnerHTML={{
-            __html:
-              "(function(){try{var s=localStorage.getItem('theme');var d=s?s==='dark':true;document.documentElement.classList.toggle('dark',d);}catch(e){}})();",
-          }}
-        />
+        <ThemeInitScript nonce={nonce} />
       </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}

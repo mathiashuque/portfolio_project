@@ -25,6 +25,15 @@ html {
   scroll-behavior: smooth;
 }
 
+html.section-snap-animating {
+  scroll-behavior: auto;
+}
+
+html.section-snap-animating,
+html.section-snap-free-scrolling {
+  scroll-snap-type: none;
+}
+
 /* Marquee */
 
 .marquee {
@@ -47,6 +56,10 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
   .marquee__inner {
     animation: none;
   }

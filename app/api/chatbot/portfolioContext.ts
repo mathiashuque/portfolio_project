@@ -109,10 +109,24 @@ Postman, Figma, Scrum, Agile
 
 Projects
 
-Portfolio Website — built with Next.js and Tailwind CSS
+Portfolio Website — built with Next.js 16, React 19, TypeScript, and Tailwind CSS 4
+Bilingual (English/Spanish) via next-intl, animations with Framer Motion
+Includes this AI chat assistant (OpenAI Agents SDK) with rate limiting and conversation history backed by Upstash Redis, and a contact form powered by Resend
 Fast, responsive UI with clean structure
 Showcases projects, experience, and contact information
 Live https://www.mathiashuque.dev
+
+Algorithm Visualizer — built with React, TypeScript, and Tailwind CSS
+Interactive tool to explore how common algorithms work step by step
+Live https://algoviz.mathiashuque.dev/
+
+Interview Forge — built with React, TypeScript, and Tailwind CSS
+Practice technical interviews with real questions
+Live https://interview-forge.mathiashuque.dev/
+
+ML Playground — built with Next.js, TypeScript, and Tailwind CSS
+Interactive lab for exploring machine learning concepts hands-on
+Live https://ml-playground.mathiashuque.dev/en
 
 Services Offered
 
@@ -151,7 +165,7 @@ Outside of coding, I’m a technology enthusiast who enjoys games and music.
 
 * Gaming: I like shooters — Mass Effect and Counter-Strike are favorites.
 * Music: Rock.
-* Food: salmon, sushi, chocolate, and hamburgers.
+* Food: sushi, chocolate, and hamburgers.
 * Not a fan of most fish or alcohol.
 
 I’m also the kind of person who cares about the small details — clean code, smooth UX, and making things feel fast.

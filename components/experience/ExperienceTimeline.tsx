@@ -40,7 +40,7 @@ function TimelineRow({
   });
 
   return (
-    <motion.div ref={ref} style={{ y }}>
+    <motion.div ref={ref} style={{ y }} data-timeline-item>
       <ExperienceItem exp={exp} active={active} />
     </motion.div>
   );

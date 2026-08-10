@@ -11,7 +11,11 @@ export default function AboutLayout({
   const [inView, setInView] = useState(false);
 
   return (
-    <section id="about" className="scroll-mt-32 mb-20" aria-label="About">
+    <section
+      id="about"
+      className="min-h-dvh snap-start snap-always scroll-mt-32 mb-20"
+      aria-label="About"
+    >
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
         <div className="relative isolate overflow-hidden rounded-3xl">
           <motion.div

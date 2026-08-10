@@ -5,7 +5,7 @@ export default function Footer() {
   const iconClass = "text-muted hover:text-text transition";
 
   return (
-    <footer className="py-14 bg-panel text-text border-t border-border/10">
+    <footer className="snap-start snap-always py-14 bg-panel text-text border-t border-border/10">
       <div className="mx-auto max-w-5xl px-4 text-center">
         {/* Name */}
         <h3 className="text-lg font-semibold">Mathias Huque</h3>
