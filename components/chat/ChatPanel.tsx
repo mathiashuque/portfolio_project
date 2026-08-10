@@ -7,10 +7,12 @@ export function ChatPanel({
   panelRef,
   onClickInside,
   children,
+  ariaLabel,
 }: {
   panelRef: React.RefObject<HTMLDivElement | null>;
   onClickInside: (e: React.MouseEvent) => void;
   children: React.ReactNode;
+  ariaLabel: string;
 }) {
   return (
     <div className="fixed inset-0 z-70 flex items-center justify-center p-4">
@@ -29,7 +31,7 @@ export function ChatPanel({
         "
         role="dialog"
         aria-modal="true"
-        aria-label="Chat widget"
+        aria-label={ariaLabel}
         onClick={onClickInside}
       >
         {children}

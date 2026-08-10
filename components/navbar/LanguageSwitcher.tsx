@@ -1,9 +1,10 @@
 "use client";
 
-import { useLocale } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { usePathname, useRouter } from "next/navigation";
 
 export default function LanguageSwitcher() {
+  const t = useTranslations("Nav");
   const locale = useLocale();
   const pathname = usePathname();
   const router = useRouter();
@@ -34,7 +35,7 @@ export default function LanguageSwitcher() {
         hover:bg-slate-900/10 dark:hover:bg-white/10
         transition-colors
       "
-      aria-label={`Switch language to ${nextLocale.toUpperCase()}`}
+      aria-label={t("aria.switchLanguage", { locale: nextLocale.toUpperCase() })}
     >
       {nextLocale.toUpperCase()}
     </button>

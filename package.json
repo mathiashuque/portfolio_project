@@ -7,7 +7,7 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "npx vercel --prod",
+    "deploy": "npm test && npm run lint && npm run typecheck && npm run build && npx vercel --prod",
     "audit:high": "npm audit --audit-level=high",
     "lint": "eslint",
     "test": "vitest run",
@@ -17,11 +17,7 @@
     "@2toad/profanity": "^3.2.0",
     "@openai/agents": "^0.4.10",
     "@upstash/redis": "^1.36.2",
-    "compromise": "^14.14.5",
     "framer-motion": "^12.33.0",
-    "franc-all": "^7.2.0",
-    "fuse.js": "^7.1.0",
-    "handlebars": "^4.7.8",
     "lucide-react": "^0.563.0",
     "motion": "^12.33.0",
     "next": "16.2.11",
@@ -31,9 +27,7 @@
     "react-dom": "19.2.3",
     "react-icons": "^5.5.0",
     "resend": "^6.9.1",
-    "tailwindcss-animated": "^2.0.0",
-    "tinyld": "^1.3.4",
-    "translate": "^3.0.1"
+    "tailwindcss-animated": "^2.0.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4.3.3",

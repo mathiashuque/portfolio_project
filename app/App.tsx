@@ -1,5 +1,6 @@
 "use client";
 
+import { MotionConfig } from "motion/react";
 import Experience from "../components/experience/Experience";
 import Projects from "../components/projects/Projects";
 import Footer from "../components/footer/Footer";
@@ -12,23 +13,25 @@ import ChatWidget from "@/components/chat/ChatWidget";
 
 function App() {
   return (
-    <div className="min-h-screen bg-bg text-text">
-      <Navbar />
+    <MotionConfig reducedMotion="user">
+      <div className="min-h-screen bg-bg text-text">
+        <Navbar />
 
-      <main>
-        <Home />
-        <About />
-        <Experience />
-        <Projects />
-        <Stack />
-        <Contact />
-      </main>
+        <main>
+          <Home />
+          <About />
+          <Experience />
+          <Projects />
+          <Stack />
+          <Contact />
+        </main>
 
-      <Footer />
+        <Footer />
 
-      {/* Floating chatbot */}
-      <ChatWidget />
-    </div>
+        {/* Floating chatbot */}
+        <ChatWidget />
+      </div>
+    </MotionConfig>
   );
 }
 

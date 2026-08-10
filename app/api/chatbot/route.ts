@@ -4,6 +4,18 @@ import { runWorkflow } from "./Agent";
 import crypto from "crypto";
 import { clampToLast3Pairs, type StoredMsg } from "./history";
 import { getClientIp } from "@/lib/serverSecurity";
+import { isLocale, type Locale } from "@/lib/site";
+
+const RATE_LIMIT_MESSAGES: Record<Locale, { ip: string; session: string }> = {
+  en: {
+    ip: "Too many requests from this network. Try again later.",
+    session: "Limit reached: 10 questions per session. Try again in a bit.",
+  },
+  es: {
+    ip: "Demasiadas consultas desde esta red. Probá más tarde.",
+    session: "Límite: 10 preguntas por sesión. Probá en un rato.",
+  },
+};
 
 const redis = Redis.fromEnv();
 
@@ -119,6 +131,8 @@ export async function POST(req: NextRequest) {
       unknown
     >;
     const input = (body.message as string) ?? (body.input as string) ?? "";
+    const locale: Locale = isLocale(body.locale) ? body.locale : "en";
+    const rateLimitMessages = RATE_LIMIT_MESSAGES[locale];
 
     if (!input) {
       return NextResponse.json({ error: "Missing message" }, { status: 400 });
@@ -142,11 +156,7 @@ export async function POST(req: NextRequest) {
 
     const ipKey = `rl:ip:${encodeURIComponent(ip)}`;
 
-    const ipLimit = await checkRateLimit(
-      ipKey,
-      IP_LIMIT,
-      "Demasiadas consultas desde esta red. Probá más tarde.",
-    );
+    const ipLimit = await checkRateLimit(ipKey, IP_LIMIT, rateLimitMessages.ip);
     if (!ipLimit.ok) {
       const out = NextResponse.json(
         {
@@ -163,7 +173,7 @@ export async function POST(req: NextRequest) {
     const sidLimit = await checkRateLimit(
       sidKey,
       SESSION_LIMIT,
-      "Límite: 10 preguntas por sesión. Probá en un rato.",
+      rateLimitMessages.session,
     );
 
     if (!sidLimit.ok) {

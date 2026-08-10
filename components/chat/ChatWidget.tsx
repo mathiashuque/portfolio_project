@@ -10,11 +10,12 @@ import { ChatMessages } from "./ChatMessages";
 import { ScrollToBottomButton } from "./ScrollToBottomButton";
 import { ChatInputBar } from "./ChatInputBar";
 import { ChatMessage, ChatWidgetProps, uid } from "./types";
-import { useTranslations } from "next-intl";
+import { useLocale, useTranslations } from "next-intl";
 import { ChatSuggestions } from "./ChatSuggestions";
 
 export default function ChatWidget(props: ChatWidgetProps) {
   const t = useTranslations("ChatWidget");
+  const locale = useLocale();
 
   const title = props.title ?? t("header.title");
   const subtitle = props.subtitle ?? t("header.subtitle");
@@ -116,23 +117,21 @@ export default function ChatWidget(props: ChatWidgetProps) {
           "Content-Type": "application/json",
         },
         credentials: "include",
-        body: JSON.stringify({ message: trimmed }),
+        body: JSON.stringify({ message: trimmed, locale }),
         cache: "no-store",
       });
 
-      // ✅ Handle rate limit (429) with a friendly message
+      // Handle rate limit (429) with a locale-aware message
       if (res.status === 429) {
         setMessages((prev) => [
           ...prev,
           {
             id: uid(),
             role: "assistant",
-            content:
-              "You’ve reached the question limit for now. Please contact Mathias if you have any more questions.",
+            content: t("rateLimit"),
             createdAt: Date.now(),
           },
         ]);
-        //scrollNextFrame("smooth");
         return; // stop here, skip normal parsing
       }
 
@@ -146,10 +145,7 @@ export default function ChatWidget(props: ChatWidgetProps) {
       }
 
       const data = (await res.json()) as { answer?: string; reply?: string };
-      const reply =
-        data.answer ??
-        data.reply ??
-        "Sorry — I didn’t get a response. Please try again.";
+      const reply = data.answer ?? data.reply ?? t("errors.noResponse");
 
       setMessages((prev) => [
         ...prev,
@@ -161,8 +157,7 @@ export default function ChatWidget(props: ChatWidgetProps) {
         {
           id: uid(),
           role: "assistant",
-          content:
-            "Sorry — something went wrong on my side. Please try again, or reach out via the Contact section.",
+          content: t("errors.generic"),
           createdAt: Date.now(),
         },
       ]);
@@ -213,6 +208,7 @@ export default function ChatWidget(props: ChatWidgetProps) {
             <ChatPanel
               panelRef={panelRef}
               onClickInside={(e) => e.stopPropagation()}
+              ariaLabel={t("aria.dialog")}
             >
               <ChatHeader
                 title={title}

@@ -5,7 +5,11 @@
     "experience": "Experience",
     "projects": "Projects",
     "stack": "Stack",
-    "contact": "Contact"
+    "contact": "Contact",
+    "aria": {
+      "toggleMenu": "Toggle menu",
+      "switchLanguage": "Switch language to {locale}"
+    }
   },
   "Home": {
     "badge": "Hello, World! 👋 I’m Mathias!",

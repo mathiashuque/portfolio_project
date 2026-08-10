@@ -5,7 +5,11 @@
     "experience": "Experiencia",
     "projects": "Proyectos",
     "stack": "Tecnologías",
-    "contact": "Contacto"
+    "contact": "Contacto",
+    "aria": {
+      "toggleMenu": "Alternar menú",
+      "switchLanguage": "Cambiar idioma a {locale}"
+    }
   },
   "Home": {
     "badge": "¡Hola, mundo! 👋 ¡Soy Mathias!",

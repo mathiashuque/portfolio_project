@@ -2,6 +2,7 @@ import type { Metadata, Viewport } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import { NextIntlClientProvider } from "next-intl";
 import { notFound } from "next/navigation";
+import { headers } from "next/headers";
 import {
   absoluteUrl,
   isLocale,
@@ -93,9 +94,16 @@ export async function generateMetadata({
       images: [SITE.ogImagePath],
     },
     icons: {
-      icon: "/favicon.ico",
+      icon: [
+        { url: "/favicon-96x96.png", type: "image/png", sizes: "96x96" },
+        { url: "/favicon.svg", type: "image/svg+xml" },
+      ],
       shortcut: "/favicon.ico",
-      apple: "/favicon.ico",
+      apple: [{ url: "/apple-touch-icon.png", sizes: "180x180" }],
+    },
+    manifest: "/site.webmanifest",
+    appleWebApp: {
+      title: "mathiashuque.dev",
     },
     category: "technology",
   };
@@ -113,6 +121,8 @@ export default async function LocaleLayout({
   if (!isLocale(locale)) {
     notFound();
   }
+
+  const nonce = (await headers()).get("x-nonce") ?? undefined;
 
   const messages = (await import(`../../messages/${locale}.json`)).default;
   const seo = SEO[locale];
@@ -157,13 +167,26 @@ export default async function LocaleLayout({
   };
 
   return (
-    <html lang={locale}>
+    <html lang={locale} suppressHydrationWarning>
+      <head>
+        <script
+          id="theme-init"
+          nonce={nonce}
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html:
+              "(function(){try{var s=localStorage.getItem('theme');var d=s?s==='dark':true;document.documentElement.classList.toggle('dark',d);}catch(e){}})();",
+          }}
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
         <script
           id="structured-data"
           type="application/ld+json"
+          nonce={nonce}
+          suppressHydrationWarning
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(structuredData).replace(/</g, "\\u003c"),
           }}

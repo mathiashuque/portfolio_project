@@ -6,7 +6,15 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
-  * {
+  /* Only elements that actually use theme-driven colors need to transition
+     between light/dark — scoping away from `*` avoids the browser evaluating
+     this on every node (inputs, SVG icons inside Framer Motion, etc.). */
+  body,
+  [class*="bg-"],
+  [class*="text-"],
+  [class*="border-"],
+  [class*="fill-"],
+  [class*="stroke-"] {
     transition-property: background-color, border-color, color, fill, stroke;
     transition-duration: 200ms;
     transition-timing-function: ease-in-out;

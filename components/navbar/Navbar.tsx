@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import { useTranslations } from "next-intl";
 import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
 import ThemeToggle from "./ThemeToggle";
@@ -19,6 +20,7 @@ function getInitialDark(): boolean {
 }
 
 export default function Navbar() {
+  const t = useTranslations("Nav");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const [dark, setDark] = useState<boolean>(getInitialDark);
@@ -173,7 +175,7 @@ export default function Navbar() {
     transition-all duration-200 hover:scale-105
     dark:text-white/80 dark:hover:text-white dark:hover:bg-white/10
   "
-          aria-label="Toggle menu"
+          aria-label={t("aria.toggleMenu")}
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
