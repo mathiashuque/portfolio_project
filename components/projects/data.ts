@@ -29,4 +29,11 @@ export const PROJECTS: Project[] = [
     link: "https://ml-playground.mathiashuque.dev/en",
     image: "/projects/ml-playground.png",
   },
+  {
+    name: "FavForge",
+    descriptionKey: "favForge",
+    tech: ["Next.js", "Tailwind", "TypeScript"],
+    link: "https://favforge.mathiashuque.dev/",
+    image: "/projects/favforge.webp",
+  },
 ];

@@ -128,6 +128,10 @@ ML Playground — built with Next.js, TypeScript, and Tailwind CSS
 Interactive lab for exploring machine learning concepts hands-on
 Live https://ml-playground.mathiashuque.dev/en
 
+FavForge — built with Next.js, TypeScript, and Tailwind CSS
+Favicon generator that previews a logo across browser tabs, search results, and mobile home screens, then exports a validated, ready-to-ship favicon package (ICO, PNG icons, web manifest, setup instructions)
+Live https://favforge.mathiashuque.dev/
+
 Services Offered
 
 I build and improve software end-to-end — from idea to production.
