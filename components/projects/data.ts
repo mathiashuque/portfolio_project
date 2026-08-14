@@ -36,4 +36,11 @@ export const PROJECTS: Project[] = [
     link: "https://favforge.mathiashuque.dev/",
     image: "/projects/favforge.webp",
   },
+  {
+    name: "MyPDF",
+    descriptionKey: "myPdf",
+    tech: ["Next.js", "Tailwind", "TypeScript"],
+    link: "https://my-pdf.mathiashuque.dev/en",
+    image: "/projects/mypdf.webp",
+  },
 ];

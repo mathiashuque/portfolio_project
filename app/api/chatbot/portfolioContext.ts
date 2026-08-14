@@ -132,6 +132,10 @@ FavForge — built with Next.js, TypeScript, and Tailwind CSS
 Favicon generator that previews a logo across browser tabs, search results, and mobile home screens, then exports a validated, ready-to-ship favicon package (ICO, PNG icons, web manifest, setup instructions)
 Live https://favforge.mathiashuque.dev/
 
+MyPDF — built with Next.js, TypeScript, and Tailwind CSS
+Focused set of document utilities: merge PDFs, split pages apart, and convert to and from PDF. No account required; Convert to PDF runs entirely client-side, other tools process files server-side without storing them
+Live https://my-pdf.mathiashuque.dev/en
+
 Services Offered
 
 I build and improve software end-to-end — from idea to production.
