@@ -51,6 +51,10 @@ export default function Hero({ constraintsRef, dragKey }: HeroProps) {
               <TypingParagraph text={fullText} start={leftInView} />
             </div>
 
+            <p className="mt-4 inline-flex max-w-2xl items-center justify-center rounded-full border border-border bg-panel px-4 py-2 text-xs sm:text-sm text-muted/90">
+              {t("availability")}
+            </p>
+
             <div className="mt-4 flex flex-col sm:flex-row justify-center items-center gap-5">
               <a
                 href="#contact"

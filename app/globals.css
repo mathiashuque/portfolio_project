@@ -17,6 +17,7 @@
 @custom-variant dark (&:where(.dark, .dark *));
 
 body {
+  position: relative;
   font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
 }
 
@@ -37,6 +38,7 @@ body {
 }
 
 html {
+  position: relative;
   scroll-behavior: smooth;
 }
 

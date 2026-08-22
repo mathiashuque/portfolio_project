@@ -19,4 +19,5 @@ export type FeaturedProject = {
   partnerLogo?: string;
   partnerName?: string;
   partnerUrl?: string;
+  highlightsKey?: string;
 };

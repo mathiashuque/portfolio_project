@@ -76,6 +76,22 @@ export default function FeaturedProject({
               )}
             </div>
 
+            {project.highlightsKey && (
+              <div className="flex flex-wrap gap-2">
+                {(t.raw(project.highlightsKey) as string[]).map((h) => (
+                  <span
+                    key={h}
+                    className={cn(
+                      "rounded-full border border-accent/25 bg-accent/5 px-2.5 py-0.5",
+                      "text-[11px] font-medium text-accent",
+                    )}
+                  >
+                    {h}
+                  </span>
+                ))}
+              </div>
+            )}
+
             <div className="flex flex-wrap gap-2">
               {project.tech.map((tag) => (
                 <span

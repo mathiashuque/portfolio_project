@@ -3,9 +3,13 @@
 import { useEffect, useRef, useState } from "react";
 import type { Variants } from "motion/react";
 import { motion, stagger } from "motion/react";
+import { Github, Linkedin } from "lucide-react";
+import { useTranslations } from "next-intl";
 import type { NavLink } from "./types";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { iconClass } from "./constants";
+import { SITE } from "@/lib/site";
 
 const menuVariants = {
   open: {
@@ -123,6 +127,7 @@ export default function MobileMenu({
 }) {
   const panelRef = useRef<HTMLDivElement | null>(null);
   const { height } = useDimensions(panelRef);
+  const t = useTranslations("Nav");
 
   return (
     <motion.div
@@ -183,13 +188,39 @@ export default function MobileMenu({
           </motion.ul>
 
           <div className="mt-6 pt-5 border-t border-slate-900/10 dark:border-white/10">
-            <motion.div variants={itemVariants} className="flex items-center">
-              <LanguageSwitcher />
-              <ThemeToggle
-                dark={dark}
-                onToggle={onToggleTheme}
-                variant="mobile"
-              />
+            <motion.div
+              variants={itemVariants}
+              className="flex items-center justify-between"
+            >
+              <div className="flex items-center gap-4 text-2xl">
+                <a
+                  href={SITE.githubUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t("aria.github")}
+                  className={iconClass}
+                >
+                  <Github className="h-5 w-5" />
+                </a>
+                <a
+                  href={SITE.linkedInUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={t("aria.linkedin")}
+                  className={iconClass}
+                >
+                  <Linkedin className="h-5 w-5" />
+                </a>
+              </div>
+
+              <div className="flex items-center">
+                <LanguageSwitcher />
+                <ThemeToggle
+                  dark={dark}
+                  onToggle={onToggleTheme}
+                  variant="mobile"
+                />
+              </div>
             </motion.div>
           </div>
         </motion.div>

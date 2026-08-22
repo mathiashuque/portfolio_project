@@ -1,4 +1,4 @@
-import type { AboutTab, ImpactItem, Service } from "./types";
+import type { AboutTab, Service } from "./types";
 
 type ServicesMsgItem = {
   iconKey?: Service["iconKey"];
@@ -42,7 +42,7 @@ export function buildAboutTabs(t: {
       label: t("tabs.impact.label"),
       title: t("impact.title"),
       subtitle: t("impact.subtitle"),
-      items: Array.isArray(impactItems) ? (impactItems as ImpactItem[]) : [],
+      items: Array.isArray(impactItems) ? (impactItems as string[]) : [],
     },
   ] as const;
 }

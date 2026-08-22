@@ -8,110 +8,95 @@
     "contact": "Contacto",
     "aria": {
       "toggleMenu": "Alternar menú",
-      "switchLanguage": "Cambiar idioma a {locale}"
+      "switchLanguage": "Cambiar idioma a {locale}",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
     }
   },
   "Home": {
     "badge": "¡Hola, mundo! 👋 ¡Soy Mathias!",
-    "headline": "Creo aplicaciones de software que convierten{br}{highlight}",
-    "headlineHighlight": "ideas en realidad",
-    "paragraph": "Creo aplicaciones de software y productos digitales completos de principio a fin, ayudando a que las ideas se conviertan en soluciones reales y funcionales.",
+    "headline": "Ingeniero de Software construyendo{br}{highlight}",
+    "headlineHighlight": "sistemas confiables y escalables",
+    "paragraph": "Estudiante de Ingeniería en Sistemas y docente de Computación en la Universidad ORT Uruguay, enfocado en desarrollo full-stack y backend, desde estructuras de datos y algoritmos hasta sistemas listos para producción.",
+    "availability": "Disponible para roles de Ingeniería de Software en Uruguay y remoto con empresas de EE. UU. · UTC-3",
     "contactCta": "Contacto →",
     "cvCta": "Abrir CV ↓",
     "traits": {
       "cleanCode": "Código limpio",
-      "uxAware": "Desarrollo con enfoque UX",
-      "responsive": "Diseño responsive",
+      "dataStructures": "Estructuras de Datos y Algoritmos",
+      "systemDesign": "Diseño de sistemas",
+      "backend": "Ingeniería backend",
+      "apiDesign": "Diseño de APIs",
+      "testing": "Testing y QA",
+      "fullStack": "Desarrollo full-stack",
+      "problemSolving": "Resolución de problemas",
       "accessibility": "Accesibilidad",
-      "webDesign": "Diseño web",
-      "mobileAppDesign": "Diseño de apps móviles",
-      "brandIdentity": "Identidad de marca",
-      "uiux": "UI/UX",
-      "frontend": "Desarrollo frontend",
-      "designSystems": "Sistemas de diseño"
+      "technicalCommunication": "Comunicación técnica"
     }
   },
 
   "About": {
     "tabs": {
       "bio": { "label": "Sobre mí" },
-      "services": { "label": "Servicios" },
-      "impact": { "label": "Impacto" }
+      "services": { "label": "Enfoque" },
+      "impact": { "label": "Ahora" }
     },
 
     "bio": {
       "title": "Sobre Mathias Huque",
       "paragraphs": [
-        "Soy un desarrollador de software enfocado en construir sistemas confiables y bien estructurados que resuelven problemas reales. Trabajo en distintas capas del stack—diseñando, implementando y refinando aplicaciones y servicios con arquitectura limpia, comportamiento predecible y un fuerte énfasis en rendimiento y experiencia de usuario.",
-        "Más allá de escribir código, me importa cómo el software se estructura, se mantiene y evoluciona con el tiempo. Encaro la ingeniería con una mentalidad pragmática—equilibrando profundidad técnica con restricciones del mundo real para entregar soluciones eficientes, escalables y duraderas."
+        "Soy Ingeniero de Software y estudiante de último año de Ingeniería en Sistemas en la Universidad ORT Uruguay, donde también doy clases de Fundamentos de Computación y Estructuras de Datos y Algoritmos. Me enfoco en construir sistemas confiables y bien estructurados en todas las capas del stack, desde la arquitectura hasta la implementación.",
+        "Dar clases afila mi forma de encarar la ingeniería: explicar algoritmos y abstracciones con claridad, y diseñar ejercicios que resistan el escrutinio, me acercan a escribir código predecible, testeable y duradero. Encaro la ingeniería con pragmatismo, equilibrando profundidad técnica con restricciones reales para entregar soluciones eficientes, escalables y mantenibles."
       ]
     },
 
     "services": {
-      "title": "Lo que puedo construir para vos",
-      "subtitle": "Servicios de desarrollo end-to-end para negocios modernos.",
+      "title": "Enfoque de Ingeniería",
+      "subtitle": "En qué me enfoco como ingeniero de software.",
       "items": [
         {
+          "iconKey": "binary",
+          "title": "Estructuras de Datos y Algoritmos",
+          "description": "Bases sólidas de CS, tanto por estudiarlas como por enseñarlas, aplicadas a razonar sobre corrección y eficiencia."
+        },
+        {
           "iconKey": "layoutGrid",
-          "title": "Aplicaciones web a medida",
-          "description": "Plataformas escalables adaptadas a las necesidades de tu negocio."
-        },
-        {
-          "iconKey": "smartphone",
-          "title": "Apps móviles",
-          "description": "Experiencias móviles de alta calidad para iOS y Android."
-        },
-        {
-          "iconKey": "gauge",
-          "title": "Paneles de administración",
-          "description": "Visualización de datos y herramientas de gestión para operaciones internas."
-        },
-        {
-          "iconKey": "creditCard",
-          "title": "Sistemas fintech",
-          "description": "Integraciones de pago seguras y flujos financieros."
-        },
-        {
-          "iconKey": "shoppingCart",
-          "title": "Plataformas e-commerce",
-          "description": "Tiendas online de alto rendimiento con una experiencia de usuario fluida."
+          "title": "Arquitectura de Software",
+          "description": "Diseño sistemas limpios y modulares que se mantienen entendibles a medida que crecen, como la arquitectura de SILO modelada con C4."
         },
         {
           "iconKey": "database",
-          "title": "API y backend",
-          "description": "Servicios e integraciones confiables que impulsan tus aplicaciones."
+          "title": "Backend y APIs",
+          "description": "Construyo servicios confiables y capas de datos con Node.js, NestJS y PostgreSQL."
+        },
+        {
+          "iconKey": "code2",
+          "title": "Desarrollo Full-Stack",
+          "description": "Entrego funcionalidades completas de punta a punta con TypeScript, React y Next.js."
+        },
+        {
+          "iconKey": "gauge",
+          "title": "Rendimiento y Escalabilidad",
+          "description": "Perfilo y ajusto sistemas para un comportamiento predecible bajo restricciones reales."
+        },
+        {
+          "iconKey": "graduationCap",
+          "title": "Comunicación Técnica",
+          "description": "Enseño fundamentos de Computación y guío estudiantes en la Universidad ORT Uruguay."
         }
       ]
     },
 
     "impact": {
-      "title": "Cómo ayudo a que los negocios crezcan",
-      "subtitle": "La tecnología es una inversión, no un gasto. Así es como impulso el ROI.",
-      "before": "ANTES",
-      "after": "DESPUÉS",
+      "title": "Ahora Mismo",
+      "subtitle": "Dónde estoy en mi recorrido como ingeniero.",
       "items": [
-        {
-          "left": "Procesos manuales que hacen perder tiempo",
-          "right": "Automatización de operaciones"
-        },
-        {
-          "left": "Sin presencia online",
-          "right": "Diseño sitios web que convierten"
-        },
-        {
-          "left": "Idea, pero sin producto",
-          "right": "Convierto ideas en apps reales"
-        },
-        {
-          "left": "Bajo engagement de clientes",
-          "right": "Construyo apps que la gente disfruta usar"
-        },
-        {
-          "left": "Mala escalabilidad",
-          "right": "Diseño arquitectura lista para crecer"
-        }
-      ],
-      "footnote": "Resultados Antes → Después en operaciones, producto y crecimiento."
+        "Estudiante de último año de Ingeniería en Sistemas en la Universidad ORT Uruguay, con graduación prevista para marzo de 2027.",
+        "Doy clases de Fundamentos de Computación, y anteriormente de Estructuras de Datos y Algoritmos, en la Universidad ORT Uruguay.",
+        "Desarrollando SILO, una plataforma full-stack de proyecto de grado para SONDA Uruguay — TypeScript, Next.js, NestJS y PostgreSQL.",
+        "Disponible para roles de Ingeniería de Software — full-time, pasantía o contrato — en Uruguay o remoto con empresas de EE. UU.",
+        "Con base en Montevideo, Uruguay (UTC-3)."
+      ]
     },
 
     "header": {
@@ -136,10 +121,10 @@
         "badgeLabel": "Part-time",
         "badgeIcon": "🎓",
         "description": [
-          "Enseño conceptos fundamentales a través de matemáticas y razonamiento formal",
-          "Presento la programación como una actividad matemática, enfatizando funciones, abstracción y corrección",
-          "Introduzco modelos computacionales derivados de estructuras matemáticas y teoría",
-          "Ayudo a formar modelos mentales fuertes que conectan código, lógica y computación"
+          "Diseño y dicto un programa de programación funcional, guiando a estudiantes a construir y verificar modelos computables a partir de especificaciones formales",
+          "Desarrollo estándares de código modular y libre de efectos secundarios mediante funciones puras, inmutabilidad y recursión",
+          "Presento la programación como una actividad matemática, enfatizando abstracción, corrección y razonamiento formal",
+          "Diseño trabajos prácticos que traducen especificaciones en definiciones de funciones precisas, logrando una tasa de aprobación en primera instancia superior al 90%"
         ]
       },
       {
@@ -153,9 +138,10 @@
         "badgeLabel": "Temporal",
         "badgeIcon": "🎓",
         "description": [
-          "Guío estudiantes en estructuras de datos y técnicas algorítmicas",
-          "Diseño proyectos prácticos de implementación para reforzar la teoría",
-          "Ayudo a convertir conceptos abstractos en habilidades de resolución de problemas"
+          "Dirigí clases prácticas de estructuras de datos y algoritmos para grupos de más de 30 estudiantes, con tutorías personalizadas que mejoraron las calificaciones de más del 70% de los asistidos",
+          "Redacté ejercicios y guías de solución para más de 20 series de problemas, adoptadas en todas las ediciones posteriores del curso",
+          "Construí y mantuve más de 2.000 líneas de código en C++ para trabajos prácticos y demostraciones, reforzando estructuras de datos y técnicas algorítmicas clave",
+          "Ayudé a estudiantes a traducir conceptos abstractos en habilidades prácticas de resolución de problemas"
         ]
       }
     ]
@@ -166,21 +152,27 @@
     "header": {
       "kicker": "MIS PROYECTOS",
       "title": "Trabajo seleccionado",
-      "subtitle": "Una selección de proyectos que he construido en aplicaciones web, sistemas de UI y experimentos."
+      "subtitle": "Una selección de proyectos que abarca una plataforma full-stack de grado, herramientas algorítmicas y utilidades para desarrolladores."
     },
     "siloKicker": "DESTACADO",
     "silo": "Una plataforma full-stack diseñada para centralizar el proceso de licitaciones de SONDA Uruguay, mejorando la trazabilidad de decisiones y la reutilización del conocimiento histórico y los registros de proyectos.",
-    "siloDescriptionSecondary": "Desarrollada como mi proyecto de grado de Ingeniería en Sistemas, abarcando discovery con referentes, relevamiento de requerimientos, validación de prototipo y diseño de arquitectura C4. Y más.",
+    "siloDescriptionSecondary": "Desarrollada como mi proyecto de grado de Ingeniería en Sistemas — abarcando discovery con referentes, análisis del proceso AS IS, definición de requerimientos y backlog, y diseño de arquitectura C4, con un prototipo validado por referentes de SONDA y aprobado para avanzar a Delivery.",
     "siloSecondaryTitle": "Sistema Integral de Licitaciones y Oportunidades",
     "siloStatus": "Proyecto de grado · En desarrollo",
     "siloImageAlt": "Interfaz de la plataforma de gestión de licitaciones y oportunidades SILO",
     "siloPartnership": "Proyecto de grado desarrollado en colaboración con SONDA Uruguay.",
-    "portfolioWebsite": "Sitio personal para mostrar mi trabajo",
-    "algorithmVisualizer": "Herramienta interactiva para explorar algoritmos",
+    "siloHighlights": [
+      "Discovery con referentes",
+      "Requerimientos y backlog",
+      "Arquitectura C4",
+      "Roadmap: CI/CD y testing"
+    ],
+    "portfolioWebsite": "Este portafolio — Next.js, TypeScript y Tailwind CSS, bilingüe con next-intl.",
+    "algorithmVisualizer": "Visualizaciones paso a paso de algoritmos y estructuras de datos fundamentales.",
     "interviewForge": "Práctica entrevistas con preguntas reales",
     "mlPlayground": "Laboratorio interactivo para explorar el aprendizaje automático",
     "favForge": "Generador de favicons con vista previa en vivo y paquetes de exportación",
-    "myPdf": "Combina, divide y convierte PDFs en línea, sin necesidad de cuenta"
+    "myPdf": "Conversión de PDF en el cliente y combinar/dividir en el servidor — sin cuenta ni almacenamiento de archivos."
   },
 
   "Stack": {
@@ -189,6 +181,8 @@
       "title": "Habilidades y tecnologías",
       "subtitle": "Explora las tecnologías que uso para crear software listo para producción."
     },
+    "primaryTitle": "Stack Principal",
+    "secondaryTitle": "También Trabajé Con",
     "categories": {
       "programmingLanguages": "Lenguajes de programación",
       "librariesFrameworks": "Librerías y frameworks",
@@ -199,8 +193,8 @@
   "Contact": {
     "kicker": "CONTACTO",
     "title": "Hablemos",
-    "cardTitle": "Trabajemos juntos",
-    "cardBody": "Siempre me interesan nuevas oportunidades y proyectos emocionantes. Si tienes una pregunta o solo quieres saludar, ¡escríbeme!",
+    "cardTitle": "Conectemos",
+    "cardBody": "Estoy buscando activamente oportunidades como Ingeniero de Software, en Uruguay o remoto con equipos de EE. UU. Si querés hablar sobre un rol, no dudes en escribirme.",
     "links": {
       "email": "Correo",
       "linkedin": "LinkedIn",
@@ -248,7 +242,7 @@
   },
 
   "Footer": {
-    "subtitle": "Desarrollador Full-Stack apasionado por crear aplicaciones web hermosas y funcionales que marcan la diferencia.",
+    "subtitle": "Ingeniero de Software enfocado en sistemas confiables, arquitectura limpia y fundamentos de Ciencias de la Computación.",
     "credits": "Diseñado de forma informal en Figma y programado en Visual Studio Code por mí. Construido con Next.js y Tailwind CSS, desplegado con Vercel.",
     "social": {
       "github": "GitHub",

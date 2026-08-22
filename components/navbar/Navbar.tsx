@@ -2,12 +2,14 @@
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
+import { Github, Linkedin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
 import ThemeToggle from "./ThemeToggle";
-import { NAV_LINKS } from "./constants";
+import { NAV_LINKS, iconClass } from "./constants";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { SITE } from "@/lib/site";
 
 
 function getInitialDark(): boolean {
@@ -161,7 +163,25 @@ export default function Navbar() {
 
         {/* Right (desktop) */}
         <div className="hidden lg:flex ml-auto items-center gap-4 text-2xl">
-          <LanguageSwitcher />  
+          <a
+            href={SITE.githubUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t("aria.github")}
+            className={iconClass}
+          >
+            <Github className="h-5 w-5" />
+          </a>
+          <a
+            href={SITE.linkedInUrl}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label={t("aria.linkedin")}
+            className={iconClass}
+          >
+            <Linkedin className="h-5 w-5" />
+          </a>
+          <LanguageSwitcher />
           <ThemeToggle dark={dark} onToggle={toggleTheme} variant="icon" />
         </div>
 

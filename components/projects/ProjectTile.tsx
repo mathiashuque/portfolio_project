@@ -12,6 +12,8 @@ export default function ProjectTile({ project }: { project: Project }) {
   return (
     <a
       href={project.link}
+      target={project.link.startsWith("http") ? "_blank" : undefined}
+      rel={project.link.startsWith("http") ? "noopener noreferrer" : undefined}
       className={cn(
         "group relative block w-full overflow-hidden rounded-2xl",
         "aspect-4/3",

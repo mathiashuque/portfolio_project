@@ -84,7 +84,7 @@ export async function generateMetadata({
           url: SITE.ogImagePath,
           width: 1200,
           height: 630,
-          alt: `${SITE.owner} — Software Developer`,
+          alt: `${SITE.owner} — Software Engineer`,
         },
       ],
     },
@@ -137,14 +137,21 @@ export default async function LocaleLayout({
         name: SITE.owner,
         url: SITE.url,
         jobTitle:
-          locale === "es" ? "Desarrollador de Software" : "Software Developer",
+          locale === "es" ? "Ingeniero de Software" : "Software Engineer",
         sameAs: [SITE.githubUrl, SITE.linkedInUrl],
         address: {
           "@type": "PostalAddress",
           addressCountry: "UY",
           addressLocality: "Montevideo",
         },
-        knowsAbout: ["React", "Next.js", "TypeScript", ".NET", "Node.js"],
+        knowsAbout: [
+          "TypeScript",
+          "React",
+          "Next.js",
+          "Node.js",
+          "NestJS",
+          "PostgreSQL",
+        ],
       },
       {
         "@type": "WebSite",

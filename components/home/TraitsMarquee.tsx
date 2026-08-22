@@ -28,15 +28,15 @@ export default function TraitsMarquee() {
 
   const traits = [
     t("cleanCode"),
-    t("uxAware"),
-    t("responsive"),
+    t("dataStructures"),
+    t("systemDesign"),
+    t("backend"),
+    t("apiDesign"),
+    t("testing"),
+    t("fullStack"),
+    t("problemSolving"),
     t("accessibility"),
-    t("webDesign"),
-    t("mobileAppDesign"),
-    t("brandIdentity"),
-    t("uiux"),
-    t("frontend"),
-    t("designSystems"),
+    t("technicalCommunication"),
   ];
   const items = [...traits, ...traits, ...traits];
 

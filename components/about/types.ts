@@ -10,11 +10,11 @@ export type BioTab = {
 
 export type ServiceIconKey =
   | "layoutGrid"
-  | "smartphone"
   | "gauge"
-  | "creditCard"
-  | "shoppingCart"
-  | "database";
+  | "database"
+  | "binary"
+  | "code2"
+  | "graduationCap";
 
 export type Service = {
   title: string;
@@ -31,18 +31,13 @@ export type ServicesTab = {
   services: readonly Service[];
 };
 
-export type ImpactItem = {
-  left: string;
-  right: string;
-};
-
 export type ImpactTab = {
   kind: "impact";
   key: TabKey;
   label: string;
   title: string;
   subtitle?: string;
-  items: readonly ImpactItem[];
+  items: readonly string[];
 };
 
 export type AboutTab = BioTab | ServicesTab | ImpactTab;

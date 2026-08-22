@@ -47,12 +47,20 @@ export type StackItem = {
   color: TechColor;
 };
 
+export const PRIMARY_STACK = [
+  { name: "TypeScript", logo: tsLogo, color: "ts" },
+  { name: "React", logo: reactLogo, color: "react" },
+  { name: "Next.js", logo: nextjsLogo, color: "nextjs" },
+  { name: "Node.js", logo: nodeLogo, color: "node" },
+  { name: "Nest.js", logo: nestjsLogo, color: "nestjs" },
+  { name: "PostgreSQL", logo: postgresqlLogo, color: "postgresql" },
+] as const satisfies readonly StackItem[];
+
 export const STACK = {
   programmingLanguages: [
     { name: "HTML5", logo: htmlLogo, color: "html" },
     { name: "CSS3", logo: cssLogo, color: "css" },
     { name: "JavaScript", logo: jsLogo, color: "js" },
-    { name: "TypeScript", logo: tsLogo, color: "ts" },
     { name: "Python", logo: pythonLogo, color: "python" },
     { name: "Java", logo: javaLogo, color: "java" },
     { name: "C++", logo: cplusplusLogo, color: "cplusplus" },
@@ -61,7 +69,6 @@ export const STACK = {
   ],
 
   librariesFrameworks: [
-    { name: "React", logo: reactLogo, color: "react" },
     { name: "Angular", logo: angularLogo, color: "angular" },
     { name: "React Native", logo: reactNativeLogo, color: "react" },
     { name: "Flutter", logo: flutterLogo, color: "flutter" },
@@ -69,8 +76,6 @@ export const STACK = {
     { name: "Tailwind CSS", logo: tailwindLogo, color: "tailwind" },
 
     { name: "Express.js", logo: expressLogo, color: "express" },
-    { name: "Nest.js", logo: nestjsLogo, color: "nestjs" },
-    { name: "Next.js", logo: nextjsLogo, color: "nextjs" },
 
     { name: "Sequelize", logo: sequelizeLogo, color: "sequelize" },
     { name: "Prisma", logo: prismaLogo, color: "prisma" },
@@ -83,7 +88,6 @@ export const STACK = {
   ],
 
   toolsPlatforms: [
-    { name: "Node.js", logo: nodeLogo, color: "node" },
     { name: "Shopify", logo: shopifyLogo, color: "shopify" },
     { name: "Docker", logo: dockerLogo, color: "docker" },
     { name: "Postman", logo: postmanLogo, color: "postman" },
@@ -95,7 +99,6 @@ export const STACK = {
     { name: "Vercel", logo: vercelLogo, color: "vercel" },
     { name: "Firebase", logo: firebaseLogo, color: "firebase" },
     { name: "MySQL", logo: mysqlLogo, color: "mysql" },
-    { name: "PostgreSQL", logo: postgresqlLogo, color: "postgresql" },
     { name: "MongoDB", logo: mongodbLogo, color: "mongodb" },
     { name: "SQL Server", logo: sqlserverLogo, color: "sql server" },
   ],

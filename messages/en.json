@@ -8,110 +8,95 @@
     "contact": "Contact",
     "aria": {
       "toggleMenu": "Toggle menu",
-      "switchLanguage": "Switch language to {locale}"
+      "switchLanguage": "Switch language to {locale}",
+      "github": "GitHub",
+      "linkedin": "LinkedIn"
     }
   },
   "Home": {
     "badge": "Hello, World! 👋 I’m Mathias!",
-    "headline": "I Build Software Apps That Turn {br} {highlight}.",
-    "headlineHighlight": "Ideas Into Reality",
-    "paragraph": "I build software apps and complete digital products from start to finish, helping ideas turn into real, working solutions.",
+    "headline": "Software Engineer Building{br}{highlight}.",
+    "headlineHighlight": "Reliable, Scalable Systems",
+    "paragraph": "Systems Engineering student and Computer Science professor at Universidad ORT Uruguay, focused on full-stack and backend engineering — from data structures and algorithms to production-ready systems.",
+    "availability": "Open to Software Engineer roles in Uruguay & remote with US companies · UTC-3",
     "contactCta": "Contact →",
-    "cvCta": "Open CV ↓",
+    "cvCta": "Resume ↓",
     "traits": {
       "cleanCode": "Clean Code",
-      "uxAware": "UX-Aware Development",
-      "responsive": "Responsive Design",
+      "dataStructures": "Data Structures & Algorithms",
+      "systemDesign": "System Design",
+      "backend": "Backend Engineering",
+      "apiDesign": "API Design",
+      "testing": "Testing & QA",
+      "fullStack": "Full-Stack Development",
+      "problemSolving": "Problem Solving",
       "accessibility": "Accessibility",
-      "webDesign": "Web Design",
-      "mobileAppDesign": "Mobile App Design",
-      "brandIdentity": "Brand Identity",
-      "uiux": "UI/UX",
-      "frontend": "Frontend Development",
-      "designSystems": "Design Systems"
+      "technicalCommunication": "Technical Communication"
     }
   },
 
   "About": {
     "tabs": {
       "bio": { "label": "About" },
-      "services": { "label": "Services" },
-      "impact": { "label": "Impact" }
+      "services": { "label": "Focus" },
+      "impact": { "label": "Now" }
     },
 
     "bio": {
       "title": "About Mathias Huque",
       "paragraphs": [
-        "I am a Software Developer focused on building reliable, well-structured software systems that solve real problems. I work across different layers of the stack—designing, implementing, and refining applications and services with clean architecture, predictable behavior, and a strong emphasis on performance and user experience.",
-        "Beyond writing code, I care about how software is structured, maintained, and evolved over time. I approach engineering with a pragmatic mindset—balancing technical depth with real-world constraints to deliver solutions that are efficient, scalable, and built to last."
+        "I'm a Software Engineer and final-year Systems Engineering student at Universidad ORT Uruguay, where I also teach Computer Science fundamentals and Data Structures & Algorithms. I focus on building reliable, well-structured systems across the stack, from architecture to implementation.",
+        "Teaching sharpens the way I engineer: explaining algorithms and abstractions clearly, and designing exercises that hold up under scrutiny, both push me toward code that is predictable, testable, and built to last. I approach engineering pragmatically, balancing technical depth with real-world constraints to ship solutions that are efficient, scalable, and maintainable."
       ]
     },
 
     "services": {
-      "title": "What I Can Build For You",
-      "subtitle": "End-to-end development services for modern businesses.",
+      "title": "Engineering Focus",
+      "subtitle": "Where I focus as a software engineer.",
       "items": [
         {
+          "iconKey": "binary",
+          "title": "Data Structures & Algorithms",
+          "description": "Strong CS fundamentals from both studying and teaching them, used to reason about correctness and efficiency."
+        },
+        {
           "iconKey": "layoutGrid",
-          "title": "Custom Web Applications",
-          "description": "Scalable web platforms tailored to your business needs."
-        },
-        {
-          "iconKey": "smartphone",
-          "title": "Mobile Apps",
-          "description": "High-quality mobile experiences for iOS and Android."
-        },
-        {
-          "iconKey": "gauge",
-          "title": "Admin Dashboards",
-          "description": "Data visualization and management tools for internal operations."
-        },
-        {
-          "iconKey": "creditCard",
-          "title": "Fintech Systems",
-          "description": "Secure payment integrations and financial workflows."
-        },
-        {
-          "iconKey": "shoppingCart",
-          "title": "E-commerce Platforms",
-          "description": "High-performance online stores with seamless user experiences."
+          "title": "Software Architecture",
+          "description": "Designing clean, modular systems that stay understandable as they grow, like SILO's C4-modeled architecture."
         },
         {
           "iconKey": "database",
-          "title": "API & Backend",
-          "description": "Reliable services and integrations that power your applications."
+          "title": "Backend & APIs",
+          "description": "Building reliable services and data layers with Node.js, NestJS, and PostgreSQL."
+        },
+        {
+          "iconKey": "code2",
+          "title": "Full-Stack Development",
+          "description": "Shipping complete features end-to-end with TypeScript, React, and Next.js."
+        },
+        {
+          "iconKey": "gauge",
+          "title": "Performance & Scalability",
+          "description": "Profiling and refining systems for predictable behavior under real-world constraints."
+        },
+        {
+          "iconKey": "graduationCap",
+          "title": "Technical Communication",
+          "description": "Teaching Computer Science fundamentals and mentoring students at Universidad ORT Uruguay."
         }
       ]
     },
 
     "impact": {
-      "title": "How I Help Businesses Grow",
-      "subtitle": "Technology is an investment, not an expense. Here is how I drive ROI.",
+      "title": "Right Now",
+      "subtitle": "Where I am in my engineering journey.",
       "items": [
-        {
-          "left": "Manual processes wasting time",
-          "right": "I build systems that automate operations"
-        },
-        {
-          "left": "No online presence",
-          "right": "I design high-converting websites"
-        },
-        {
-          "left": "Idea but no product",
-          "right": "I turn ideas into live apps"
-        },
-        {
-          "left": "Low customer engagement",
-          "right": "I build apps users love to use"
-        },
-        {
-          "left": "Poor scalability",
-          "right": "I build with architecture ready for growth"
-        }
-      ],
-      "before": "BEFORE",
-      "after": "AFTER",
-      "footnote": "Before → After outcomes across operations, product, and growth."
+        "Final-year Systems Engineering student at Universidad ORT Uruguay, expected to graduate in March 2027.",
+        "Teaching Fundamentals of Computing, and previously Data Structures & Algorithms, at Universidad ORT Uruguay.",
+        "Building SILO, a full-stack capstone platform for SONDA Uruguay — TypeScript, Next.js, NestJS, and PostgreSQL.",
+        "Open to Software Engineer roles — full-time, internship, or contract — based in Uruguay or remote with US companies.",
+        "Based in Montevideo, Uruguay (UTC-3)."
+      ]
     },
 
     "header": {
@@ -136,10 +121,10 @@
         "badgeLabel": "Part-time",
         "badgeIcon": "🎓",
         "description": [
-          "Teach fundamental computing concepts through the lens of mathematics and formal reasoning",
-          "Present programming as a mathematical activity, emphasizing functions, abstraction, and correctness",
-          "Introduce computational models derived from mathematical structures and theory",
-          "Help students build strong mental models that connect code, logic, and computation"
+          "Design and teach a functional programming curriculum, guiding students to build and verify computable models from formal specifications",
+          "Develop standards for modular, side-effect-free code through pure functions, immutability, and recursion",
+          "Present programming as a mathematical activity, emphasizing abstraction, correctness, and formal reasoning",
+          "Design assignments that translate specifications into precise function definitions, achieving a first-attempt pass rate of over 90%"
         ]
       },
       {
@@ -153,9 +138,10 @@
         "badgeLabel": "Temporary",
         "badgeIcon": "🎓",
         "description": [
-          "Guide students through core data structures and algorithmic techniques",
-          "Design hands-on language implementation projects to reinforce theory",
-          "Help students translate abstract concepts into practical problem-solving skills"
+          "Led data structures and algorithms lab sessions for groups of 30+ students, providing personalized tutoring that improved grades for over 70% of those coached",
+          "Authored exercises and solution guides for 20+ problem sets, adopted in every subsequent edition of the course",
+          "Built and maintained 2,000+ lines of C++ code for labs and demonstrations, reinforcing core data structures and algorithmic techniques",
+          "Helped students translate abstract concepts into practical problem-solving skills"
         ]
       }
     ]
@@ -166,22 +152,28 @@
     "header": {
       "kicker": "MY PROJECTS",
       "title": "Selected Work",
-      "subtitle": "A selection of projects I’ve built across web apps, UI systems, and experiments."
+      "subtitle": "A selection of projects spanning a full-stack capstone platform, algorithmic tooling, and developer utilities."
     },
 
     "siloKicker": "FEATURED",
     "silo": "A full-stack platform designed to centralize SONDA Uruguay's bidding process, improving decision traceability and the reuse of historical knowledge and project records.",
-    "siloDescriptionSecondary": "Developed as my Systems Engineering capstone, spanning stakeholder discovery, requirements, prototype validation, and C4 architecture design. And More.",
+    "siloDescriptionSecondary": "Developed as my Systems Engineering capstone — spanning stakeholder discovery, AS-IS process analysis, requirements and backlog definition, and C4 architecture design, with a prototype validated by SONDA stakeholders and approved to move to delivery.",
     "siloSecondaryTitle": "Integrated Bidding & Opportunity Management Platform",
     "siloStatus": "Capstone Project · In Development",
     "siloImageAlt": "SILO bidding and opportunity management platform interface",
     "siloPartnership": "Capstone developed in collaboration with SONDA Uruguay.",
-    "portfolioWebsite": "Personal site to showcase my work",
-    "algorithmVisualizer": "Interactive tool to explore algorithms",
+    "siloHighlights": [
+      "Stakeholder discovery",
+      "Requirements & backlog",
+      "C4 architecture",
+      "Roadmap: CI/CD & testing"
+    ],
+    "portfolioWebsite": "This portfolio — Next.js, TypeScript, and Tailwind CSS, bilingual via next-intl.",
+    "algorithmVisualizer": "Step-by-step visualizations of core algorithms and data structures.",
     "interviewForge": "Practice interviews with real questions",
     "mlPlayground": "Interactive lab for exploring machine learning",
     "favForge": "Favicon generator with live previews and export packages",
-    "myPdf": "Merge, split, and convert PDFs online, no account required"
+    "myPdf": "Client-side PDF conversion plus server-side merge and split — no account or file storage."
   },
 
   "Stack": {
@@ -190,6 +182,8 @@
       "title": "Skills & Technologies",
       "subtitle": "Explore the stacks I rely on to ship production-ready software."
     },
+    "primaryTitle": "Core Stack",
+    "secondaryTitle": "Also Worked With",
     "categories": {
       "programmingLanguages": "Programming Languages",
       "librariesFrameworks": "Libraries & Frameworks",
@@ -200,8 +194,8 @@
   "Contact": {
     "kicker": "CONTACT",
     "title": "Get In Touch",
-    "cardTitle": "Let's Work Together",
-    "cardBody": "I'm always interested in new opportunities and exciting projects. Whether you have a question or just want to say hi, feel free to reach out!",
+    "cardTitle": "Let's Connect",
+    "cardBody": "I'm actively looking for Software Engineer opportunities — in Uruguay or remote with US teams. If you'd like to talk about a role, feel free to reach out.",
     "links": {
       "email": "Email",
       "linkedin": "LinkedIn",
@@ -249,7 +243,7 @@
   },
 
   "Footer": {
-    "subtitle": "Full-Stack Developer passionate about creating beautiful, functional web applications that make a difference.",
+    "subtitle": "Software Engineer focused on reliable systems, clean architecture, and Computer Science fundamentals.",
     "credits": "Loosely designed in Figma and coded in Visual Studio Code by yours truly. Built with Next.JS and Tailwind CSS, deployed with Vercel.",
     "social": {
       "github": "GitHub",

@@ -1,10 +1,10 @@
 export const SITE = {
   name: "Mathias Huque Portfolio",
   owner: "Mathias Huque",
-  title: "Mathias Huque | Software Developer",
+  title: "Mathias Huque | Software Engineer",
   description:
-    "Portfolio of Mathias Huque, software developer building modern, scalable web applications from architecture to polished user experiences.",
-  shortDescription: "I Build Software Apps That Turn Ideas Into Reality.",
+    "Portfolio of Mathias Huque, a Software Engineer and Systems Engineering student open to roles in Uruguay and remote with US companies.",
+  shortDescription: "Software Engineer Building Reliable, Scalable Systems.",
   url: "https://mathiashuque.dev",
   liveUrl: "https://www.mathiashuque.dev/",
   ogImagePath: "/og/default.png",
@@ -23,15 +23,15 @@ export const SEO: Record<
   { title: string; description: string; ogLocale: string }
 > = {
   en: {
-    title: "Mathias Huque | Software Developer in Uruguay",
+    title: "Mathias Huque | Software Engineer in Uruguay",
     description:
-      "Portfolio of Mathias Huque, a software developer in Uruguay building scalable web applications with React, Next.js, TypeScript, and .NET.",
+      "Portfolio of Mathias Huque, a Software Engineer in Uruguay building full-stack systems with TypeScript, React, Next.js, and Node.js — open to roles in Uruguay and remote with US companies.",
     ogLocale: "en_US",
   },
   es: {
-    title: "Mathias Huque | Desarrollador de Software en Uruguay",
+    title: "Mathias Huque | Ingeniero de Software en Uruguay",
     description:
-      "Portfolio de Mathias Huque, desarrollador de software en Uruguay especializado en aplicaciones web escalables con React, Next.js, TypeScript y .NET.",
+      "Portfolio de Mathias Huque, Ingeniero de Software en Uruguay que construye sistemas full-stack con TypeScript, React, Next.js y Node.js, disponible para roles en Uruguay y remoto con empresas de EE. UU.",
     ogLocale: "es_UY",
   },
 };

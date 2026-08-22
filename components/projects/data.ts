@@ -13,22 +13,23 @@ export const FEATURED_PROJECT: FeaturedProject = {
   partnerLogo: "/projects/sonda-logo.svg",
   partnerName: "SONDA Uruguay",
   partnerUrl: "https://www.sonda.com/",
+  highlightsKey: "siloHighlights",
 };
 
 export const PROJECTS: Project[] = [
-  {
-    name: "Portfolio Website",
-    descriptionKey: "portfolioWebsite",
-    tech: ["React", "Tailwind", "TypeScript"],
-    link: "#",
-    image: "/projects/portfolio.webp",
-  },
   {
     name: "Algorithm Visualizer",
     descriptionKey: "algorithmVisualizer",
     tech: ["React", "Tailwind", "TypeScript"],
     link: "https://algoviz.mathiashuque.dev/",
     image: "/projects/algorithm-visualizer.webp",
+  },
+  {
+    name: "MyPDF",
+    descriptionKey: "myPdf",
+    tech: ["Next.js", "Tailwind", "TypeScript"],
+    link: "https://my-pdf.mathiashuque.dev/en",
+    image: "/projects/mypdf.webp",
   },
   {
     name: "Interview Forge",
@@ -52,10 +53,10 @@ export const PROJECTS: Project[] = [
     image: "/projects/favforge.webp",
   },
   {
-    name: "MyPDF",
-    descriptionKey: "myPdf",
-    tech: ["Next.js", "Tailwind", "TypeScript"],
-    link: "https://my-pdf.mathiashuque.dev/en",
-    image: "/projects/mypdf.webp",
+    name: "Portfolio Website",
+    descriptionKey: "portfolioWebsite",
+    tech: ["React", "Tailwind", "TypeScript"],
+    link: "https://github.com/mathiashuque/portfolio_project",
+    image: "/projects/portfolio.webp",
   },
 ];

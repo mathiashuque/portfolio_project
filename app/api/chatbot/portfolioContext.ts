@@ -46,7 +46,7 @@ Quick Summary
 
 I’m Mathias Huque, a software developer from Uruguay focused on building fast, reliable web applications with clean architecture and great user experience.
 
-Mathias Huque is a Software Developer from Uruguay who builds software applications that turn ideas into reality. He started programming at age 15 and is currently pursuing a degree in Systems Engineering at Universidad ORT Uruguay.
+Mathias Huque is a Software Engineer from Uruguay who builds software applications that turn ideas into reality. He started programming at age 15 and is currently pursuing a degree in Systems Engineering at Universidad ORT Uruguay.
 
 He is interested in both frontend and backend development, with a strong focus on performance, clean architecture, and user experience.
 
@@ -141,11 +141,11 @@ MyPDF — built with Next.js, TypeScript, and Tailwind CSS
 Focused set of document utilities: merge PDFs, split pages apart, and convert to and from PDF. No account required; Convert to PDF runs entirely client-side, other tools process files server-side without storing them
 Live https://my-pdf.mathiashuque.dev/en
 
-Services Offered
+What I Bring to a Team
 
-I build and improve software end-to-end — from idea to production.
+As a Software Engineer, I contribute across the stack — from idea to production.
 
-What I can help with:
+Strengths:
 
 * Full-stack web development (frontend + backend)
 * Frontend UI development (React / Next.js / Angular) with a focus on performance and UX
@@ -156,7 +156,7 @@ What I can help with:
 * Testing and quality (unit/e2e testing setups with Jest/Cypress, pragmatic test strategies)
 * DevOps and deployment (Docker, CI/CD, cloud platforms, Linux environments)
 
-If you’re not sure what you need yet, I can help define scope and iterate quickly toward a working solution.
+I enjoy diving into ambiguous problems and iterating quickly toward a working solution.
 
 Contact & Links
 

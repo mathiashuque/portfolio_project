@@ -13,10 +13,20 @@ type TechIconProps = {
   name: string;
   logo: StaticImageData;
   color?: TechColor;
+  size?: "default" | "lg";
+  showLabel?: boolean;
 };
 
-export default function TechIcon({ name, logo, color = "html" }: TechIconProps) {
+export default function TechIcon({
+  name,
+  logo,
+  color = "html",
+  size = "default",
+  showLabel = false,
+}: TechIconProps) {
   const c = palette[color];
+  const tileSizeClass = size === "lg" ? "w-20 h-20 sm:w-24 sm:h-24" : techIconTileSize;
+  const iconSizeClass = size === "lg" ? "w-10 h-10 sm:w-12 sm:h-12" : "w-8 h-8";
 
   // "tap = hover" state (for mobile)
   const [active, setActive] = useState(false);
@@ -112,7 +122,7 @@ export default function TechIcon({ name, logo, color = "html" }: TechIconProps) 
         <div
           className={[
             "relative",
-            techIconTileSize,
+            tileSizeClass,
             techIconRadius,
             "overflow-hidden flex items-center justify-center",
           ].join(" ")}
@@ -167,7 +177,8 @@ export default function TechIcon({ name, logo, color = "html" }: TechIconProps) 
             alt={name}
             draggable={false}
             className={[
-              "relative z-10 w-8 h-8 object-contain transition-transform duration-700 ease-out",
+              "relative z-10 object-contain transition-transform duration-700 ease-out",
+              iconSizeClass,
               "group-hover:scale-105",
             ].join(" ")}
             style={{
@@ -176,6 +187,12 @@ export default function TechIcon({ name, logo, color = "html" }: TechIconProps) 
           />
         </div>
       </div>
+
+      {showLabel && (
+        <p className="mt-2 text-center text-xs sm:text-sm font-medium text-muted/90">
+          {name}
+        </p>
+      )}
     </div>
   );
 }
