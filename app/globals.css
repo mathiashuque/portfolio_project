@@ -3,7 +3,22 @@
 @import "../styles/theme.css";
 @import "tailwindcss";
 
+@theme {
+  /* The system font stack Tailwind ships by default (`-apple-system`,
+     `Segoe UI`, `Roboto`, `Noto Sans`, `Arial`, ...) isn't installed on every
+     OS. When none of those names resolve, some browsers fall back to a
+     "last resort" font with broken space-glyph metrics, inflating every
+     inter-word gap. Geist is self-hosted via next/font, so it always loads
+     regardless of what's installed on the visitor's system. */
+  --font-sans: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-geist-mono), ui-monospace, SFMono-Regular, monospace;
+}
+
 @custom-variant dark (&:where(.dark, .dark *));
+
+body {
+  font-family: var(--font-geist-sans), ui-sans-serif, system-ui, sans-serif;
+}
 
 @layer base {
   /* Only elements that actually use theme-driven colors need to transition

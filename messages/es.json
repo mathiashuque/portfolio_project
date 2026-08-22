@@ -168,6 +168,13 @@
       "title": "Trabajo seleccionado",
       "subtitle": "Una selección de proyectos que he construido en aplicaciones web, sistemas de UI y experimentos."
     },
+    "siloKicker": "DESTACADO",
+    "silo": "Una plataforma full-stack diseñada para centralizar el proceso de licitaciones de SONDA Uruguay, mejorando la trazabilidad de decisiones y la reutilización del conocimiento histórico y los registros de proyectos.",
+    "siloDescriptionSecondary": "Desarrollada como mi proyecto de grado de Ingeniería en Sistemas, abarcando discovery con referentes, relevamiento de requerimientos, validación de prototipo y diseño de arquitectura C4. Y más.",
+    "siloSecondaryTitle": "Sistema Integral de Licitaciones y Oportunidades",
+    "siloStatus": "Proyecto de grado · En desarrollo",
+    "siloImageAlt": "Interfaz de la plataforma de gestión de licitaciones y oportunidades SILO",
+    "siloPartnership": "Proyecto de grado desarrollado en colaboración con SONDA Uruguay.",
     "portfolioWebsite": "Sitio personal para mostrar mi trabajo",
     "algorithmVisualizer": "Herramienta interactiva para explorar algoritmos",
     "interviewForge": "Práctica entrevistas con preguntas reales",

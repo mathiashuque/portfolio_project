@@ -1,4 +1,19 @@
-import type { Project } from "./types";
+import type { FeaturedProject, Project } from "./types";
+
+export const FEATURED_PROJECT: FeaturedProject = {
+  name: "SILO",
+  descriptionKey: "silo",
+  descriptionSecondaryKey: "siloDescriptionSecondary",
+  tech: ["TypeScript", "Next.js", "NestJS", "PostgreSQL"],
+  secondaryTitleKey: "siloSecondaryTitle",
+  statusKey: "siloStatus",
+  altKey: "siloImageAlt",
+  image: "/projects/silo.webp",
+  partnershipKey: "siloPartnership",
+  partnerLogo: "/projects/sonda-logo.svg",
+  partnerName: "SONDA Uruguay",
+  partnerUrl: "https://www.sonda.com/",
+};
 
 export const PROJECTS: Project[] = [
   {

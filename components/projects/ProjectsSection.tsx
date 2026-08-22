@@ -4,7 +4,8 @@ import { useState } from "react";
 import { motion } from "framer-motion";
 import ProjectGrid from "./ProjectGrid";
 import ProjectsHeader from "./ProjectsHeader";
-import { PROJECTS } from "./data";
+import FeaturedProject from "./FeaturedProject";
+import { FEATURED_PROJECT, PROJECTS } from "./data";
 
 export default function ProjectsSection() {
   const [inView, setInView] = useState(false);
@@ -29,13 +30,26 @@ export default function ProjectsSection() {
         <ProjectsHeader />
       </motion.div>
 
-      {/* Grid */}
+      {/* Featured project */}
       <motion.div
         initial={{ opacity: 0, y: 40 }}
         animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
         transition={{
           duration: 1,
           delay: inView ? 0.12 : 0,
+          ease: [0.22, 1, 0.36, 1],
+        }}
+      >
+        <FeaturedProject project={FEATURED_PROJECT} />
+      </motion.div>
+
+      {/* Grid */}
+      <motion.div
+        initial={{ opacity: 0, y: 40 }}
+        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
+        transition={{
+          duration: 1,
+          delay: inView ? 0.18 : 0,
           ease: [0.22, 1, 0.36, 1],
         }}
       >

@@ -169,6 +169,13 @@
       "subtitle": "A selection of projects I’ve built across web apps, UI systems, and experiments."
     },
 
+    "siloKicker": "FEATURED",
+    "silo": "A full-stack platform designed to centralize SONDA Uruguay's bidding process, improving decision traceability and the reuse of historical knowledge and project records.",
+    "siloDescriptionSecondary": "Developed as my Systems Engineering capstone, spanning stakeholder discovery, requirements, prototype validation, and C4 architecture design. And More.",
+    "siloSecondaryTitle": "Integrated Bidding & Opportunity Management Platform",
+    "siloStatus": "Capstone Project · In Development",
+    "siloImageAlt": "SILO bidding and opportunity management platform interface",
+    "siloPartnership": "Capstone developed in collaboration with SONDA Uruguay.",
     "portfolioWebsite": "Personal site to showcase my work",
     "algorithmVisualizer": "Interactive tool to explore algorithms",
     "interviewForge": "Practice interviews with real questions",
