@@ -18,7 +18,7 @@
     "headline": "Software Engineer Building{br}{highlight}.",
     "headlineHighlight": "Reliable, Scalable Systems",
     "paragraph": "Systems Engineering student and Computer Science professor at Universidad ORT Uruguay, focused on full-stack and backend engineering — from data structures and algorithms to production-ready systems.",
-    "availability": "Open to Software Engineer roles in Uruguay & remote with US companies · UTC-3",
+    "availability": "Open to Software Engineer roles in Uruguay & remote in UTC-3 compatible timezones (Americas)",
     "contactCta": "Contact →",
     "cvCta": "Resume ↓",
     "traits": {
@@ -94,7 +94,7 @@
         "Final-year Systems Engineering student at Universidad ORT Uruguay, expected to graduate in March 2027.",
         "Teaching Fundamentals of Computing, and previously Data Structures & Algorithms, at Universidad ORT Uruguay.",
         "Building SILO, a full-stack capstone platform for SONDA Uruguay — TypeScript, Next.js, NestJS, and PostgreSQL.",
-        "Open to Software Engineer roles — full-time, internship, or contract — based in Uruguay or remote with US companies.",
+        "Open to Software Engineer roles — full-time, internship, or contract — based in Uruguay or remote in UTC-3 compatible timezones (US & South America).",
         "Based in Montevideo, Uruguay (UTC-3)."
       ]
     },
@@ -195,7 +195,7 @@
     "kicker": "CONTACT",
     "title": "Get In Touch",
     "cardTitle": "Let's Connect",
-    "cardBody": "I'm actively looking for Software Engineer opportunities — in Uruguay or remote with US teams. If you'd like to talk about a role, feel free to reach out.",
+    "cardBody": "I'm actively looking for Software Engineer opportunities — in Uruguay or remote in UTC-3 compatible timezones (US & South America). If you'd like to talk about a role, feel free to reach out.",
     "links": {
       "email": "Email",
       "linkedin": "LinkedIn",

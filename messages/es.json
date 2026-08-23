@@ -18,7 +18,7 @@
     "headline": "Ingeniero de Software construyendo{br}{highlight}",
     "headlineHighlight": "sistemas confiables y escalables",
     "paragraph": "Estudiante de Ingeniería en Sistemas y docente de Computación en la Universidad ORT Uruguay, enfocado en desarrollo full-stack y backend, desde estructuras de datos y algoritmos hasta sistemas listos para producción.",
-    "availability": "Disponible para roles de Ingeniería de Software en Uruguay y remoto con empresas de EE. UU. · UTC-3",
+    "availability": "Disponible para roles de Ingeniería de Software en Uruguay y remoto en husos horarios compatibles con UTC-3 (América)",
     "contactCta": "Contacto →",
     "cvCta": "Abrir CV ↓",
     "traits": {
@@ -94,7 +94,7 @@
         "Estudiante de último año de Ingeniería en Sistemas en la Universidad ORT Uruguay, con graduación prevista para marzo de 2027.",
         "Doy clases de Fundamentos de Computación, y anteriormente de Estructuras de Datos y Algoritmos, en la Universidad ORT Uruguay.",
         "Desarrollando SILO, una plataforma full-stack de proyecto de grado para SONDA Uruguay — TypeScript, Next.js, NestJS y PostgreSQL.",
-        "Disponible para roles de Ingeniería de Software — full-time, pasantía o contrato — en Uruguay o remoto con empresas de EE. UU.",
+        "Disponible para roles de Ingeniería de Software — full-time, pasantía o contrato — en Uruguay o remoto en husos horarios compatibles con UTC-3 (EE. UU. y Sudamérica).",
         "Con base en Montevideo, Uruguay (UTC-3)."
       ]
     },
@@ -194,7 +194,7 @@
     "kicker": "CONTACTO",
     "title": "Hablemos",
     "cardTitle": "Conectemos",
-    "cardBody": "Estoy buscando activamente oportunidades como Ingeniero de Software, en Uruguay o remoto con equipos de EE. UU. Si querés hablar sobre un rol, no dudes en escribirme.",
+    "cardBody": "Estoy buscando activamente oportunidades como Ingeniero de Software, en Uruguay o remoto en husos horarios compatibles con UTC-3 (EE. UU. y Sudamérica). Si querés hablar sobre un rol, no dudes en escribirme.",
     "links": {
       "email": "Correo",
       "linkedin": "LinkedIn",

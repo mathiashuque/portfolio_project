@@ -3,7 +3,7 @@ export const SITE = {
   owner: "Mathias Huque",
   title: "Mathias Huque | Software Engineer",
   description:
-    "Portfolio of Mathias Huque, a Software Engineer and Systems Engineering student open to roles in Uruguay and remote with US companies.",
+    "Portfolio of Mathias Huque, a Software Engineer and Systems Engineering student open to roles in Uruguay and remote in UTC-3 compatible timezones (US & South America).",
   shortDescription: "Software Engineer Building Reliable, Scalable Systems.",
   url: "https://mathiashuque.dev",
   liveUrl: "https://www.mathiashuque.dev/",
@@ -25,13 +25,13 @@ export const SEO: Record<
   en: {
     title: "Mathias Huque | Software Engineer in Uruguay",
     description:
-      "Portfolio of Mathias Huque, a Software Engineer in Uruguay building full-stack systems with TypeScript, React, Next.js, and Node.js — open to roles in Uruguay and remote with US companies.",
+      "Portfolio of Mathias Huque, a Software Engineer in Uruguay building full-stack systems with TypeScript, React, Next.js, and Node.js — open to roles in Uruguay and remote in UTC-3 compatible timezones (US & South America).",
     ogLocale: "en_US",
   },
   es: {
     title: "Mathias Huque | Ingeniero de Software en Uruguay",
     description:
-      "Portfolio de Mathias Huque, Ingeniero de Software en Uruguay que construye sistemas full-stack con TypeScript, React, Next.js y Node.js, disponible para roles en Uruguay y remoto con empresas de EE. UU.",
+      "Portfolio de Mathias Huque, Ingeniero de Software en Uruguay que construye sistemas full-stack con TypeScript, React, Next.js y Node.js, disponible para roles en Uruguay y remoto en husos horarios compatibles con UTC-3 (EE. UU. y Sudamérica).",
     ogLocale: "es_UY",
   },
 };
