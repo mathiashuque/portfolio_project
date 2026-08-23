@@ -9,7 +9,7 @@ import {
   OutputGuardrailTripwireTriggered,
   type AgentOutputType,
 } from "@openai/agents";
-import { buildProfanityRegex } from "./profanity/asd";
+import { buildProfanityRegex } from "./profanity/regex";
 import { PORTFOLIO_CONTEXT } from "./portfolioContext";
 import type { AgentInputItem } from "@openai/agents";
 import { ENV, missingEnvMessage, readEnv } from "@/lib/env";

@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useMemo, useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { Github, Linkedin } from "lucide-react";
 import ContactLinks from "./ContactLinks";
 import ContactForm from "./ContactForm";

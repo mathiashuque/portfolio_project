@@ -2,7 +2,7 @@
 
 // components/experience/ExperienceItem.tsx
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { cn } from "./cn";
 import type { Experience } from "./types";
 

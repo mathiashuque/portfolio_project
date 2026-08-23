@@ -30,7 +30,6 @@ function App() {
 
         <Footer />
 
-        {/* Floating chatbot */}
         <ChatWidget />
       </div>
     </MotionConfig>

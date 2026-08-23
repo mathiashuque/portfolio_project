@@ -1,7 +1,6 @@
 import { linkActive, linkBase, linkInactive } from "./constants";
 import type { NavLink } from "./types";
 import { useTranslations } from "next-intl";
-import { useLocale } from "next-intl";
 
 export default function NavLinks({
   links,
@@ -15,8 +14,7 @@ export default function NavLinks({
   direction?: "row" | "col";
 }) {
   const t = useTranslations("Nav");
-  const locale = useLocale();
-  console.log("NavLinks locale:", locale);
+
   return (
     <div
       className={

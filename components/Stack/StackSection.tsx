@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import { PRIMARY_STACK, STACK } from "@/components/Stack/tech/stackData";
 import MarqueeRow from "./MarqueeRow";
 import StackHeader from "./StackHeader";

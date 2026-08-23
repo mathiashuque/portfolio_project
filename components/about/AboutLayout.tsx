@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 
 export default function AboutLayout({
   children,
@@ -19,17 +19,13 @@ export default function AboutLayout({
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
         <div className="relative isolate overflow-hidden rounded-3xl">
           <motion.div
-            // start hidden
             initial={{ opacity: 0, y: 50 }}
-            // animate based on viewport state
             animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
             transition={{
               duration: 1.0,
               ease: [0.22, 1, 0.36, 1],
             }}
-            // toggle state when entering/leaving viewport
             onViewportEnter={() => setInView(true)}
-            //onViewportLeave={() => setInView(false)}
             viewport={{ amount: 0.1 }}
             className="mx-auto max-w-4xl text-center"
           >

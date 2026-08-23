@@ -1,7 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import { motion } from "framer-motion";
+import { motion } from "motion/react";
 import ProjectGrid from "./ProjectGrid";
 import ProjectsHeader from "./ProjectsHeader";
 import FeaturedProject from "./FeaturedProject";

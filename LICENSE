@@ -1,14 +1,37 @@
-Copyright (c) 2026 Mathias Huque
+PROPRIETARY SOURCE-AVAILABLE LICENSE
 
-Permission is granted to view and reference this source code for
-educational and personal review purposes only.
+Copyright (c) 2026 Mathias Huque. All rights reserved.
 
-You may NOT:
-- Copy substantial portions of this code
-- Modify and redistribute this code
-- Use this code in commercial or non-commercial projects
-- Deploy this code or derivative works
+This repository and its contents are made publicly available solely for
+personal viewing, evaluation, and educational reference.
 
-All other rights are reserved.
+Except for the limited rights required to view or fork this repository through
+functionality provided by GitHub, no permission is granted to copy, reproduce,
+modify, adapt, distribute, sublicense, publish, sell, deploy, host, or otherwise
+use this repository or any derivative work, in whole or in substantial part,
+for commercial or non-commercial purposes.
 
-For licensing inquiries, contact: contact@mathiashuque.dev
+This restriction includes, without limitation:
+
+- source code and software architecture;
+- visual design, layouts, animations, and branding;
+- written portfolio content and project descriptions;
+- images, screenshots, icons, and other original media; and
+- curriculum vitae and résumé files.
+
+You may inspect the source code and reference general ideas or techniques for
+personal learning. This does not grant permission to reproduce the distinctive
+implementation, appearance, content, or identity of this portfolio.
+
+Third-party packages, fonts, icons, trademarks, and other materials remain
+subject to their respective licenses and ownership rights. Nothing in this
+license limits rights independently granted by those third parties or rights
+that cannot lawfully be restricted.
+
+THE REPOSITORY AND ITS CONTENTS ARE PROVIDED "AS IS", WITHOUT WARRANTY OF ANY
+KIND, EXPRESS OR IMPLIED, INCLUDING WARRANTIES OF MERCHANTABILITY, FITNESS FOR
+A PARTICULAR PURPOSE, AND NON-INFRINGEMENT. TO THE MAXIMUM EXTENT PERMITTED BY
+LAW, THE COPYRIGHT HOLDER SHALL NOT BE LIABLE FOR ANY CLAIM, DAMAGES, OR OTHER
+LIABILITY ARISING FROM ACCESS TO OR USE OF THE REPOSITORY.
+
+For licensing inquiries, contact contact@mathiashuque.dev.

@@ -13,8 +13,6 @@ import { SITE } from "@/lib/site";
 
 
 function getInitialDark(): boolean {
-  // In Next.js client components this will run on the client,
-  // but keep the guard for safety/tests.
   if (typeof window === "undefined") return true;
 
   const stored = window.localStorage.getItem("theme");
@@ -120,8 +118,6 @@ export default function Navbar() {
       });
     };
 
-    // If the same lint rule ever complains here too, replace this line with:
-    // requestAnimationFrame(computeActive);
     computeActive();
 
     window.addEventListener("scroll", onScroll, { passive: true });
