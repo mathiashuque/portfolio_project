@@ -141,6 +141,12 @@ MyPDF — built with Next.js, TypeScript, and Tailwind CSS
 Focused set of document utilities: merge PDFs, split pages apart, and convert to and from PDF. No account required; Convert to PDF runs entirely client-side, other tools process files server-side without storing them
 Live https://my-pdf.mathiashuque.dev/en
 
+DocuLens — built with Next.js/TypeScript frontend, FastAPI/Python backend, LangGraph orchestration, and PostgreSQL + pgvector
+Turns a complex PDF (contract, technical spec, report) into typed, evidence-backed analysis and grounded Q&A; a LangGraph workflow classifies each document and routes it to a contract, technical_specification, or generic extractor, with a bounded retry on validation failure
+Every finding or answer must cite the page and quote it came from — citations are validated against retrieved context and source text before being shown, rather than trusted
+Retrieval-augmented Q&A backed by pgvector, with a deterministic offline evaluation harness tracking retrieval and citation-validation quality
+Live https://doculens.mathiashuque.dev/es
+
 What I Bring to a Team
 
 As a Software Engineer, I contribute across the stack — from idea to production.

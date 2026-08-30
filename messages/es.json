@@ -172,7 +172,8 @@
     "interviewForge": "Práctica entrevistas con preguntas reales",
     "mlPlayground": "Laboratorio interactivo para explorar el aprendizaje automático",
     "favForge": "Generador de favicons con vista previa en vivo y paquetes de exportación",
-    "myPdf": "Conversión de PDF en el cliente y combinar/dividir en el servidor — sin cuenta ni almacenamiento de archivos."
+    "myPdf": "Conversión de PDF en el cliente y combinar/dividir en el servidor — sin cuenta ni almacenamiento de archivos.",
+    "docuLens": "Análisis de PDF tipado y con evidencia — un pipeline de LangGraph clasifica y enruta documentos, y valida cada cita contra la fuente antes de mostrarla."
   },
 
   "Stack": {

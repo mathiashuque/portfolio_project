@@ -53,6 +53,13 @@ export const PROJECTS: Project[] = [
     image: "/projects/favforge.webp",
   },
   {
+    name: "DocuLens",
+    descriptionKey: "docuLens",
+    tech: ["Next.js", "FastAPI", "LangGraph", "PostgreSQL"],
+    link: "https://doculens.mathiashuque.dev/es",
+    image: "/projects/doculens.webp",
+  },
+  {
     name: "Portfolio Website",
     descriptionKey: "portfolioWebsite",
     tech: ["React", "Tailwind", "TypeScript"],
