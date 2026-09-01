@@ -155,17 +155,17 @@
       "subtitle": "Una selección de proyectos que abarca una plataforma full-stack de grado, herramientas algorítmicas y utilidades para desarrolladores."
     },
     "siloKicker": "DESTACADO",
-    "silo": "Una plataforma full-stack diseñada para centralizar el proceso de licitaciones de SONDA Uruguay, mejorando la trazabilidad de decisiones y la reutilización del conocimiento histórico y los registros de proyectos.",
-    "siloDescriptionSecondary": "Desarrollada como mi proyecto de grado de Ingeniería en Sistemas — abarcando discovery con referentes, análisis del proceso AS IS, definición de requerimientos y backlog, y diseño de arquitectura C4, con un prototipo validado por referentes de SONDA y aprobado para avanzar a Delivery.",
+    "silo": "Una plataforma integral para gestionar licitaciones y oportunidades — reuniendo expedientes, decisiones go/no-go, antecedentes, tareas, documentos y analítica en un flujo trazable.",
+    "siloDescriptionSecondary": "Desarrollada como mi proyecto de grado de Ingeniería en Sistemas junto a SONDA Uruguay, SILO es un monorepo dockerizado con frontend Next.js, backend y worker de IA en NestJS, OCR, búsqueda full-text, almacenamiento documental compatible con S3, mensajería asíncrona y observabilidad autogestionada.",
     "siloSecondaryTitle": "Sistema Integral de Licitaciones y Oportunidades",
     "siloStatus": "Proyecto de grado · En desarrollo",
     "siloImageAlt": "Interfaz de la plataforma de gestión de licitaciones y oportunidades SILO",
     "siloPartnership": "Proyecto de grado desarrollado en colaboración con SONDA Uruguay.",
     "siloHighlights": [
-      "Discovery con referentes",
-      "Requerimientos y backlog",
-      "Arquitectura C4",
-      "Roadmap: CI/CD y testing"
+      "Gestión integral de licitaciones",
+      "Flujos asistidos por IA y OCR",
+      "Búsqueda full-text de documentos",
+      "Observabilidad autogestionada"
     ],
     "portfolioWebsite": "Este portafolio — Next.js, TypeScript y Tailwind CSS, bilingüe con next-intl.",
     "algorithmVisualizer": "Visualizaciones paso a paso de algoritmos y estructuras de datos fundamentales.",

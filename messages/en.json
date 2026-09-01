@@ -156,17 +156,17 @@
     },
 
     "siloKicker": "FEATURED",
-    "silo": "A full-stack platform designed to centralize SONDA Uruguay's bidding process, improving decision traceability and the reuse of historical knowledge and project records.",
-    "siloDescriptionSecondary": "Developed as my Systems Engineering capstone — spanning stakeholder discovery, AS-IS process analysis, requirements and backlog definition, and C4 architecture design, with a prototype validated by SONDA stakeholders and approved to move to delivery.",
+    "silo": "An end-to-end platform for managing bids and opportunities — bringing case files, go/no-go decisions, credentials, tasks, documents, and analytics into one traceable workflow.",
+    "siloDescriptionSecondary": "Developed as my Systems Engineering capstone with SONDA Uruguay, SILO is a Dockerized monorepo with a Next.js frontend, NestJS backend and AI worker, OCR, full-text search, S3-compatible document storage, asynchronous messaging, and self-hosted observability.",
     "siloSecondaryTitle": "Integrated Bidding & Opportunity Management Platform",
     "siloStatus": "Capstone Project · In Development",
     "siloImageAlt": "SILO bidding and opportunity management platform interface",
     "siloPartnership": "Capstone developed in collaboration with SONDA Uruguay.",
     "siloHighlights": [
-      "Stakeholder discovery",
-      "Requirements & backlog",
-      "C4 architecture",
-      "Roadmap: CI/CD & testing"
+      "End-to-end bid management",
+      "AI-assisted workflows & OCR",
+      "Full-text document search",
+      "Self-hosted observability"
     ],
     "portfolioWebsite": "This portfolio — Next.js, TypeScript, and Tailwind CSS, bilingual via next-intl.",
     "algorithmVisualizer": "Step-by-step visualizations of core algorithms and data structures.",

@@ -26,7 +26,6 @@ import cplusplusLogo from "../../../public/logos/cplusplus.logo.svg";
 import csharpLogo from "../../../public/logos/csharp.logo.svg";
 import flutterLogo from "../../../public/logos/flutter.logo.svg";
 import sequelizeLogo from "../../../public/logos/sequelize.logo.svg";
-import nestjsLogo from "../../../public/logos/nestjs.logo.svg";
 import prismaLogo from "../../../public/logos/prisma.logo.svg";
 import efcoreLogo from "../../../public/logos/efcore.logo.svg";
 import mongooseLogo from "../../../public/logos/mongoose.logo.svg";
@@ -52,7 +51,7 @@ export const PRIMARY_STACK = [
   { name: "React", logo: reactLogo, color: "react" },
   { name: "Next.js", logo: nextjsLogo, color: "nextjs" },
   { name: "Node.js", logo: nodeLogo, color: "node" },
-  { name: "Nest.js", logo: nestjsLogo, color: "nestjs" },
+  { name: ".NET", logo: dotnetLogo, color: "dotnet" },
   { name: "PostgreSQL", logo: postgresqlLogo, color: "postgresql" },
 ] as const satisfies readonly StackItem[];
 

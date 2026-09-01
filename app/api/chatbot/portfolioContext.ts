@@ -109,9 +109,10 @@ Postman, Figma, Scrum, Agile
 
 Projects
 
-SILO — Integrated Bidding & Opportunity Management Platform, built with TypeScript, Next.js, NestJS, and PostgreSQL
+SILO — Integrated Bidding & Opportunity Management Platform, built as a Dockerized TypeScript monorepo with Next.js, NestJS, and PostgreSQL
 In-development Systems Engineering capstone project at Universidad ORT Uruguay, developed with SONDA Uruguay
-Centralizes SONDA's end-to-end bidding process, improves decision traceability, and makes historical knowledge easier to reuse
+Manages the complete bidding lifecycle: case files, go/no-go decisions, credentials, tasks, documents, and analytics
+Includes a dedicated AI worker, OCR, Elasticsearch full-text search, S3-compatible MinIO storage, RabbitMQ messaging, and self-hosted Grafana observability
 No public deployment or public source repository yet
 
 Portfolio Website — built with Next.js 16, React 19, TypeScript, and Tailwind CSS 4
