@@ -26,6 +26,13 @@ export const FEATURED_PROJECT: FeaturedProject = {
 
 export const PROJECTS: Project[] = [
   {
+    name: "Hireflow",
+    descriptionKey: "hireflow",
+    tech: [".NET", "Next.js", "PostgreSQL", "Docker"],
+    link: "https://hireflow.mathiashuque.dev/",
+    image: "/projects/hireflow.svg",
+  },
+  {
     name: "Algorithm Visualizer",
     descriptionKey: "algorithmVisualizer",
     tech: ["React", "Tailwind", "TypeScript"],

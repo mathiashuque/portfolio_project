@@ -109,6 +109,12 @@ Postman, Figma, Scrum, Agile
 
 Projects
 
+Hireflow — built with ASP.NET Core (.NET 10), Entity Framework Core, PostgreSQL, Next.js, React, TypeScript, and Tailwind CSS
+Multi-tenant hiring tracker where teams create isolated workspaces, post job openings, and move candidates through an auditable hiring pipeline
+Demonstrates database-enforced tenant isolation, server-side role authorization, cookie sessions with CSRF protection, optimistic concurrency, atomic writes, and a consistent problem-details API contract
+Tested with xUnit and Testcontainers against PostgreSQL; containerized and deployed with Render, Neon, and Vercel
+Live https://hireflow.mathiashuque.dev/
+
 SILO — Integrated Bidding & Opportunity Management Platform, built as a Dockerized TypeScript monorepo with Next.js, NestJS, and PostgreSQL
 In-development Systems Engineering capstone project at Universidad ORT Uruguay, developed with SONDA Uruguay
 Manages the complete bidding lifecycle: case files, go/no-go decisions, credentials, tasks, documents, and analytics

@@ -168,6 +168,7 @@
       "Observabilidad autogestionada"
     ],
     "portfolioWebsite": "Este portafolio — Next.js, TypeScript y Tailwind CSS, bilingüe con next-intl.",
+    "hireflow": "Tracker de contratación multi-tenant con aislamiento real entre espacios, autorización por roles y una API segura y consistente.",
     "algorithmVisualizer": "Visualizaciones paso a paso de algoritmos y estructuras de datos fundamentales.",
     "interviewForge": "Práctica entrevistas con preguntas reales",
     "mlPlayground": "Laboratorio interactivo para explorar el aprendizaje automático",
