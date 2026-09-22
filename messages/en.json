@@ -97,10 +97,6 @@
         "Open to Software Engineer roles — full-time, internship, or contract — based in Uruguay or remote in UTC-3 compatible timezones (US & South America).",
         "Based in Montevideo, Uruguay (UTC-3)."
       ]
-    },
-
-    "header": {
-      "title": "I focus on building software that stays understandable as it grows."
     }
   },
 
@@ -199,23 +195,8 @@
     "cardTitle": "Let's Connect",
     "cardBody": "I'm actively looking for Software Engineer opportunities — in Uruguay or remote in UTC-3 compatible timezones (US & South America). If you'd like to talk about a role, feel free to reach out.",
     "links": {
-      "email": "Email",
       "linkedin": "LinkedIn",
       "github": "GitHub"
-    },
-    "field": {
-      "name": {
-        "label": "Name",
-        "placeholder": "Your name"
-      },
-      "email": {
-        "label": "Email",
-        "placeholder": "you@example.com"
-      },
-      "message": {
-        "label": "Message",
-        "placeholder": "Tell me about your project..."
-      }
     },
     "form": {
       "title": "Send a Message",
@@ -234,12 +215,7 @@
       },
       "status": {
         "sending": "Sending…",
-        "sent": "Message sent. Thanks!",
-        "fallback": "Couldn’t send automatically — opening your email client…"
-      },
-      "mailto": {
-        "subject": "Portfolio message from {name}",
-        "body": "Name: {name}\nEmail: {email}\n\n{message}"
+        "sent": "Message sent. Thanks!"
       }
     }
   },

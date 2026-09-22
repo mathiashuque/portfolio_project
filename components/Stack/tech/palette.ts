@@ -222,14 +222,6 @@ export const palette = {
     },
     PRESETS.strong,
   ),
-  nestjs: makeEntry(
-    {
-      text: "text-red-300",
-      border: "border-red-400/60",
-      rgb: "239, 68, 68",
-    },
-    PRESETS.strong,
-  ),
   prisma: makeEntry(
     {
       text: "text-blue-300",
