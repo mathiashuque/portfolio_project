@@ -1,6 +1,6 @@
 import React from "react";
 
-export type BadgeVariant = "orange" | "pink" | "slate";
+type BadgeVariant = "orange" | "pink" | "slate";
 
 export type Experience = {
   role: string;

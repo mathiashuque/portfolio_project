@@ -40,7 +40,7 @@ import sqlserverLogo from "../../../public/logos/sqlserver.logo.svg";
 import type { StaticImageData } from "next/image";
 import { TechColor } from "./types";
 
-export type StackItem = {
+type StackItem = {
   name: string;
   logo: StaticImageData;
   color: TechColor;
@@ -102,5 +102,3 @@ export const STACK = {
     { name: "SQL Server", logo: sqlserverLogo, color: "sql server" },
   ],
 } as const satisfies Record<string, readonly StackItem[]>;
-
-export type StackCategory = keyof typeof STACK;
