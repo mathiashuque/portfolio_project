@@ -1,21 +1,26 @@
 "use client";
 
-import { useEffect, useMemo, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence } from "motion/react";
+import { useTranslations } from "next-intl";
 import { ChatFabButton } from "./ChatFabButton";
-import { ChatBackdrop } from "./ChatBackdrop";
-import { ChatPanel } from "./ChatPanel";
-import { ChatHeader } from "./ChatHeader";
+import {
+  ChatBackdrop,
+  ChatHeader,
+  ChatPanel,
+  ScrollToBottomButton,
+} from "./ChatPanel";
 import { ChatMessages } from "./ChatMessages";
-import { ScrollToBottomButton } from "./ScrollToBottomButton";
-import { ChatInputBar } from "./ChatInputBar";
-import { ChatMessage, ChatWidgetProps, uid } from "./types";
-import { useLocale, useTranslations } from "next-intl";
 import { ChatSuggestions } from "./ChatSuggestions";
+import { ChatInputBar } from "./ChatInputBar";
+import { useChat } from "./useChat";
+import type { ChatWidgetProps } from "./types";
+
+const SCROLL_FOLLOW_THRESHOLD = 80;
+const SHOW_BUTTON_THRESHOLD = 60;
 
 export default function ChatWidget(props: ChatWidgetProps) {
   const t = useTranslations("ChatWidget");
-  const locale = useLocale();
 
   const title = props.title ?? t("header.title");
   const subtitle = props.subtitle ?? t("header.subtitle");
@@ -28,47 +33,14 @@ export default function ChatWidget(props: ChatWidgetProps) {
       return Array.isArray(raw) ? (raw as string[]) : [];
     })();
 
+  const chat = useChat({ greeting });
+
   const [open, setOpen] = useState(false);
-  const [input, setInput] = useState("");
-  const [loading, setLoading] = useState(false);
-
-  const [messages, setMessages] = useState<ChatMessage[]>(() => [
-    { id: uid(), role: "assistant", content: greeting, createdAt: Date.now() },
-  ]);
-
-  const [typedDoneIds, setTypedDoneIds] = useState<Set<string>>(
-    () => new Set([messages[0].id]),
-  );
+  const [showScrollToBottom, setShowScrollToBottom] = useState(false);
 
   const panelRef = useRef<HTMLDivElement | null>(null);
   const inputRef = useRef<HTMLInputElement | null>(null);
   const listRef = useRef<HTMLDivElement | null>(null);
-
-  const assistantTyping = useMemo(() => {
-    return messages.some(
-      (m) => m.role === "assistant" && !typedDoneIds.has(m.id),
-    );
-  }, [messages, typedDoneIds]);
-
-  const canSend = useMemo(
-    () => input.trim().length > 0 && !loading && !assistantTyping,
-    [input, loading, assistantTyping],
-  );
-
-  function markTypedDone(id: string) {
-    setTypedDoneIds((prev) => {
-      if (prev.has(id)) return prev;
-      const next = new Set(prev);
-      next.add(id);
-      return next;
-    });
-  }
-
-  useEffect(() => {
-    if (!open) return;
-    const t = setTimeout(() => inputRef.current?.focus(), 50);
-    return () => clearTimeout(t);
-  }, [open]);
 
   function scrollToBottom(behavior: ScrollBehavior = "smooth") {
     const el = listRef.current;
@@ -76,125 +48,64 @@ export default function ChatWidget(props: ChatWidgetProps) {
     el.scrollTo({ top: el.scrollHeight, behavior });
   }
 
-  function scrollNextFrame(behavior: ScrollBehavior = "smooth") {
-    requestAnimationFrame(() => scrollToBottom(behavior));
-  }
+  // Al abrir, enfocar el input.
+  useEffect(() => {
+    if (!open) return;
+    const id = setTimeout(() => inputRef.current?.focus(), 50);
+    return () => clearTimeout(id);
+  }, [open]);
 
+  // Escape cierra el panel.
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (e: KeyboardEvent) => {
+      if (e.key === "Escape") setOpen(false);
+    };
+    window.addEventListener("keydown", onKeyDown);
+    return () => window.removeEventListener("keydown", onKeyDown);
+  }, [open]);
+
+  // Si el usuario ya está al final, seguir la conversación.
   useEffect(() => {
     if (!open) return;
     const el = listRef.current;
     if (!el) return;
 
     const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
-    if (distanceFromBottom < 80) scrollToBottom("smooth");
-  }, [messages, open]);
+    if (distanceFromBottom < SCROLL_FOLLOW_THRESHOLD) scrollToBottom("smooth");
+  }, [chat.messages, open]);
 
-  useEffect(() => {
-    function onKeyDown(e: KeyboardEvent) {
-      if (!open) return;
-      if (e.key === "Escape") setOpen(false);
-    }
-    window.addEventListener("keydown", onKeyDown);
-    return () => window.removeEventListener("keydown", onKeyDown);
-  }, [open]);
-
-  async function sendMessage(text: string) {
-    const trimmed = text.trim();
-    if (!trimmed || loading) return;
-
-    setMessages((prev) => [
-      ...prev,
-      { id: uid(), role: "user", content: trimmed, createdAt: Date.now() },
-    ]);
-    scrollNextFrame("smooth");
-    setInput("");
-    setLoading(true);
-
-    try {
-      const res = await fetch("/api/chatbot", {
-        method: "POST",
-        headers: {
-          "Content-Type": "application/json",
-        },
-        credentials: "include",
-        body: JSON.stringify({ message: trimmed, locale }),
-        cache: "no-store",
-      });
-
-      // Handle rate limit (429) with a locale-aware message
-      if (res.status === 429) {
-        setMessages((prev) => [
-          ...prev,
-          {
-            id: uid(),
-            role: "assistant",
-            content: t("rateLimit"),
-            createdAt: Date.now(),
-          },
-        ]);
-        return; // stop here, skip normal parsing
-      }
-
-      if (!res.ok) {
-        let errText = "Chat API error";
-        try {
-          const data = (await res.json()) as { error?: string };
-          if (data?.error) errText = data.error;
-        } catch {}
-        throw new Error(errText);
-      }
-
-      const data = (await res.json()) as { answer?: string; reply?: string };
-      const reply = data.answer ?? data.reply ?? t("errors.noResponse");
-
-      setMessages((prev) => [
-        ...prev,
-        { id: uid(), role: "assistant", content: reply, createdAt: Date.now() },
-      ]);
-    } catch {
-      setMessages((prev) => [
-        ...prev,
-        {
-          id: uid(),
-          role: "assistant",
-          content: t("errors.generic"),
-          createdAt: Date.now(),
-        },
-      ]);
-    } finally {
-      setLoading(false);
-      setTimeout(() => inputRef.current?.focus(), 0);
-    }
-  }
-
-  function handleSubmit(e: React.FormEvent) {
-    e.preventDefault();
-    if (!canSend) return;
-    void sendMessage(input);
-  }
-
-  function handleSuggestion(s: string) {
-    if (loading) return;
-    void sendMessage(s);
-    if (!open) setOpen(true);
-  }
-
-  const [showScrollToBottom, setShowScrollToBottom] = useState(false);
+  // Mostrar el atajo de "ir al final" solo cuando se aleja del fondo.
   useEffect(() => {
     const el = listRef.current;
     if (!el) return;
 
-    const THRESHOLD = 60;
     const onScroll = () => {
-      const distanceFromBottom =
-        el.scrollHeight - el.scrollTop - el.clientHeight;
-      setShowScrollToBottom(distanceFromBottom > THRESHOLD);
+      const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+      setShowScrollToBottom(distanceFromBottom > SHOW_BUTTON_THRESHOLD);
     };
 
     onScroll();
     el.addEventListener("scroll", onScroll, { passive: true });
     return () => el.removeEventListener("scroll", onScroll);
   }, [open]);
+
+  function submit(text: string) {
+    requestAnimationFrame(() => scrollToBottom("smooth"));
+    void chat.send(text).finally(() => setTimeout(() => inputRef.current?.focus(), 0));
+  }
+
+  function handleSubmit(e: React.FormEvent) {
+    e.preventDefault();
+    if (!chat.canSend) return;
+    submit(chat.input);
+  }
+
+  function handleSuggestion(s: string) {
+    if (chat.loading) return;
+    submit(s);
+    if (!open) setOpen(true);
+  }
 
   return (
     <>
@@ -217,20 +128,19 @@ export default function ChatWidget(props: ChatWidgetProps) {
               />
 
               <ChatMessages
-                messages={messages}
-                typedDoneIds={typedDoneIds}
-                onMarkTypedDone={markTypedDone}
-                loading={loading}
+                messages={chat.messages}
+                typedDoneIds={chat.typedDoneIds}
+                onMarkTypedDone={chat.markTypedDone}
+                loading={chat.loading}
                 listRef={listRef}
               />
 
-              {/* ✅ sugerencias abajo, arriba del input */}
-              {messages.length <= 1 && (
+              {chat.messages.length <= 1 && (
                 <div className="border-t border-white/10 bg-zinc-950/80 px-4 py-3 backdrop-blur">
                   <ChatSuggestions
                     suggestions={suggestions}
                     onPick={handleSuggestion}
-                    disabled={loading || assistantTyping}
+                    disabled={chat.loading || chat.assistantTyping}
                   />
                 </div>
               )}
@@ -242,11 +152,11 @@ export default function ChatWidget(props: ChatWidgetProps) {
 
               <ChatInputBar
                 inputRef={inputRef}
-                value={input}
-                onChange={setInput}
+                value={chat.input}
+                onChange={chat.setInput}
                 onSubmit={handleSubmit}
-                canSend={canSend}
-                disabled={assistantTyping}
+                canSend={chat.canSend}
+                disabled={chat.assistantTyping}
               />
             </ChatPanel>
           </>
