@@ -64,13 +64,6 @@ export default function AboutTabs({
             style={{ animation: `aboutTabTrackFill ${rotateMs}ms linear` }}
           />
         </div>
-
-        <style>{`
-  @keyframes aboutTabTrackFill {
-    from { transform: scaleX(0); }
-    to   { transform: scaleX(1); }
-  }
-`}</style>
       </div>
     </div>
   );
