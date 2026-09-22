@@ -55,6 +55,9 @@ jobs:
       - name: Check formatting
         run: npm run format:check
 
+      - name: Check for dead code
+        run: npm run knip
+
   test:
     name: Tests
     runs-on: ubuntu-latest
