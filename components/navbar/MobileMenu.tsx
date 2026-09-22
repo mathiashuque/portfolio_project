@@ -180,7 +180,7 @@ export default function MobileMenu({
                         : "text-slate-700 dark:text-white/80",
                     ].join(" ")}
                   >
-                    {l.key}
+                    {t(l.key)}
                   </a>
                 </motion.li>
               );
