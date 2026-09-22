@@ -135,8 +135,9 @@ describe("runWorkflow safety behavior", () => {
     expect(result).toEqual({ answer: state.finalOutput });
     expect(state.modelRuns).toBe(1);
     expect(state.moderationsCreate).toHaveBeenCalledTimes(2);
-    expect(state.moderationsCreate.mock.calls.map(([request]) => request.input))
-      .toEqual([input, state.finalOutput]);
+    expect(
+      state.moderationsCreate.mock.calls.map(([request]) => request.input),
+    ).toEqual([input, state.finalOutput]);
   });
 
   it("returns the blocked reply when the input guardrail trips", async () => {

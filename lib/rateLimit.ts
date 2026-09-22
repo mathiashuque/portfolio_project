@@ -2,8 +2,7 @@ import { getRedis, REDIS_TIMEOUT_MS } from "./redis";
 import { withTimeout } from "./timeout";
 
 export type RateLimitResult =
-  | { allowed: true }
-  | { allowed: false; retryAfter: number };
+  { allowed: true } | { allowed: false; retryAfter: number };
 
 /**
  * Cuenta la request dentro de una ventana de `windowSeconds` y decide si pasa

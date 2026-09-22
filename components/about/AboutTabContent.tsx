@@ -34,7 +34,10 @@ export default function AboutTabContent({
   return (
     <div className="mt-5 min-h-75 sm:min-h-90 lg:min-h-100 flex items-start">
       {/* key = reinicia la animación de entrada al cambiar de pestaña */}
-      <div key={activeKey} className="w-full animate-[fadeSlide_1000ms_ease-out]">
+      <div
+        key={activeKey}
+        className="w-full animate-[fadeSlide_1000ms_ease-out]"
+      >
         {tab.kind === "bio" ? (
           <Bio tab={tab} />
         ) : tab.kind === "services" ? (
@@ -101,7 +104,11 @@ function Services({ tab }: { tab: ServicesTab }) {
                 text-accent
               "
             >
-              {s.iconKey ? serviceIcons[s.iconKey] : <span className="text-sm">■</span>}
+              {s.iconKey ? (
+                serviceIcons[s.iconKey]
+              ) : (
+                <span className="text-sm">■</span>
+              )}
             </div>
 
             <h4 className="text-base font-semibold text-text">{s.title}</h4>

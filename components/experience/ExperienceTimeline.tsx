@@ -1,5 +1,10 @@
 import React, { useCallback, useRef, useState } from "react";
-import { motion, useMotionValueEvent, useScroll, useTransform } from "motion/react";
+import {
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  useTransform,
+} from "motion/react";
 import ExperienceItem from "./ExperienceItem";
 import type { Experience } from "./types";
 

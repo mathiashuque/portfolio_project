@@ -11,7 +11,6 @@ export default function AboutTabs({
   onSelect: (key: TabKey) => void;
   rotateMs: number;
 }) {
-
   return (
     <div className="flex justify-center">
       <div className="inline-flex flex-col items-center">

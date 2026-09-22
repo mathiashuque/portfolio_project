@@ -29,7 +29,8 @@ export default function Reveal({
   offset = 40,
   axis = "y",
 }: RevealProps) {
-  const hidden = axis === "x" ? { opacity: 0, x: -offset } : { opacity: 0, y: offset };
+  const hidden =
+    axis === "x" ? { opacity: 0, x: -offset } : { opacity: 0, y: offset };
 
   return (
     <motion.div

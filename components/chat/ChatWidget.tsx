@@ -81,7 +81,8 @@ export default function ChatWidget(props: ChatWidgetProps) {
     if (!el) return;
 
     const onScroll = () => {
-      const distanceFromBottom = el.scrollHeight - el.scrollTop - el.clientHeight;
+      const distanceFromBottom =
+        el.scrollHeight - el.scrollTop - el.clientHeight;
       setShowScrollToBottom(distanceFromBottom > SHOW_BUTTON_THRESHOLD);
     };
 
@@ -92,7 +93,9 @@ export default function ChatWidget(props: ChatWidgetProps) {
 
   function submit(text: string) {
     requestAnimationFrame(() => scrollToBottom("smooth"));
-    void chat.send(text).finally(() => setTimeout(() => inputRef.current?.focus(), 0));
+    void chat
+      .send(text)
+      .finally(() => setTimeout(() => inputRef.current?.focus(), 0));
   }
 
   function handleSubmit(e: React.FormEvent) {

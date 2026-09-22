@@ -32,7 +32,9 @@ function isAuthorized(req: NextRequest) {
   if (!token) return false;
 
   const auth = req.headers.get("authorization");
-  const bearer = auth?.startsWith("Bearer ") ? auth.slice("Bearer ".length) : "";
+  const bearer = auth?.startsWith("Bearer ")
+    ? auth.slice("Bearer ".length)
+    : "";
 
   return tokensEqual(bearer, token);
 }
@@ -161,11 +163,12 @@ export async function GET(req: NextRequest) {
   const entries = await Promise.all(
     selectedServices.map(async (service) => [service, await runCheck(service)]),
   );
-  const services = Object.fromEntries(entries) as Partial<Record<
-    ServiceName,
-    ServiceHealth
-  >>;
-  const ok = Object.values(services).every((service) => service.status === "ok");
+  const services = Object.fromEntries(entries) as Partial<
+    Record<ServiceName, ServiceHealth>
+  >;
+  const ok = Object.values(services).every(
+    (service) => service.status === "ok",
+  );
 
   return json(ok ? 200 : 503, {
     ok,

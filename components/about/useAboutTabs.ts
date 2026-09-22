@@ -11,7 +11,10 @@ export function useAboutTabs(tabs: readonly AboutTab[], rotateMs: number) {
     [tabs, active],
   );
 
-  const activeTab = useMemo(() => tabs[activeIndex] ?? tabs[0], [tabs, activeIndex]);
+  const activeTab = useMemo(
+    () => tabs[activeIndex] ?? tabs[0],
+    [tabs, activeIndex],
+  );
 
   useEffect(() => {
     if (!tabs.length) return;

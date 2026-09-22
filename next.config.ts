@@ -1,7 +1,7 @@
-import createNextIntlPlugin from 'next-intl/plugin';
+import createNextIntlPlugin from "next-intl/plugin";
 import type { NextConfig } from "next";
 
-const withNextIntl = createNextIntlPlugin('./i18n/request.ts');
+const withNextIntl = createNextIntlPlugin("./i18n/request.ts");
 
 // Content-Security-Policy is set per-request in proxy.ts (Next 16's rename of
 // middleware.ts) so it can include a fresh nonce for inline scripts.

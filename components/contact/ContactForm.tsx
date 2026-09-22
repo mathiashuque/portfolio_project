@@ -17,7 +17,10 @@ export default function ContactForm() {
   });
   const [status, setStatus] = useState<Status>({ state: "idle" });
 
-  function updateField<K extends keyof typeof form>(key: K, value: (typeof form)[K]) {
+  function updateField<K extends keyof typeof form>(
+    key: K,
+    value: (typeof form)[K],
+  ) {
     setForm((prev) => ({ ...prev, [key]: value }));
     if (status.state !== "idle") setStatus({ state: "idle" });
   }
@@ -59,8 +62,12 @@ export default function ContactForm() {
         body: JSON.stringify({ name, email, message, website }),
       });
 
-      const data = (await res.json().catch(() => ({}))) as Record<string, unknown>;
-      if (!res.ok) throw new Error((data?.error as string) || t("errors.sendFailed"));
+      const data = (await res.json().catch(() => ({}))) as Record<
+        string,
+        unknown
+      >;
+      if (!res.ok)
+        throw new Error((data?.error as string) || t("errors.sendFailed"));
 
       setForm({ name: "", email: "", message: "", website: "" });
       setStatus({ state: "success", text: t("status.sent") });
@@ -112,7 +119,9 @@ export default function ContactForm() {
         />
 
         <div className="space-y-1.5">
-          <label className="text-sm font-medium text-muted/90">{t("messageLabel")}</label>
+          <label className="text-sm font-medium text-muted/90">
+            {t("messageLabel")}
+          </label>
           <textarea
             value={form.message}
             onChange={(e) => updateField("message", e.target.value)}

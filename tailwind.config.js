@@ -1,4 +1,3 @@
-
 import animated from "tailwindcss-animated";
 
 const config = {

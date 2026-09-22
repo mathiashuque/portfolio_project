@@ -62,8 +62,10 @@ export function useChat({ greeting }: { greeting: string }) {
         const reply = await requestChatReply(trimmed);
 
         if (reply.kind === "answer") append("assistant", reply.text);
-        else if (reply.kind === "empty") append("assistant", t("errors.noResponse"));
-        else if (reply.kind === "rate_limited") append("assistant", t("rateLimit"));
+        else if (reply.kind === "empty")
+          append("assistant", t("errors.noResponse"));
+        else if (reply.kind === "rate_limited")
+          append("assistant", t("rateLimit"));
         else append("assistant", t("errors.generic"));
       } finally {
         setLoading(false);

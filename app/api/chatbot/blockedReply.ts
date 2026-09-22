@@ -38,9 +38,7 @@ const ENGLISH_MARKERS = new Set([
   "work",
 ]);
 
-export function detectBlockedReplyLanguage(
-  text: string,
-): BlockedReplyLanguage {
+export function detectBlockedReplyLanguage(text: string): BlockedReplyLanguage {
   if (/[áéíóúüñ¿¡]/i.test(text)) return "es";
 
   const words = text.toLocaleLowerCase("en").match(/\p{L}+/gu) ?? [];

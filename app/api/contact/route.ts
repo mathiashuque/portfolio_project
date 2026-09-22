@@ -93,7 +93,10 @@ export async function POST(req: Request) {
 
   // Keep responses generic to avoid leaking config state
   if (!to || !resend) {
-    return NextResponse.json({ error: "Service not configured" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Service not configured" },
+      { status: 500 },
+    );
   }
 
   // IMPORTANT:

@@ -7,9 +7,11 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "verify": "npm run format:check && npm run lint && npm run typecheck && npm run test && npm run build",
     "deploy": "npm run verify && npx vercel --prod",
     "audit:high": "npm audit --audit-level=high",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
     "lint": "eslint",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
@@ -37,6 +39,7 @@
     "@types/react-dom": "^19",
     "eslint": "^9.39.5",
     "eslint-config-next": "16.3.5",
+    "prettier": "^3.9.8",
     "tailwindcss": "^4.3.3",
     "typescript": "^5",
     "vitest": "^4.1.11"
