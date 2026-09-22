@@ -7,11 +7,15 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "deploy": "npm test && npm run lint && npm run typecheck && npm run build && npx vercel --prod",
+    "verify": "npm run lint && npm run typecheck && npm run test && npm run build",
+    "deploy": "npm run verify && npx vercel --prod",
     "audit:high": "npm audit --audit-level=high",
     "lint": "eslint",
     "test": "vitest run",
     "typecheck": "tsc --noEmit"
+  },
+  "engines": {
+    "node": ">=20"
   },
   "dependencies": {
     "@openai/agents": "^0.4.10",
