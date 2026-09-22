@@ -1,15 +1,12 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
 import type { Variants } from "motion/react";
 import { motion, stagger } from "motion/react";
-import { Github, Linkedin } from "lucide-react";
 import { useTranslations } from "next-intl";
 import type { NavLink } from "./types";
 import ThemeToggle from "./ThemeToggle";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { iconClass } from "./constants";
-import { SITE } from "@/lib/site";
+import SocialLinks from "./SocialLinks";
 
 const menuVariants = {
   open: {
@@ -45,53 +42,8 @@ const itemVariants: Variants = {
   },
 };
 
-const sidebarVariants: Variants = {
-  open: (height = 1000) => ({
-    // reveal from top-right (matches your hamburger button area better)
-    clipPath: `circle(${height * 2 + 220}px at calc(100% - 28px) 28px)`,
-    transition: {
-      type: "spring",
-      stiffness: 20,
-      restDelta: 2,
-    },
-  }),
-  closed: {
-    clipPath: "circle(22px at calc(100% - 28px) 28px)",
-    transition: {
-      delay: 0.15,
-      type: "spring",
-      stiffness: 400,
-      damping: 40,
-    },
-  },
-};
-
-function useDimensions(ref: React.RefObject<HTMLElement | null>) {
-  const [dimensions, setDimensions] = useState({ width: 0, height: 0 });
-
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-
-    const update = () => {
-      setDimensions({
-        width: el.offsetWidth,
-        height: el.offsetHeight,
-      });
-    };
-
-    update();
-
-    // Keep it accurate if content wraps / theme toggle changes height
-    const ro = new ResizeObserver(update);
-    ro.observe(el);
-
-    return () => ro.disconnect();
-  }, [ref]);
-
-  return dimensions;
-}
-
+// El panel se desliza hacia arriba mientras aparece. Antes esto era un clipPath
+// circular que obligaba a medir el alto del panel con un ResizeObserver.
 const panelVariants: Variants = {
   open: {
     opacity: 1,
@@ -100,14 +52,9 @@ const panelVariants: Variants = {
   },
   closed: {
     opacity: 0,
-    y: -6,
+    y: -8,
     transition: { duration: 0.15 },
   },
-};
-
-const contentVariants: Variants = {
-  open: { opacity: 1, transition: { delay: 0.05 } },
-  closed: { opacity: 0 },
 };
 
 export default function MobileMenu({
@@ -125,8 +72,6 @@ export default function MobileMenu({
   dark: boolean;
   onToggleTheme: () => void;
 }) {
-  const panelRef = useRef<HTMLDivElement | null>(null);
-  const { height } = useDimensions(panelRef);
   const t = useTranslations("Nav");
 
   return (
@@ -134,10 +79,12 @@ export default function MobileMenu({
       className="lg:hidden absolute left-0 right-0 top-full z-50"
       initial={false}
       animate={open ? "open" : "closed"}
+      // Cerrado, el panel sigue en el DOM (para animar): `inert` lo saca del
+      // tab order y del árbol de accesibilidad, cosa que pointer-events no hace.
+      inert={!open}
       style={{ pointerEvents: open ? "auto" : "none" }}
     >
       <motion.div
-        ref={panelRef}
         variants={panelVariants}
         className="
     relative overflow-hidden
@@ -147,21 +94,8 @@ export default function MobileMenu({
     pb-[env(safe-area-inset-bottom)]
   "
       >
-        <motion.div
-          className="absolute inset-0"
-          variants={sidebarVariants}
-          custom={height}
-        />
-
-        <motion.div
-          className="relative px-6 pb-5 pt-3"
-          variants={contentVariants}
-        >
-          <motion.ul
-            className="flex flex-col gap-2"
-            variants={menuVariants}
-            aria-hidden={!open}
-          >
+        <div className="relative px-6 pb-5 pt-3">
+          <motion.ul className="flex flex-col gap-2" variants={menuVariants}>
             {links.map((l) => {
               const isActive = active === l.href;
 
@@ -193,24 +127,7 @@ export default function MobileMenu({
               className="flex items-center justify-between"
             >
               <div className="flex items-center gap-4 text-2xl">
-                <a
-                  href={SITE.githubUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t("aria.github")}
-                  className={iconClass}
-                >
-                  <Github className="h-5 w-5" />
-                </a>
-                <a
-                  href={SITE.linkedInUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  aria-label={t("aria.linkedin")}
-                  className={iconClass}
-                >
-                  <Linkedin className="h-5 w-5" />
-                </a>
+                <SocialLinks />
               </div>
 
               <div className="flex items-center">
@@ -223,7 +140,7 @@ export default function MobileMenu({
               </div>
             </motion.div>
           </div>
-        </motion.div>
+        </div>
       </motion.div>
     </motion.div>
   );
