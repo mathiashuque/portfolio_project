@@ -25,7 +25,8 @@ export default function TechIcon({
   showLabel = false,
 }: TechIconProps) {
   const c = palette[color];
-  const tileSizeClass = size === "lg" ? "w-20 h-20 sm:w-24 sm:h-24" : techIconTileSize;
+  const tileSizeClass =
+    size === "lg" ? "w-20 h-20 sm:w-24 sm:h-24" : techIconTileSize;
   const iconSizeClass = size === "lg" ? "w-10 h-10 sm:w-12 sm:h-12" : "w-8 h-8";
 
   // "tap = hover" state (for mobile)
@@ -42,7 +43,9 @@ export default function TechIcon({
       if (!root.contains(e.target as Node)) setActive(false);
     };
 
-    document.addEventListener("pointerdown", onDocPointerDown, { capture: true });
+    document.addEventListener("pointerdown", onDocPointerDown, {
+      capture: true,
+    });
     return () => {
       document.removeEventListener("pointerdown", onDocPointerDown, {
         capture: true,

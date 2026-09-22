@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 import { useTranslations } from "next-intl";
-import { cn } from "./cn";
+import { cn } from "@/lib/cn";
 import type { FeaturedProject as FeaturedProjectData } from "./types";
 
 export default function FeaturedProject({

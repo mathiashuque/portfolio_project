@@ -1,11 +1,8 @@
 import { Resend } from "resend";
 import { NextResponse } from "next/server";
-import { Redis } from "@upstash/redis";
 import { ENV, readEnv } from "@/lib/env";
-import {
-  getClientIp,
-  sanitizeEmailHeaderValue,
-} from "@/lib/serverSecurity";
+import { rateLimit } from "@/lib/rateLimit";
+import { getClientIp, sanitizeEmailHeaderValue } from "@/lib/serverSecurity";
 import { SITE } from "@/lib/site";
 
 type ContactPayload = {
@@ -19,8 +16,6 @@ const MAX_NAME = 80;
 const MAX_EMAIL = 254;
 const MAX_MESSAGE = 4000;
 
-const redis = Redis.fromEnv();
-const REDIS_TIMEOUT_MS = 1_500;
 const RATE_LIMIT_WINDOW_SECONDS = 60;
 const RATE_LIMIT_MAX = 5;
 
@@ -33,42 +28,6 @@ function clamp(str: string, max: number) {
   return s.length > max ? s.slice(0, max) : s;
 }
 
-async function withRedisTimeout<T>(work: Promise<T>): Promise<T> {
-  let timeout: ReturnType<typeof setTimeout> | undefined;
-  const timeoutPromise = new Promise<never>((_, reject) => {
-    timeout = setTimeout(
-      () => reject(new Error("Contact rate limiter timed out")),
-      REDIS_TIMEOUT_MS,
-    );
-  });
-
-  try {
-    return await Promise.race([work, timeoutPromise]);
-  } finally {
-    if (timeout) clearTimeout(timeout);
-  }
-}
-
-async function rateLimit(ip: string) {
-  const key = `rl:contact:ip:${encodeURIComponent(ip)}`;
-  const [count] = await withRedisTimeout(
-    redis
-      .multi()
-      .incr(key)
-      .expire(key, RATE_LIMIT_WINDOW_SECONDS, "NX")
-      .exec(),
-  );
-
-  if (count <= RATE_LIMIT_MAX) return { allowed: true, retryAfter: 0 };
-
-  const ttl = await withRedisTimeout(redis.ttl(key));
-  return {
-    allowed: false,
-    retryAfter:
-      typeof ttl === "number" && ttl > 0 ? ttl : RATE_LIMIT_WINDOW_SECONDS,
-  };
-}
-
 function getResend() {
   const key = readEnv(ENV.resendApiKey);
   return key ? new Resend(key) : null;
@@ -79,7 +38,12 @@ export async function POST(req: Request) {
 
   let limit: Awaited<ReturnType<typeof rateLimit>>;
   try {
-    limit = await rateLimit(ip);
+    limit = await rateLimit(
+      `rl:contact:ip:${encodeURIComponent(ip)}`,
+      RATE_LIMIT_MAX,
+      RATE_LIMIT_WINDOW_SECONDS,
+      "redis.contactRateLimit",
+    );
   } catch (error) {
     console.error("[contact] Redis rate limiter failed", error);
     return NextResponse.json(
@@ -129,7 +93,10 @@ export async function POST(req: Request) {
 
   // Keep responses generic to avoid leaking config state
   if (!to || !resend) {
-    return NextResponse.json({ error: "Service not configured" }, { status: 500 });
+    return NextResponse.json(
+      { error: "Service not configured" },
+      { status: 500 },
+    );
   }
 
   // IMPORTANT:

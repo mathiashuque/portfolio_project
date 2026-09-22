@@ -1,5 +1,10 @@
 import { useEffect, useRef, useState } from "react";
-import { animate, motion, useMotionValue, useMotionValueEvent } from "motion/react";
+import {
+  animate,
+  motion,
+  useMotionValue,
+  useMotionValueEvent,
+} from "motion/react";
 
 type TypingParagraphProps = {
   text: string;

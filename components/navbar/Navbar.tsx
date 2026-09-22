@@ -1,29 +1,19 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
-import { Github, Linkedin } from "lucide-react";
+import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
+import SocialLinks from "./SocialLinks";
 import ThemeToggle from "./ThemeToggle";
-import { NAV_LINKS, iconClass } from "./constants";
+import { NAV_LINKS } from "./constants";
 import LanguageSwitcher from "./LanguageSwitcher";
-import { SITE } from "@/lib/site";
-
-
-function getInitialDark(): boolean {
-  if (typeof window === "undefined") return true;
-
-  const stored = window.localStorage.getItem("theme");
-  return stored ? stored === "dark" : true;
-}
 
 export default function Navbar() {
   const t = useTranslations("Nav");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [dark, setDark] = useState<boolean>(getInitialDark);
   const [active, setActive] = useState("#home");
   const navRef = useRef<HTMLElement | null>(null);
 
@@ -38,14 +28,6 @@ export default function Navbar() {
     window.addEventListener("resize", setNavHeight);
     return () => window.removeEventListener("resize", setNavHeight);
   }, []);
-
-  // Sync theme state -> DOM + storage (no setState here)
-  useLayoutEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("theme", dark ? "dark" : "light");
-  }, [dark]);
-
-  const toggleTheme = () => setDark((prev) => !prev);
 
   // Scroll background
   useEffect(() => {
@@ -159,26 +141,9 @@ export default function Navbar() {
 
         {/* Right (desktop) */}
         <div className="hidden lg:flex ml-auto items-center gap-4 text-2xl">
-          <a
-            href={SITE.githubUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t("aria.github")}
-            className={iconClass}
-          >
-            <Github className="h-5 w-5" />
-          </a>
-          <a
-            href={SITE.linkedInUrl}
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label={t("aria.linkedin")}
-            className={iconClass}
-          >
-            <Linkedin className="h-5 w-5" />
-          </a>
+          <SocialLinks />
           <LanguageSwitcher />
-          <ThemeToggle dark={dark} onToggle={toggleTheme} variant="icon" />
+          <ThemeToggle variant="icon" />
         </div>
 
         {/* Mobile menu button */}
@@ -195,7 +160,7 @@ export default function Navbar() {
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <HiOutlineX size={24} /> : <HiOutlineMenu size={24} />}
+          {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 
@@ -203,8 +168,6 @@ export default function Navbar() {
         open={open}
         links={NAV_LINKS}
         active={active}
-        dark={dark}
-        onToggleTheme={toggleTheme}
         onNavigate={(href) => {
           setActive(href);
           setOpen(false);

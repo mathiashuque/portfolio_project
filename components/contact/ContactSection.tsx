@@ -1,80 +1,63 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { motion } from "motion/react";
+import React from "react";
 import { Github, Linkedin } from "lucide-react";
+import { useTranslations } from "next-intl";
+import Reveal from "@/components/Reveal";
+import { SITE } from "@/lib/site";
 import ContactLinks from "./ContactLinks";
 import ContactForm from "./ContactForm";
 import NetworkPattern from "./NetworkPattern";
 import type { ContactLink } from "./types";
-import { useTranslations } from "next-intl";
 
 export default function ContactSection() {
-  const [inView, setInView] = useState(false);
   const t = useTranslations("Contact");
 
-  const links: ContactLink[] = useMemo(
-    () => [
-      {
-        label: t("links.linkedin"),
-        value: "linkedin.com/in/mathias-huque",
-        href: "https://linkedin.com/in/mathias-huque",
-        icon: <Linkedin className="h-5 w-5" />,
-      },
-      {
-        label: t("links.github"),
-        value: "github.com/mathiashuque",
-        href: "https://github.com/mathiashuque",
-        icon: <Github className="h-5 w-5" />,
-      },
-    ],
-    [t],
-  );
+  const links: ContactLink[] = [
+    {
+      label: t("links.linkedin"),
+      value: "linkedin.com/in/mathias-huque",
+      href: SITE.linkedInUrl,
+      icon: <Linkedin className="h-5 w-5" />,
+    },
+    {
+      label: t("links.github"),
+      value: "github.com/mathiashuque",
+      href: SITE.githubUrl,
+      icon: <Github className="h-5 w-5" />,
+    },
+  ];
 
   return (
-    <motion.section
+    <section
       id="contact"
       className="
         relative min-h-dvh snap-start snap-always overflow-hidden scroll-mt-32
         max-w-7xl 2xl:max-w-360 mx-auto px-6
         pb-16
       "
-      onViewportEnter={() => setInView(true)}
-      onViewportLeave={() => setInView(false)}
-      viewport={{ amount: 0.1 }}
     >
       <div className="absolute inset-0 -z-10 bg-linear-to-b from-bg via-bg to-bg-elev" />
       <NetworkPattern />
 
       <div className="w-full">
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: 50 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-          transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-        >
+        <Reveal className="text-center" duration={0.9} offset={50}>
           <p className="text-xs font-semibold tracking-[0.22em] text-faint/90">
             {t("kicker")}
           </p>
           <h2 className="mt-2 text-3xl font-semibold tracking-tight text-text sm:text-4xl">
             {t("title")}
           </h2>
-        </motion.div>
+        </Reveal>
 
-        <motion.div
+        <Reveal
+          delay={0.15}
           className="mt-10 grid gap-8 lg:mt-12 lg:grid-cols-2 lg:items-stretch"
-          initial={{ opacity: 0, y: 40 }}
-          animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-          transition={{
-            duration: 1,
-            delay: inView ? 0.15 : 0,
-            ease: [0.22, 1, 0.36, 1],
-          }}
         >
           <ContactLinks links={links} />
           <ContactForm />
-        </motion.div>
+        </Reveal>
       </div>
-    </motion.section>
+    </section>
   );
 }

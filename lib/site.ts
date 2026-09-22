@@ -1,14 +1,10 @@
 export const SITE = {
   name: "Mathias Huque Portfolio",
   owner: "Mathias Huque",
-  title: "Mathias Huque | Software Engineer",
-  description:
-    "Portfolio of Mathias Huque, a Software Engineer and Systems Engineering student open to roles in Uruguay and remote in UTC-3 compatible timezones (US & South America).",
-  shortDescription: "Software Engineer Building Reliable, Scalable Systems.",
   url: "https://mathiashuque.dev",
-  liveUrl: "https://www.mathiashuque.dev/",
   ogImagePath: "/og/default.png",
   defaultContactFrom: "Portfolio <no-reply@mathiashuque.dev>",
+  contactEmail: "contact@mathiashuque.dev",
   githubUrl: "https://github.com/mathiashuque",
   linkedInUrl: "https://www.linkedin.com/in/mathias-huque",
 } as const;

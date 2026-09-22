@@ -45,10 +45,7 @@ export default function SectionSnapScroll() {
           getDocumentTop(section) -
             (Number.isFinite(scrollMarginTop) ? scrollMarginTop : 0),
         ),
-        Math.max(
-          0,
-          document.documentElement.scrollHeight - window.innerHeight,
-        ),
+        Math.max(0, document.documentElement.scrollHeight - window.innerHeight),
       );
     };
 
@@ -76,10 +73,7 @@ export default function SectionSnapScroll() {
       );
     };
 
-    const animateTo = (
-      targetTop: number,
-      duration = SCROLL_DURATION_MS,
-    ) => {
+    const animateTo = (targetTop: number, duration = SCROLL_DURATION_MS) => {
       const startTop = window.scrollY;
       const distance = targetTop - startTop;
       const startedAt = performance.now();
@@ -141,9 +135,7 @@ export default function SectionSnapScroll() {
       if (controlsTimeline) {
         const timelineStops = getTimelineStops(current);
         const timelineTarget = scrollingDown
-          ? timelineStops.find(
-              (stop) => stop > scrollTop + EDGE_TOLERANCE_PX,
-            )
+          ? timelineStops.find((stop) => stop > scrollTop + EDGE_TOLERANCE_PX)
           : timelineStops.findLast(
               (stop) => stop < scrollTop - EDGE_TOLERANCE_PX,
             );

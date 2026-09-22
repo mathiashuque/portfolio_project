@@ -13,6 +13,13 @@
       "linkedin": "LinkedIn"
     }
   },
+  "Theme": {
+    "darkMode": "Modo oscuro",
+    "lightMode": "Modo claro",
+    "aria": {
+      "toggle": "Cambiar tema"
+    }
+  },
   "Home": {
     "badge": "¡Hola, mundo! 👋 ¡Soy Mathias!",
     "headline": "Ingeniero de Software construyendo{br}{highlight}",
@@ -97,10 +104,6 @@
         "Disponible para roles de Ingeniería de Software — full-time, pasantía o contrato — en Uruguay o remoto en husos horarios compatibles con UTC-3 (EE. UU. y Sudamérica).",
         "Con base en Montevideo, Uruguay (UTC-3)."
       ]
-    },
-
-    "header": {
-      "title": "Me enfoco en construir software que se mantenga entendible a medida que crece."
     }
   },
 
@@ -167,7 +170,6 @@
       "Búsqueda full-text de documentos",
       "Observabilidad autogestionada"
     ],
-    "portfolioWebsite": "Este portafolio — Next.js, TypeScript y Tailwind CSS, bilingüe con next-intl.",
     "hireflow": "Tracker de contratación multi-tenant con aislamiento real entre espacios, autorización por roles y una API segura y consistente.",
     "algorithmVisualizer": "Visualizaciones paso a paso de algoritmos y estructuras de datos fundamentales.",
     "interviewForge": "Práctica entrevistas con preguntas reales",
@@ -198,23 +200,8 @@
     "cardTitle": "Conectemos",
     "cardBody": "Estoy buscando activamente oportunidades como Ingeniero de Software, en Uruguay o remoto en husos horarios compatibles con UTC-3 (EE. UU. y Sudamérica). Si querés hablar sobre un rol, no dudes en escribirme.",
     "links": {
-      "email": "Correo",
       "linkedin": "LinkedIn",
       "github": "GitHub"
-    },
-    "field": {
-      "name": {
-        "label": "Nombre",
-        "placeholder": "Tu nombre"
-      },
-      "email": {
-        "label": "Correo",
-        "placeholder": "tu@ejemplo.com"
-      },
-      "message": {
-        "label": "Mensaje",
-        "placeholder": "Cuéntame sobre tu proyecto..."
-      }
     },
     "form": {
       "title": "Enviar un mensaje",
@@ -233,12 +220,7 @@
       },
       "status": {
         "sending": "Enviando…",
-        "sent": "Mensaje enviado. ¡Gracias!",
-        "fallback": "No se pudo enviar automáticamente — abriendo tu cliente de correo…"
-      },
-      "mailto": {
-        "subject": "Mensaje del portafolio de {name}",
-        "body": "Nombre: {name}\nCorreo: {email}\n\n{message}"
+        "sent": "Mensaje enviado. ¡Gracias!"
       }
     }
   },

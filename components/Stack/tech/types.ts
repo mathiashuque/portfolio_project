@@ -26,7 +26,6 @@ export type TechColor =
   | "github"
   | "sequelize"
   | "flutter"
-  | "nestjs"
   | "efcore"
   | "mongoose"
   | "jest"

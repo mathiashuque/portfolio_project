@@ -74,11 +74,4 @@ export const PROJECTS: Project[] = [
     link: "https://doculens.mathiashuque.dev/es",
     image: "/projects/doculens.webp",
   },
-  {
-    name: "Portfolio Website",
-    descriptionKey: "portfolioWebsite",
-    tech: ["React", "Tailwind", "TypeScript"],
-    link: "https://github.com/mathiashuque/portfolio_project",
-    image: "/projects/portfolio.webp",
-  },
 ];

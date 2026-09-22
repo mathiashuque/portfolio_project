@@ -13,8 +13,7 @@ export default function LanguageSwitcher() {
 
   const onSwitch = () => {
     // Preserve hash (#home, etc.)
-    const hash =
-      typeof window !== "undefined" ? window.location.hash : "";
+    const hash = typeof window !== "undefined" ? window.location.hash : "";
 
     // pathname looks like: /en or /en/something
     const parts = pathname.split("/");
@@ -35,7 +34,9 @@ export default function LanguageSwitcher() {
         hover:bg-slate-900/10 dark:hover:bg-white/10
         transition-colors
       "
-      aria-label={t("aria.switchLanguage", { locale: nextLocale.toUpperCase() })}
+      aria-label={t("aria.switchLanguage", {
+        locale: nextLocale.toUpperCase(),
+      })}
     >
       {nextLocale.toUpperCase()}
     </button>

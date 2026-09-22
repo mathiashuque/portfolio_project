@@ -1,0 +1,11 @@
+# Generado, no se formatea
+.next
+node_modules
+package-lock.json
+
+# Assets binarios y notas locales (docs/ está en .gitignore)
+public
+docs
+
+# Prosa: el README no se reflowea
+*.md

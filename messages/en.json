@@ -13,6 +13,13 @@
       "linkedin": "LinkedIn"
     }
   },
+  "Theme": {
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode",
+    "aria": {
+      "toggle": "Toggle theme"
+    }
+  },
   "Home": {
     "badge": "Hello, World! 👋 I’m Mathias!",
     "headline": "Software Engineer Building{br}{highlight}.",
@@ -97,10 +104,6 @@
         "Open to Software Engineer roles — full-time, internship, or contract — based in Uruguay or remote in UTC-3 compatible timezones (US & South America).",
         "Based in Montevideo, Uruguay (UTC-3)."
       ]
-    },
-
-    "header": {
-      "title": "I focus on building software that stays understandable as it grows."
     }
   },
 
@@ -168,7 +171,6 @@
       "Full-text document search",
       "Self-hosted observability"
     ],
-    "portfolioWebsite": "This portfolio — Next.js, TypeScript, and Tailwind CSS, bilingual via next-intl.",
     "hireflow": "Multi-tenant hiring tracker with real workspace isolation, role-based authorization, and a secure, consistent API.",
     "algorithmVisualizer": "Step-by-step visualizations of core algorithms and data structures.",
     "interviewForge": "Practice interviews with real questions",
@@ -199,23 +201,8 @@
     "cardTitle": "Let's Connect",
     "cardBody": "I'm actively looking for Software Engineer opportunities — in Uruguay or remote in UTC-3 compatible timezones (US & South America). If you'd like to talk about a role, feel free to reach out.",
     "links": {
-      "email": "Email",
       "linkedin": "LinkedIn",
       "github": "GitHub"
-    },
-    "field": {
-      "name": {
-        "label": "Name",
-        "placeholder": "Your name"
-      },
-      "email": {
-        "label": "Email",
-        "placeholder": "you@example.com"
-      },
-      "message": {
-        "label": "Message",
-        "placeholder": "Tell me about your project..."
-      }
     },
     "form": {
       "title": "Send a Message",
@@ -234,12 +221,7 @@
       },
       "status": {
         "sending": "Sending…",
-        "sent": "Message sent. Thanks!",
-        "fallback": "Couldn’t send automatically — opening your email client…"
-      },
-      "mailto": {
-        "subject": "Portfolio message from {name}",
-        "body": "Name: {name}\nEmail: {email}\n\n{message}"
+        "sent": "Message sent. Thanks!"
       }
     }
   },

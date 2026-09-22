@@ -9,12 +9,7 @@ export type BioTab = {
 };
 
 export type ServiceIconKey =
-  | "layoutGrid"
-  | "gauge"
-  | "database"
-  | "binary"
-  | "code2"
-  | "graduationCap";
+  "layoutGrid" | "gauge" | "database" | "binary" | "code2" | "graduationCap";
 
 export type Service = {
   title: string;

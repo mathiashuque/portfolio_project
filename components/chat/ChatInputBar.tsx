@@ -1,6 +1,7 @@
 import { Send } from "lucide-react";
 import React from "react";
 import { useTranslations } from "next-intl";
+import { MAX_MESSAGE_CHARS } from "@/lib/chat";
 
 export function ChatInputBar({
   inputRef,
@@ -28,10 +29,10 @@ export function ChatInputBar({
         <input
           ref={inputRef}
           value={value}
-          onChange={(e) => onChange(e.target.value.slice(0, 150))}
+          onChange={(e) => onChange(e.target.value.slice(0, MAX_MESSAGE_CHARS))}
           placeholder={t("input.placeholder")}
           className="h-10 flex-1 rounded-xl border border-white/10 bg-white/5 px-3 text-base text-white placeholder:text-white/40 outline-none transition focus:border-white/20 focus:ring-2 focus:ring-white/10"
-          maxLength={100}
+          maxLength={MAX_MESSAGE_CHARS}
           disabled={disabled}
         />
         <button
@@ -44,7 +45,9 @@ export function ChatInputBar({
         </button>
       </div>
 
-      <p className="mt-1 text-[11px] text-white/40">{value.length}/100</p>
+      <p className="mt-1 text-[11px] text-white/40">
+        {value.length}/{MAX_MESSAGE_CHARS}
+      </p>
 
       <p className="mt-2 text-[11px] leading-snug text-white/45">
         {t("input.tipPrefix")}{" "}

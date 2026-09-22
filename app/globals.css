@@ -82,6 +82,28 @@ html.section-snap-free-scrolling {
   }
 }
 
+/* About: entrada del panel y progreso del tab activo */
+
+@keyframes fadeSlide {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes aboutTabTrackFill {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
 /* Chrome, Edge, Safari */
 .chat-scroll::-webkit-scrollbar {
   width: 8px;

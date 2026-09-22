@@ -1,325 +1,71 @@
 import type { PaletteEntry, TechColor } from "./types";
-import { PRESETS, type AlphaPreset } from "./presets";
 
-type EntryCore = Pick<PaletteEntry, "text" | "border" | "rgb">;
+/** Todas las tecnologías comparten las mismas alfas; lo único que cambia es el color. */
+const ALPHAS = {
+  tileIdleBgA: 0.3,
+  innerIdleA: 0.55,
+  innerHoverA: 0.75,
+  outerHoverA1: 0.6,
+  outerHoverA2: 0.3,
+  hoverBorderA: 0.65,
+} as const satisfies Omit<PaletteEntry, "text" | "border" | "rgb">;
 
-function makeEntry(
-  core: EntryCore,
-  preset: AlphaPreset,
-  overrides?: Partial<AlphaPreset>,
-): PaletteEntry {
-  return {
-    ...core,
-    ...preset,
-    ...overrides,
-  };
+/** `rgba()` a partir del triplete rgb de una entrada de la paleta. */
+export function rgba(rgb: string, a: number) {
+  return `rgba(${rgb}, ${a})`;
 }
 
+/** [clase de texto, clase de borde, triplete rgb] */
+type Row = readonly [text: string, border: string, rgb: string];
+
+const entry = ([text, border, rgb]: Row): PaletteEntry => ({
+  ...ALPHAS,
+  text,
+  border,
+  rgb,
+});
+
+/**
+ * Color de cada tecnología. Las clases viven aquí como literales para que
+ * Tailwind las detecte al escanear el archivo.
+ */
 export const palette = {
-  html: makeEntry(
-    {
-      text: "text-orange-400",
-      border: "border-orange-500/60",
-      rgb: "227, 79, 38",
-    },
-    PRESETS.strong,
-  ),
-  css: makeEntry(
-    {
-      text: "text-blue-400",
-      border: "border-blue-500/60",
-      rgb: "38, 132, 227",
-    },
-    PRESETS.strong,
-  ),
-  js: makeEntry(
-    {
-      text: "text-yellow-300",
-      border: "border-yellow-400/60",
-      rgb: "240, 218, 79",
-    },
-    PRESETS.strong,
-  ),
-
-  ts: makeEntry(
-    {
-      text: "text-blue-300",
-      border: "border-blue-400/60",
-      rgb: "96, 165, 250",
-    },
-    PRESETS.strong,
-  ),
-  tailwind: makeEntry(
-    { text: "text-sky-300", border: "border-sky-400/60", rgb: "8, 166, 194" },
-    PRESETS.strong,
-  ),
-  react: makeEntry(
-    {
-      text: "text-cyan-300",
-      border: "border-cyan-400/60",
-      rgb: "34, 211, 238",
-    },
-    PRESETS.strong,
-  ),
-  angular: makeEntry(
-    { text: "text-red-300", border: "border-red-400/60", rgb: "239, 68, 68" },
-    PRESETS.strong,
-  ),
-
-  nextjs: makeEntry(
-    {
-      text: "text-gray-300",
-      border: "border-gray-400/60",
-      rgb: "156, 163, 175",
-    },
-    PRESETS.strong,
-  ),
-  github: makeEntry(
-    {
-      text: "text-gray-300",
-      border: "border-gray-400/60",
-      rgb: "156, 163, 175",
-    },
-    PRESETS.strong,
-  ),
-  vercel: makeEntry(
-    {
-      text: "text-gray-300",
-      border: "border-gray-400/60",
-      rgb: "156, 163, 175",
-    },
-    PRESETS.strong,
-  ),
-  express: makeEntry(
-    {
-      text: "text-gray-300",
-      border: "border-gray-400/60",
-      rgb: "156, 163, 175",
-    },
-    PRESETS.strong,
-  ),
-
-  node: makeEntry(
-    {
-      text: "text-emerald-300",
-      border: "border-emerald-400/60",
-      rgb: "52, 211, 153",
-    },
-    PRESETS.strong,
-  ),
-  shopify: makeEntry(
-    {
-      text: "text-green-300",
-      border: "border-green-400/60",
-      rgb: "74, 222, 128",
-    },
-    PRESETS.strong,
-  ),
-  dotnet: makeEntry(
-    {
-      text: "text-violet-300",
-      border: "border-violet-400/60",
-      rgb: "167, 139, 250",
-    },
-    PRESETS.strong,
-  ),
-  python: makeEntry(
-    { text: "text-sky-300", border: "border-sky-400/60", rgb: "56, 189, 248" },
-    PRESETS.strong,
-  ),
-  java: makeEntry(
-    {
-      text: "text-orange-300",
-      border: "border-orange-400/60",
-      rgb: "251, 146, 60",
-    },
-    PRESETS.strong,
-  ),
-  docker: makeEntry(
-    {
-      text: "text-blue-300",
-      border: "border-blue-400/60",
-      rgb: "96, 165, 250",
-    },
-    PRESETS.strong,
-  ),
-  postman: makeEntry(
-    {
-      text: "text-orange-300",
-      border: "border-orange-400/60",
-      rgb: "251, 146, 60",
-    },
-    PRESETS.strong,
-  ),
-  figma: makeEntry(
-    {
-      text: "text-pink-300",
-      border: "border-pink-400/60",
-      rgb: "236, 72, 153",
-    },
-    PRESETS.strong,
-  ),
-  git: makeEntry(
-    { text: "text-red-300", border: "border-red-400/60", rgb: "239, 68, 68" },
-    PRESETS.strong,
-  ),
-
-  aws: makeEntry(
-    {
-      text: "text-yellow-400",
-      border: "border-yellow-500/60",
-      rgb: "255, 199, 44",
-    },
-    PRESETS.strong,
-  ),
-  linux: makeEntry(
-    {
-      text: "text-orange-400",
-      border: "border-orange-500/60",
-      rgb: "227, 79, 38",
-    },
-    PRESETS.strong,
-  ),
-  firebase: makeEntry(
-    {
-      text: "text-yellow-400",
-      border: "border-yellow-500/60",
-      rgb: "255, 199, 44",
-    },
-    PRESETS.strong,
-  ),
-  cplusplus: makeEntry(
-    {
-      text: "text-blue-400",
-      border: "border-blue-500/60",
-      rgb: "38, 132, 227",
-    },
-    PRESETS.strong,
-  ),
-  csharp: makeEntry(
-    {
-      text: "text-purple-400",
-      border: "border-purple-500/60",
-      rgb: "139, 92, 246",
-    },
-    PRESETS.strong,
-  ),
-
-  
-  flutter: makeEntry(
-    {
-      text: "text-blue-300",
-      border: "border-blue-400/60",
-      rgb: "96, 165, 250",
-    },
-    PRESETS.strong,
-  ),
-  sequelize: makeEntry(
-    {
-      text: "text-blue-300",
-      border: "border-blue-400/60",
-      rgb: "96, 165, 250",
-    },
-    PRESETS.strong,
-  ),
-  nestjs: makeEntry(
-    {
-      text: "text-red-300",
-      border: "border-red-400/60",
-      rgb: "239, 68, 68",
-    },
-    PRESETS.strong,
-  ),
-  prisma: makeEntry(
-    {
-      text: "text-blue-300",
-      border: "border-blue-400/60",
-      rgb: "96, 165, 250",
-    },
-    PRESETS.strong,
-  ),
-  efcore: makeEntry(
-    // Entity Framework Core
-    {
-      text: "text-violet-300",
-      border: "border-violet-400/60",
-      rgb: "167, 139, 250",
-    },
-    PRESETS.strong,
-  ),
-  mongoose: makeEntry(
-    // Mongoose ODM
-    {
-      text: "text-red-300",
-      border: "border-red-400/60",
-      rgb: "239, 68, 68",
-    },
-    PRESETS.strong,
-  ),
-  jest: makeEntry(
-    {
-      text: "text-pink-300",
-      border: "border-pink-400/60",
-      rgb: "236, 72, 153",
-    },
-    PRESETS.strong,
-  ),
-  jasmine: makeEntry(
-    {
-      text: "text-purple-300",
-      border: "border-purple-400/60",
-      rgb: "192, 132, 252",
-    },
-    PRESETS.strong,
-  ),
-  cucumber: makeEntry(
-    {
-      text: "text-green-300",
-      border: "border-green-400/60",
-      rgb: "74, 222, 128",
-    },
-    PRESETS.strong,
-  ),
-  cypress: makeEntry(
-    {
-      text: "text-green-300",
-      border: "border-green-400/60",
-      rgb: "74, 222, 128",
-    },
-    PRESETS.strong,
-  ),
-  mysql: makeEntry(
-    {
-      text: "text-blue-400",
-      border: "border-blue-500/60",
-      rgb: "38, 132, 227",
-    },
-    PRESETS.strong,
-  ),
-  postgresql: makeEntry(
-    {
-      text: "text-blue-400",
-      border: "border-blue-500/60",
-      rgb: "38, 132, 227",
-    },
-    PRESETS.strong,
-  ),
-  mongodb: makeEntry(
-    {
-      text: "text-green-400",
-      border: "border-green-500/60",
-      rgb: "34, 197, 94",
-    },
-    PRESETS.strong,
-  ),
-  "sql server": makeEntry( 
-    {
-      text: "text-red-400",
-      border: "border-red-500/60",
-      rgb: "239, 68, 68",
-    },
-    PRESETS.strong,
-  ),
-
-
+  html: entry(["text-orange-400", "border-orange-500/60", "227, 79, 38"]),
+  css: entry(["text-blue-400", "border-blue-500/60", "38, 132, 227"]),
+  js: entry(["text-yellow-300", "border-yellow-400/60", "240, 218, 79"]),
+  ts: entry(["text-blue-300", "border-blue-400/60", "96, 165, 250"]),
+  tailwind: entry(["text-sky-300", "border-sky-400/60", "8, 166, 194"]),
+  react: entry(["text-cyan-300", "border-cyan-400/60", "34, 211, 238"]),
+  angular: entry(["text-red-300", "border-red-400/60", "239, 68, 68"]),
+  nextjs: entry(["text-gray-300", "border-gray-400/60", "156, 163, 175"]),
+  github: entry(["text-gray-300", "border-gray-400/60", "156, 163, 175"]),
+  vercel: entry(["text-gray-300", "border-gray-400/60", "156, 163, 175"]),
+  express: entry(["text-gray-300", "border-gray-400/60", "156, 163, 175"]),
+  node: entry(["text-emerald-300", "border-emerald-400/60", "52, 211, 153"]),
+  shopify: entry(["text-green-300", "border-green-400/60", "74, 222, 128"]),
+  dotnet: entry(["text-violet-300", "border-violet-400/60", "167, 139, 250"]),
+  python: entry(["text-sky-300", "border-sky-400/60", "56, 189, 248"]),
+  java: entry(["text-orange-300", "border-orange-400/60", "251, 146, 60"]),
+  docker: entry(["text-blue-300", "border-blue-400/60", "96, 165, 250"]),
+  postman: entry(["text-orange-300", "border-orange-400/60", "251, 146, 60"]),
+  figma: entry(["text-pink-300", "border-pink-400/60", "236, 72, 153"]),
+  git: entry(["text-red-300", "border-red-400/60", "239, 68, 68"]),
+  aws: entry(["text-yellow-400", "border-yellow-500/60", "255, 199, 44"]),
+  linux: entry(["text-orange-400", "border-orange-500/60", "227, 79, 38"]),
+  firebase: entry(["text-yellow-400", "border-yellow-500/60", "255, 199, 44"]),
+  cplusplus: entry(["text-blue-400", "border-blue-500/60", "38, 132, 227"]),
+  csharp: entry(["text-purple-400", "border-purple-500/60", "139, 92, 246"]),
+  flutter: entry(["text-blue-300", "border-blue-400/60", "96, 165, 250"]),
+  sequelize: entry(["text-blue-300", "border-blue-400/60", "96, 165, 250"]),
+  prisma: entry(["text-blue-300", "border-blue-400/60", "96, 165, 250"]),
+  efcore: entry(["text-violet-300", "border-violet-400/60", "167, 139, 250"]),
+  mongoose: entry(["text-red-300", "border-red-400/60", "239, 68, 68"]),
+  jest: entry(["text-pink-300", "border-pink-400/60", "236, 72, 153"]),
+  jasmine: entry(["text-purple-300", "border-purple-400/60", "192, 132, 252"]),
+  cucumber: entry(["text-green-300", "border-green-400/60", "74, 222, 128"]),
+  cypress: entry(["text-green-300", "border-green-400/60", "74, 222, 128"]),
+  mysql: entry(["text-blue-400", "border-blue-500/60", "38, 132, 227"]),
+  postgresql: entry(["text-blue-400", "border-blue-500/60", "38, 132, 227"]),
+  mongodb: entry(["text-green-400", "border-green-500/60", "34, 197, 94"]),
+  "sql server": entry(["text-red-400", "border-red-500/60", "239, 68, 68"]),
 } as const satisfies Record<TechColor, PaletteEntry>;

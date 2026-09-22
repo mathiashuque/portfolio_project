@@ -30,7 +30,7 @@ export function mapExperienceMessages(
     badge: item.badgeLabel
       ? {
           label: item.badgeLabel,
-          variant: "orange", 
+          variant: "orange",
           icon: item.badgeIcon ?? "✨",
         }
       : undefined,

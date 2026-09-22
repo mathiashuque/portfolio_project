@@ -15,10 +15,7 @@ function escapeRegex(word: string): string {
 }
 
 export function buildProfanityRegex(): RegExp {
-  const profanityDirectory = join(
-    process.cwd(),
-    "app/api/chatbot/profanity",
-  );
+  const profanityDirectory = join(process.cwd(), "app/api/chatbot/profanity");
   const words = ["es.txt", "en.txt"]
     .flatMap((file) => loadWordList(join(profanityDirectory, file)))
     .map(escapeRegex);

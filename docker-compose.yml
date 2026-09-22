@@ -1,0 +1,17 @@
+services:
+  portfolio:
+    build: .
+    image: portfolio:local
+    container_name: portfolio-web
+    # `.env` no está versionado: si falta, el contenedor arranca igual y las
+    # rutas que dependen de un servicio avisan por su cuenta (503 / 500).
+    env_file:
+      - path: .env
+        required: false
+    environment:
+      NODE_ENV: production
+      PORT: "3000"
+      HOSTNAME: 0.0.0.0
+    ports:
+      - "3000:3000"
+    restart: unless-stopped

@@ -20,7 +20,9 @@ export function buildAboutTabs(t: {
       key: "bio",
       label: t("tabs.bio.label"),
       title: t("bio.title"),
-      paragraphs: Array.isArray(bioParagraphs) ? (bioParagraphs as string[]) : [],
+      paragraphs: Array.isArray(bioParagraphs)
+        ? (bioParagraphs as string[])
+        : [],
     },
     {
       kind: "services",
