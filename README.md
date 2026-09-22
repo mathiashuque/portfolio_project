@@ -44,7 +44,12 @@ docker compose up -d --build
 
 Open [http://localhost:3000](http://localhost:3000); `/` redirects to `/en`. Use `docker compose logs -f` to follow it and `docker compose down` to stop it. `docker-compose.yml` passes `.env` at runtime through `env_file`, so no credential ends up inside the image (`docker exec portfolio-web ls -a /app` shows no `.env`).
 
-> **Deploying the container publicly:** `getClientIp()` only trusts `x-forwarded-for` while `NODE_ENV !== "production"` (production expects `x-vercel-forwarded-for`). A plain production container therefore resolves every visitor to `unknown`, and the chatbot and contact rate limiters share a single bucket. Terminate it behind a reverse proxy that sets a trusted forwarding header and make `getClientIp()` read that header behind an explicit opt-in before exposing it.
+> **Deploying the container publicly:** two things depend on how you serve it.
+>
+> 1. `getClientIp()` only trusts `x-forwarded-for` while `NODE_ENV !== "production"` (production expects `x-vercel-forwarded-for`). A plain production container therefore resolves every visitor to `unknown`, and the chatbot and contact rate limiters share a single bucket.
+> 2. The chat session cookie (`chat_sid_v2`) is flagged `Secure` in production, so a container served over `http://` on a non-localhost host never gets it back: every message starts a fresh session, the chat loses its memory, and the per-session limit degrades to per-request.
+>
+> Terminate the container behind a reverse proxy that sets a trusted forwarding header, serve it over TLS, and make both decisions explicit (an opt-in flag for the forwarded header, and the cookie's `secure` flag derived from the request protocol) before exposing it.
 
 ## Quality checks
 
