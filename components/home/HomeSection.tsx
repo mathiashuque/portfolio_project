@@ -1,18 +1,15 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { motion } from "motion/react";
+import Reveal from "@/components/Reveal";
 import TraitsMarquee from "./TraitsMarquee";
 import Hero from "./Hero";
 
 export default function HomeSection() {
-  const homeRef = useRef<HTMLElement | null>(null);
   const constraintsRef = useRef<HTMLDivElement | null>(null);
 
   const dragKeyRef = useRef(0);
   const [dragKey, setDragKey] = useState(0);
-
-  const [inView, setInView] = useState(false);
 
   // Reset drag position when breakpoint flips AND when resize/zoom happens
   useEffect(() => {
@@ -40,8 +37,7 @@ export default function HomeSection() {
   }, []);
 
   return (
-    <motion.section
-      ref={homeRef}
+    <section
       id="home"
       className="
         bg-bg text-text
@@ -54,32 +50,16 @@ export default function HomeSection() {
         relative
         overflow-hidden
       "
-      onViewportEnter={() => setInView(true)}
-      onViewportLeave={() => setInView(false)}
-      viewport={{ amount: 0.1 }}
     >
       {/* Hero */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 1.0, ease: [0.22, 1, 0.36, 1] }}
-      >
+      <Reveal duration={1} offset={50}>
         <Hero constraintsRef={constraintsRef} dragKey={dragKey} />
-      </motion.div>
+      </Reveal>
 
       {/* Marquee */}
-      <motion.div
-        className="mt-5"
-        initial={{ opacity: 0, x: -40 }}
-        animate={inView ? { opacity: 1, x: 0 } : { opacity: 0, x: -40 }}
-        transition={{
-          duration: 0.9,
-          delay: inView ? 0.1 : 0, // small delay only when entering
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
+      <Reveal className="mt-5" duration={0.9} delay={0.1} axis="x">
         <TraitsMarquee />
-      </motion.div>
-    </motion.section>
+      </Reveal>
+    </section>
   );
 }

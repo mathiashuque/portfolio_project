@@ -1,7 +1,8 @@
-import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
 import { ENV, readEnv, type EnvName } from "@/lib/env";
+import { getRedis } from "@/lib/redis";
 import { tokensEqual } from "@/lib/serverSecurity";
+import { withTimeout } from "@/lib/timeout";
 
 export const dynamic = "force-dynamic";
 
@@ -34,23 +35,6 @@ function isAuthorized(req: NextRequest) {
   const bearer = auth?.startsWith("Bearer ") ? auth.slice("Bearer ".length) : "";
 
   return tokensEqual(bearer, token);
-}
-
-async function withTimeout<T>(label: string, work: Promise<T>): Promise<T> {
-  let timeout: ReturnType<typeof setTimeout> | undefined;
-
-  const timeoutPromise = new Promise<never>((_, reject) => {
-    timeout = setTimeout(
-      () => reject(new Error(`${label} health check timed out`)),
-      CHECK_TIMEOUT_MS,
-    );
-  });
-
-  try {
-    return await Promise.race([work, timeoutPromise]);
-  } finally {
-    if (timeout) clearTimeout(timeout);
-  }
 }
 
 async function measure(
@@ -90,8 +74,7 @@ async function checkRedis(): Promise<ServiceHealth> {
   }
 
   return measure("redis", async () => {
-    const redis = Redis.fromEnv();
-    await withTimeout("Redis", redis.ping());
+    await withTimeout(getRedis().ping(), "redis.ping", CHECK_TIMEOUT_MS);
   });
 }
 
@@ -103,13 +86,14 @@ async function checkOpenAI(): Promise<ServiceHealth> {
 
   return measure("openai", async () => {
     const response = await withTimeout(
-      "OpenAI",
       fetch("https://api.openai.com/v1/models", {
         headers: {
           Authorization: `Bearer ${apiKey}`,
         },
         cache: "no-store",
       }),
+      "openai.models",
+      CHECK_TIMEOUT_MS,
     );
 
     if (!response.ok) {
@@ -126,13 +110,14 @@ async function checkResend(): Promise<ServiceHealth> {
 
   return measure("resend", async () => {
     const response = await withTimeout(
-      "Resend",
       fetch("https://api.resend.com/domains", {
         headers: {
           Authorization: `Bearer ${apiKey}`,
         },
         cache: "no-store",
       }),
+      "resend.domains",
+      CHECK_TIMEOUT_MS,
     );
 
     if (!response.ok) {

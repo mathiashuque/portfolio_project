@@ -1,36 +1,20 @@
 import { NextRequest, NextResponse } from "next/server";
-import { Redis } from "@upstash/redis";
-import { runWorkflow } from "./Agent";
 import crypto from "crypto";
+import { runWorkflow } from "./Agent";
 import { clampToLast3Pairs, type StoredMsg } from "./history";
 import { getClientIp } from "@/lib/serverSecurity";
-import { isLocale, type Locale } from "@/lib/site";
+import {
+  CHAT_IP_MESSAGE_LIMIT,
+  CHAT_RATE_LIMIT_WINDOW_SECONDS,
+  CHAT_SESSION_MESSAGE_LIMIT,
+  MAX_MESSAGE_CHARS,
+} from "@/lib/chat";
+import { rateLimit } from "@/lib/rateLimit";
+import { getRedis, REDIS_TIMEOUT_MS } from "@/lib/redis";
+import { withTimeout } from "@/lib/timeout";
 
-const RATE_LIMIT_MESSAGES: Record<Locale, { ip: string; session: string }> = {
-  en: {
-    ip: "Too many requests from this network. Try again later.",
-    session: "Limit reached: 10 questions per session. Try again in a bit.",
-  },
-  es: {
-    ip: "Demasiadas consultas desde esta red. Probá más tarde.",
-    session: "Límite: 10 preguntas por sesión. Probá en un rato.",
-  },
-};
-
-const redis = Redis.fromEnv();
-
-const MAX_INPUT_CHARS = 100;
-const REDIS_TIMEOUT_MS = 1_500;
 const SID_COOKIE = "chat_sid_v2";
 const SID_MAX_AGE_SECONDS = 60 * 60 * 24;
-
-const SESSION_LIMIT = 10; // max 10 messages per session
-const IP_LIMIT = 30;
-const WINDOW_SECONDS = 60 * 60; // 1h
-
-type RateLimitResult =
-  | { ok: true }
-  | { ok: false; retryAfter: number; message: string };
 
 function getSID(req: NextRequest): { sid: string; isNew: boolean } {
   const existing = req.cookies.get(SID_COOKIE)?.value;
@@ -48,26 +32,6 @@ function setSIDCookie(res: NextResponse, sid: string) {
   });
 }
 
-async function withRedisTimeout<T>(label: string, work: Promise<T>): Promise<T> {
-  let timeout: ReturnType<typeof setTimeout> | undefined;
-
-  const timeoutPromise = new Promise<never>((_, reject) => {
-    timeout = setTimeout(
-      () => reject(new Error(`${label} timed out after ${REDIS_TIMEOUT_MS}ms`)),
-      REDIS_TIMEOUT_MS,
-    );
-  });
-
-  try {
-    return await Promise.race([work, timeoutPromise]);
-  } catch (error) {
-    const message = error instanceof Error ? error.message : String(error);
-    throw new Error(`${label} failed: ${message}`);
-  } finally {
-    if (timeout) clearTimeout(timeout);
-  }
-}
-
 function redisUnavailableResponse(label: string, error: unknown) {
   const message = error instanceof Error ? error.message : String(error);
   console.error(`[chatbot] Redis ${label} failed. ${message}`);
@@ -81,45 +45,29 @@ function redisUnavailableResponse(label: string, error: unknown) {
   );
 }
 
-async function incrWithWindow(key: string): Promise<number> {
-  const count = await withRedisTimeout("redis.incr", redis.incr(key));
-  if (count === 1) {
-    await withRedisTimeout("redis.expire", redis.expire(key, WINDOW_SECONDS));
-  }
-  return count;
-}
-
-async function ttlSeconds(key: string): Promise<number> {
-  const t = await withRedisTimeout("redis.ttl", redis.ttl(key));
-  return typeof t === "number" ? t : WINDOW_SECONDS;
-}
-
-async function checkRateLimit(
-  key: string,
-  limit: number,
-  message: string,
-): Promise<RateLimitResult> {
-  const count = await incrWithWindow(key);
-  if (count <= limit) return { ok: true };
-
-  return {
-    ok: false,
-    retryAfter: await ttlSeconds(key),
-    message,
-  };
+function rateLimited(sid: string, isNew: boolean, retryAfter: number) {
+  const out = NextResponse.json(
+    { error: "rate_limited" },
+    { status: 429, headers: { "Retry-After": String(retryAfter) } },
+  );
+  if (isNew) setSIDCookie(out, sid);
+  return out;
 }
 
 async function loadHistory(historyKey: string): Promise<StoredMsg[]> {
-  return (
-    (await withRedisTimeout("redis.get", redis.get<StoredMsg[]>(historyKey))) ??
-    []
+  const stored = await withTimeout(
+    getRedis().get<StoredMsg[]>(historyKey),
+    "redis.get",
+    REDIS_TIMEOUT_MS,
   );
+  return stored ?? [];
 }
 
 async function saveHistory(historyKey: string, history: StoredMsg[]) {
-  await withRedisTimeout(
+  await withTimeout(
+    getRedis().set(historyKey, history, { ex: 60 * 60 * 24 }),
     "redis.set",
-    redis.set(historyKey, history, { ex: 60 * 60 * 24 }),
+    REDIS_TIMEOUT_MS,
   );
 }
 
@@ -131,8 +79,6 @@ export async function POST(req: NextRequest) {
       unknown
     >;
     const input = (body.message as string) ?? (body.input as string) ?? "";
-    const locale: Locale = isLocale(body.locale) ? body.locale : "en";
-    const rateLimitMessages = RATE_LIMIT_MESSAGES[locale];
 
     if (!input) {
       return NextResponse.json({ error: "Missing message" }, { status: 400 });
@@ -143,9 +89,9 @@ export async function POST(req: NextRequest) {
         { status: 400 },
       );
     }
-    if (input.length > MAX_INPUT_CHARS) {
+    if (input.length > MAX_MESSAGE_CHARS) {
       return NextResponse.json(
-        { error: `Message too long (max ${MAX_INPUT_CHARS} characters)` },
+        { error: `Message too long (max ${MAX_MESSAGE_CHARS} characters)` },
         { status: 413 },
       );
     }
@@ -155,41 +101,23 @@ export async function POST(req: NextRequest) {
     const { sid, isNew } = getSID(req);
 
     const ipKey = `rl:ip:${encodeURIComponent(ip)}`;
-
-    const ipLimit = await checkRateLimit(ipKey, IP_LIMIT, rateLimitMessages.ip);
-    if (!ipLimit.ok) {
-      const out = NextResponse.json(
-        {
-          error: "rate_limited",
-          message: ipLimit.message,
-        },
-        { status: 429, headers: { "Retry-After": String(ipLimit.retryAfter) } },
-      );
-      if (isNew) setSIDCookie(out, sid);
-      return out;
-    }
-
-    const sidKey = `rl:sid:${sid}`;
-    const sidLimit = await checkRateLimit(
-      sidKey,
-      SESSION_LIMIT,
-      rateLimitMessages.session,
+    const ipLimit = await rateLimit(
+      ipKey,
+      CHAT_IP_MESSAGE_LIMIT,
+      CHAT_RATE_LIMIT_WINDOW_SECONDS,
+      "redis.ipRateLimit",
     );
 
-    if (!sidLimit.ok) {
-      const out = NextResponse.json(
-        {
-          error: "rate_limited",
-          message: sidLimit.message,
-        },
-        {
-          status: 429,
-          headers: { "Retry-After": String(sidLimit.retryAfter) },
-        },
-      );
-      if (isNew) setSIDCookie(out, sid);
-      return out;
-    }
+    if (!ipLimit.allowed) return rateLimited(sid, isNew, ipLimit.retryAfter);
+
+    const sidLimit = await rateLimit(
+      `rl:sid:${sid}`,
+      CHAT_SESSION_MESSAGE_LIMIT,
+      CHAT_RATE_LIMIT_WINDOW_SECONDS,
+      "redis.sidRateLimit",
+    );
+
+    if (!sidLimit.allowed) return rateLimited(sid, isNew, sidLimit.retryAfter);
 
     // 3) LOAD HISTORY (per session)
     const historyKey = `chat:sid:${sid}`;

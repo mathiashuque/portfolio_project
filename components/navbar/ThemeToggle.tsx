@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FaMoon, FaSun } from "react-icons/fa";
+import { Moon, Sun } from "lucide-react";
 import { iconClass } from "./constants";
 
 export default function ThemeToggle({
@@ -36,7 +36,7 @@ export default function ThemeToggle({
           disabled
         >
           <span className="text-xl" aria-hidden>
-            <FaSun />
+            <Sun className="h-5 w-5" />
           </span>
           <span className="text-sm text-muted">Theme</span>
         </button>
@@ -50,7 +50,7 @@ export default function ThemeToggle({
         className={iconClass}
         disabled
       >
-        <FaSun aria-hidden />
+        <Sun aria-hidden />
       </button>
     );
   }
@@ -69,7 +69,9 @@ export default function ThemeToggle({
         "
         aria-label="Toggle theme"
       >
-        <span className="text-xl">{dark ? <FaSun /> : <FaMoon />}</span>
+        <span className="text-xl">
+          {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
+        </span>
         <span className="text-sm text-muted">
           {dark ? "Light mode" : "Dark mode"}
         </span>
@@ -84,7 +86,7 @@ export default function ThemeToggle({
       aria-label="Toggle theme"
       className={iconClass}
     >
-      {dark ? <FaMoon /> : <FaSun />}
+      {dark ? <Moon /> : <Sun />}
     </button>
   );
 }

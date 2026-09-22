@@ -1,5 +1,7 @@
 import { Github, Linkedin, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
+import { SITE } from "@/lib/site";
+
 export default function Footer() {
   const t = useTranslations("Footer");
   const iconClass = "text-muted hover:text-text transition";
@@ -18,7 +20,7 @@ export default function Footer() {
         {/* Social icons */}
         <div className="mt-6 flex justify-center gap-6">
           <SocialLink
-            href="https://github.com/mathiashuque"
+            href={SITE.githubUrl}
             label={t("social.github")}
             className={iconClass}
           >
@@ -26,7 +28,7 @@ export default function Footer() {
           </SocialLink>
 
           <SocialLink
-            href="https://linkedin.com/in/mathias-huque"
+            href={SITE.linkedInUrl}
             label={t("social.linkedin")}
             className={iconClass}
           >
@@ -34,7 +36,7 @@ export default function Footer() {
           </SocialLink>
 
           <SocialLink
-            href={`mailto:${atob("Y29udGFjdEBtYXRoaWFzaHVxdWUuZGV2")}`}
+            href={`mailto:${SITE.contactEmail}`}
             label={t("social.email")}
             className={iconClass}
           >

@@ -1,14 +1,13 @@
 "use client";
 
-import React, { useMemo, useState } from "react";
-import { motion } from "motion/react";
+import React, { useMemo } from "react";
 import { useTranslations } from "next-intl";
+import Reveal from "@/components/Reveal";
 import ExperienceTimeline from "./ExperienceTimeline";
 import type { Experience } from "./types";
 import { mapExperienceMessages } from "./getExperiences";
 
 export default function ExperienceSection() {
-  const [inView, setInView] = useState(false);
   const t = useTranslations("Experience");
 
   const experiences = useMemo<Experience[]>(() => {
@@ -19,21 +18,13 @@ export default function ExperienceSection() {
   }, [t]);
 
   return (
-    <motion.section
+    <section
       id="experience"
       className="min-h-dvh snap-start px-6 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 mb-30"
       aria-label="Experience"
-      onViewportEnter={() => setInView(true)}
-      onViewportLeave={() => setInView(false)}
-      viewport={{ amount: 0.1 }}
     >
       {/* Header */}
-      <motion.div
-        className="mb-14 text-center"
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{ duration: 0.9, ease: [0.22, 1, 0.36, 1] }}
-      >
+      <Reveal className="mb-14 text-center" duration={0.9} offset={50}>
         <p className="text-xs font-semibold tracking-[0.22em] text-faint/90">
           {t("eyebrow")}
         </p>
@@ -45,20 +36,12 @@ export default function ExperienceSection() {
         <p className="mx-auto mt-4 max-w-2xl text-base sm:text-lg text-muted/90">
           {t("subtitle")}
         </p>
-      </motion.div>
+      </Reveal>
 
       {/* Timeline */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-        transition={{
-          duration: 1,
-          delay: inView ? 0.15 : 0,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
+      <Reveal delay={0.15}>
         <ExperienceTimeline experiences={experiences} />
-      </motion.div>
-    </motion.section>
+      </Reveal>
+    </section>
   );
 }

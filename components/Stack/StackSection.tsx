@@ -1,8 +1,7 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "motion/react";
 import { PRIMARY_STACK, STACK } from "@/components/Stack/tech/stackData";
+import Reveal from "@/components/Reveal";
 import MarqueeRow from "./MarqueeRow";
 import StackHeader from "./StackHeader";
 import TechIcon from "./tech/TechIcon";
@@ -10,40 +9,20 @@ import { StackCategoryItems } from "./types";
 import { useTranslations } from "next-intl";
 
 export default function StackSection() {
-  const [inView, setInView] = useState(false);
   const t = useTranslations("Stack");
   const tCategories = useTranslations("Stack.categories");
   return (
-    <motion.section
+    <section
       id="stack"
       className="min-h-dvh snap-start snap-always px-6 mb-20 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32"
-      onViewportEnter={() => setInView(true)}
-      onViewportLeave={() => setInView(false)}
-      viewport={{ amount: 0.1 }}
     >
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{
-          duration: 0.9,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
+      <Reveal duration={0.9} offset={50}>
         <StackHeader />
-      </motion.div>
+      </Reveal>
 
       {/* Primary stack */}
-      <motion.div
-        className="mb-10"
-        initial={{ opacity: 0, y: 40 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-        transition={{
-          duration: 1,
-          delay: inView ? 0.1 : 0,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
+      <Reveal className="mb-10" delay={0.1}>
         <h3 className="text-lg sm:text-xl font-semibold mb-3 text-muted/90 tracking-tight">
           {t("primaryTitle")}
         </h3>
@@ -62,18 +41,10 @@ export default function StackSection() {
             ))}
           </div>
         </div>
-      </motion.div>
+      </Reveal>
 
       {/* Secondary stack */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-        transition={{
-          duration: 1,
-          delay: inView ? 0.12 : 0,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
+      <Reveal delay={0.12}>
         <h3 className="text-lg sm:text-xl font-semibold mb-3 text-muted/90 tracking-tight">
           {t("secondaryTitle")}
         </h3>
@@ -95,7 +66,7 @@ export default function StackSection() {
             </div>
           ))}
         </div>
-      </motion.div>
-    </motion.section>
+      </Reveal>
+    </section>
   );
 }

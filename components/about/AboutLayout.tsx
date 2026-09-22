@@ -1,15 +1,9 @@
 "use client";
 
-import React, { useState } from "react";
-import { motion } from "motion/react";
+import type { ReactNode } from "react";
+import Reveal from "@/components/Reveal";
 
-export default function AboutLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [inView, setInView] = useState(false);
-
+export default function AboutLayout({ children }: { children: ReactNode }) {
   return (
     <section
       id="about"
@@ -18,19 +12,13 @@ export default function AboutLayout({
     >
       <div className="mx-auto w-full max-w-7xl 2xl:max-w-360 px-6">
         <div className="relative isolate overflow-hidden rounded-3xl">
-          <motion.div
-            initial={{ opacity: 0, y: 50 }}
-            animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-            transition={{
-              duration: 1.0,
-              ease: [0.22, 1, 0.36, 1],
-            }}
-            onViewportEnter={() => setInView(true)}
-            viewport={{ amount: 0.1 }}
+          <Reveal
+            duration={1}
+            offset={50}
             className="mx-auto max-w-4xl text-center"
           >
             {children}
-          </motion.div>
+          </Reveal>
         </div>
       </div>
     </section>

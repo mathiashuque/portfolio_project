@@ -1,60 +1,31 @@
 "use client";
 
-import { useState } from "react";
-import { motion } from "motion/react";
+import Reveal from "@/components/Reveal";
 import ProjectGrid from "./ProjectGrid";
 import ProjectsHeader from "./ProjectsHeader";
 import FeaturedProject from "./FeaturedProject";
 import { FEATURED_PROJECT, PROJECTS } from "./data";
 
 export default function ProjectsSection() {
-  const [inView, setInView] = useState(false);
-
   return (
-    <motion.section
+    <section
       id="projects"
       className="min-h-dvh snap-start snap-always px-6 max-w-7xl 2xl:max-w-360 mx-auto scroll-mt-32 mb-10"
-      onViewportEnter={() => setInView(true)}
-      onViewportLeave={() => setInView(false)}
-      viewport={{ amount: 0.1 }}
     >
       {/* Header */}
-      <motion.div
-        initial={{ opacity: 0, y: 50 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 50 }}
-        transition={{
-          duration: 0.9,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
+      <Reveal duration={0.9} offset={50}>
         <ProjectsHeader />
-      </motion.div>
+      </Reveal>
 
       {/* Featured project */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-        transition={{
-          duration: 1,
-          delay: inView ? 0.12 : 0,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
+      <Reveal delay={0.12}>
         <FeaturedProject project={FEATURED_PROJECT} />
-      </motion.div>
+      </Reveal>
 
       {/* Grid */}
-      <motion.div
-        initial={{ opacity: 0, y: 40 }}
-        animate={inView ? { opacity: 1, y: 0 } : { opacity: 0, y: 40 }}
-        transition={{
-          duration: 1,
-          delay: inView ? 0.18 : 0,
-          ease: [0.22, 1, 0.36, 1],
-        }}
-      >
+      <Reveal delay={0.18}>
         <ProjectGrid projects={PROJECTS} />
-      </motion.div>
-    </motion.section>
+      </Reveal>
+    </section>
   );
 }

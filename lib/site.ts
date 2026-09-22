@@ -4,6 +4,7 @@ export const SITE = {
   url: "https://mathiashuque.dev",
   ogImagePath: "/og/default.png",
   defaultContactFrom: "Portfolio <no-reply@mathiashuque.dev>",
+  contactEmail: "contact@mathiashuque.dev",
   githubUrl: "https://github.com/mathiashuque",
   linkedInUrl: "https://www.linkedin.com/in/mathias-huque",
 } as const;

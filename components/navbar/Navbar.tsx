@@ -1,8 +1,7 @@
 "use client";
 
 import { useEffect, useLayoutEffect, useRef, useState } from "react";
-import { HiOutlineMenu, HiOutlineX } from "react-icons/hi";
-import { Github, Linkedin } from "lucide-react";
+import { Github, Linkedin, Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import MobileMenu from "./MobileMenu";
 import NavLinks from "./NavLinks";
@@ -195,7 +194,7 @@ export default function Navbar() {
           aria-expanded={open}
           onClick={() => setOpen((v) => !v)}
         >
-          {open ? <HiOutlineX size={24} /> : <HiOutlineMenu size={24} />}
+          {open ? <X size={24} /> : <Menu size={24} />}
         </button>
       </div>
 

@@ -1,7 +1,7 @@
 "use client";
 
 import Image from "next/image";
-import { cn } from "./cn";
+import { cn } from "@/lib/cn";
 
 import { useTranslations } from "next-intl";
 import { Project } from "./types";
