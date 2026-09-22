@@ -1,0 +1,18 @@
+# Contexto de build: solo lo que Next necesita para compilar.
+node_modules
+.next
+.git
+.github
+docs
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Nada de secretos ni de logs dentro de la imagen.
+.env
+.env*.local
+*.log
+
+README.md
+AGENTS.md
+CLAUDE.md
