@@ -13,6 +13,13 @@
       "linkedin": "LinkedIn"
     }
   },
+  "Theme": {
+    "darkMode": "Dark mode",
+    "lightMode": "Light mode",
+    "aria": {
+      "toggle": "Toggle theme"
+    }
+  },
   "Home": {
     "badge": "Hello, World! 👋 I’m Mathias!",
     "headline": "Software Engineer Building{br}{highlight}.",

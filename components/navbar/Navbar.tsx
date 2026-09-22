@@ -10,19 +10,10 @@ import ThemeToggle from "./ThemeToggle";
 import { NAV_LINKS } from "./constants";
 import LanguageSwitcher from "./LanguageSwitcher";
 
-
-function getInitialDark(): boolean {
-  if (typeof window === "undefined") return true;
-
-  const stored = window.localStorage.getItem("theme");
-  return stored ? stored === "dark" : true;
-}
-
 export default function Navbar() {
   const t = useTranslations("Nav");
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
-  const [dark, setDark] = useState<boolean>(getInitialDark);
   const [active, setActive] = useState("#home");
   const navRef = useRef<HTMLElement | null>(null);
 
@@ -37,14 +28,6 @@ export default function Navbar() {
     window.addEventListener("resize", setNavHeight);
     return () => window.removeEventListener("resize", setNavHeight);
   }, []);
-
-  // Sync theme state -> DOM + storage (no setState here)
-  useLayoutEffect(() => {
-    document.documentElement.classList.toggle("dark", dark);
-    localStorage.setItem("theme", dark ? "dark" : "light");
-  }, [dark]);
-
-  const toggleTheme = () => setDark((prev) => !prev);
 
   // Scroll background
   useEffect(() => {
@@ -160,7 +143,7 @@ export default function Navbar() {
         <div className="hidden lg:flex ml-auto items-center gap-4 text-2xl">
           <SocialLinks />
           <LanguageSwitcher />
-          <ThemeToggle dark={dark} onToggle={toggleTheme} variant="icon" />
+          <ThemeToggle variant="icon" />
         </div>
 
         {/* Mobile menu button */}
@@ -185,8 +168,6 @@ export default function Navbar() {
         open={open}
         links={NAV_LINKS}
         active={active}
-        dark={dark}
-        onToggleTheme={toggleTheme}
         onNavigate={(href) => {
           setActive(href);
           setOpen(false);

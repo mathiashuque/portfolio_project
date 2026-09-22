@@ -62,15 +62,11 @@ export default function MobileMenu({
   links,
   active,
   onNavigate,
-  dark,
-  onToggleTheme,
 }: {
   open: boolean;
   links: readonly NavLink[];
   active: string;
   onNavigate: (href: string) => void;
-  dark: boolean;
-  onToggleTheme: () => void;
 }) {
   const t = useTranslations("Nav");
 
@@ -132,11 +128,7 @@ export default function MobileMenu({
 
               <div className="flex items-center">
                 <LanguageSwitcher />
-                <ThemeToggle
-                  dark={dark}
-                  onToggle={onToggleTheme}
-                  variant="mobile"
-                />
+                <ThemeToggle variant="mobile" />
               </div>
             </motion.div>
           </div>

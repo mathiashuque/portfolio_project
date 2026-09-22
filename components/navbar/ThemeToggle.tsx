@@ -1,65 +1,30 @@
 "use client";
 
-import { useEffect, useState } from "react";
 import { Moon, Sun } from "lucide-react";
+import { useTranslations } from "next-intl";
 import { iconClass } from "./constants";
+import { useTheme } from "@/components/useTheme";
 
+/**
+ * El ícono y el texto los elige CSS (`dark:`), no el estado de React: la clase
+ * ya está puesta antes del primer paint, así que lo que renderiza el server y lo
+ * que hidrata el cliente coinciden siempre. Antes eso se resolvía con un estado
+ * `mounted` que mostraba un botón deshabilitado hasta hidratar.
+ */
 export default function ThemeToggle({
-  dark,
-  onToggle,
   variant = "icon",
 }: {
-  dark: boolean;
-  onToggle: () => void;
   variant?: "icon" | "mobile";
 }) {
-  const [mounted, setMounted] = useState(false);
-
-  useEffect(() => {
-    // eslint-disable-next-line react-hooks/set-state-in-effect
-    setMounted(true);
-  }, []);
-
-  if (!mounted) {
-    if (variant === "mobile") {
-      return (
-        <button
-          type="button"
-          aria-label="Toggle theme"
-          className="
-            flex items-center gap-2
-  px-3 py-2 rounded-lg
-  transition-all duration-200
-  hover:bg-slate-900/10 hover:scale-[1.04]
-  dark:hover:bg-white/10
-          "
-          disabled
-        >
-          <span className="text-xl" aria-hidden>
-            <Sun className="h-5 w-5" />
-          </span>
-          <span className="text-sm text-muted">Theme</span>
-        </button>
-      );
-    }
-
-    return (
-      <button
-        type="button"
-        aria-label="Toggle theme"
-        className={iconClass}
-        disabled
-      >
-        <Sun aria-hidden />
-      </button>
-    );
-  }
+  const { toggle } = useTheme();
+  const t = useTranslations("Theme");
 
   if (variant === "mobile") {
     return (
       <button
         type="button"
-        onClick={onToggle}
+        onClick={toggle}
+        aria-label={t("aria.toggle")}
         className="
          flex items-center gap-2
   px-3 py-2 rounded-lg
@@ -67,13 +32,12 @@ export default function ThemeToggle({
   hover:bg-slate-900/10 hover:scale-[1.04]
   dark:hover:bg-white/10
         "
-        aria-label="Toggle theme"
       >
-        <span className="text-xl">
-          {dark ? <Sun className="h-5 w-5" /> : <Moon className="h-5 w-5" />}
-        </span>
-        <span className="text-sm text-muted">
-          {dark ? "Light mode" : "Dark mode"}
+        <Moon className="h-5 w-5 dark:hidden" aria-hidden />
+        <Sun className="h-5 w-5 hidden dark:block" aria-hidden />
+        <span className="text-sm text-muted dark:hidden">{t("darkMode")}</span>
+        <span className="text-sm text-muted hidden dark:block">
+          {t("lightMode")}
         </span>
       </button>
     );
@@ -82,11 +46,12 @@ export default function ThemeToggle({
   return (
     <button
       type="button"
-      onClick={onToggle}
-      aria-label="Toggle theme"
+      onClick={toggle}
+      aria-label={t("aria.toggle")}
       className={iconClass}
     >
-      {dark ? <Moon /> : <Sun />}
+      <Moon className="dark:hidden" aria-hidden />
+      <Sun className="hidden dark:block" aria-hidden />
     </button>
   );
 }
